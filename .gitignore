@@ -1,0 +1,8 @@
+CommonTest/Debug/
+CommonTest/Release/
+*.ipch
+*-VAIO.*.user
+*.opensdf
+*.sdf
+*.suo
+*.old
