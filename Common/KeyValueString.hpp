@@ -15,12 +15,13 @@ class KeyValueString
 {
 public:
 	class Iterator;
-	static inline wchar_t EOS(wchar_t) {	return L'\0'; }
-	static inline char EOS(char)		{	return '\0';  }
-	static inline wchar_t DefaultPairSeparator(wchar_t) {	return L';'; }
-	static inline char DefaultPairSeparator(char)		{	return ';';  }
-	static inline wchar_t DefaultKeyValueSeparator(wchar_t) {	return L'='; }
-	static inline char DefaultKeyValueSeparator(char)		{	return '=';  }
+
+	static inline wchar_t	EOS(wchar_t)	{	return L'\0'; }
+	static inline char		EOS(char)		{	return '\0';  }
+	static inline wchar_t	DefaultPairSeparator(wchar_t)		{	return L';'; }
+	static inline char		DefaultPairSeparator(char)			{	return ';';  }
+	static inline wchar_t	DefaultKeyValueSeparator(wchar_t)	{	return L'='; }
+	static inline char		DefaultKeyValueSeparator(char)		{	return '=';  }
 
 	KeyValueString(const T keyValueSeparator = DefaultKeyValueSeparator(T()), const T pairSeparator = DefaultPairSeparator(T()));
 	~KeyValueString(void);
