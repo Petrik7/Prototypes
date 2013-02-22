@@ -6,3 +6,8 @@ CommonTest/Release/
 *.sdf
 *.suo
 *.old
+Web/WebSiteRazor1/
+Web/WebAppProject/bin/
+Web/WebAppProject/obj/
+Web/HtmlForm/
+Web/MsdnExamples/
