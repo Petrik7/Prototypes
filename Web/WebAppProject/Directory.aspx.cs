@@ -5,10 +5,16 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Directory : System.Web.UI.Page
+namespace WebAppProject
 {
-    protected void Page_Load(object sender, EventArgs e)
+    public partial class Directory : SignedInBasePage
     {
+        public Directory()
+        { }
 
+        new protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

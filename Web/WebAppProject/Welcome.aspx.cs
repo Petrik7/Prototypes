@@ -5,10 +5,13 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Welcome : System.Web.UI.Page
+namespace WebAppProject
 {
-    protected void Page_Load(object sender, EventArgs e)
+    public partial class Welcome : SignedInBasePage//System.Web.UI.Page
     {
+        new protected void Page_Load(object sender, EventArgs e)
+        {
 
+        }
     }
 }

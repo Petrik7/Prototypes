@@ -59,6 +59,7 @@
     <Content Include="Directory.aspx" />
     <Content Include="GasTracker.aspx" />
     <Content Include="MyLogon.aspx" />
+    <Content Include="SignedInBasePage.aspx" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
@@ -110,6 +111,11 @@
     <Compile Include="Account\Register.aspx.designer.cs">
       <DependentUpon>Register.aspx</DependentUpon>
     </Compile>
+    <Compile Include="App_DataSrc\GasData.cs" />
+    <Compile Include="App_DataSrc\GasPurchase.cs" />
+    <Compile Include="App_DataSrc\GasPurchaseProcessed.cs" />
+    <Compile Include="App_DataSrc\HardCodedData.cs" />
+    <Compile Include="App_DataSrc\IGasPurchasesData.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -121,6 +127,7 @@
       <DependentUpon>Directory.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="App_DataSrc\Employee.cs" />
     <Compile Include="GasTracker.aspx.cs">
       <DependentUpon>GasTracker.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -133,6 +140,13 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SignedInBasePage.aspx.cs">
+      <DependentUpon>SignedInBasePage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SignedInBasePage.aspx.designer.cs">
+      <DependentUpon>SignedInBasePage.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

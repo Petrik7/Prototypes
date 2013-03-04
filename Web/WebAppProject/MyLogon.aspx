@@ -4,10 +4,6 @@
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<!-- To scale page on mobile browsers -->
-<meta name="HandheldFriendly" content="true" />
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0;" />
-
 <script runat="server">
   void Logon_Click(object sender, EventArgs e)
   {
@@ -26,6 +22,10 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
+    <!-- To scale page on mobile browsers -->
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0;" />
+
   <title>Forms Authentication - Login</title>
 </head>
 <body>
