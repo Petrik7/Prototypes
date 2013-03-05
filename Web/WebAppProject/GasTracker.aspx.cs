@@ -24,7 +24,10 @@ namespace WebAppProject
                 labelInfo.Text = "Page_Load Postback...";
             }
             else
+            {
                 labelInfo.Text = "Page_Load Initial...";
+                SelectMilegeType(GasPurchaseProcessed.MilageType.LitersPerKm);
+            }
 
             LoadPurchasesForMonth();
         }
@@ -40,6 +43,7 @@ namespace WebAppProject
             LoadPurchasesForMonth();
         }
 
+        #region Private
         private void LoadPurchasesForMonth()
         {
             IEnumerable<GasPurchaseProcessed> purchasesList = null;
@@ -48,7 +52,9 @@ namespace WebAppProject
             GasPurchaseProcessed.MilageType milegType = GasPurchaseProcessed.MilageType.LitersPerKm;
             RadioButtonList radioButtonList_MilesKms = (RadioButtonList)Page.FindControl("RadioButtonList_MilesKms");
             if (radioButtonList_MilesKms != null && radioButtonList_MilesKms.SelectedIndex == 1)
+            {
                 milegType = GasPurchaseProcessed.MilageType.Miles;
+            }
 
             purchasesList = gasData.GetPurchasesForMonth(Context.User.Identity.Name, now.AddMonths(-1).Month, milegType);
 
@@ -60,5 +66,21 @@ namespace WebAppProject
             }
         }
 
+        private void SelectMilegeType(GasPurchaseProcessed.MilageType milageType)
+        {
+            RadioButtonList RadioButtonList_MilesKms = (RadioButtonList)Page.FindControl("RadioButtonList_MilesKms");
+            if (milageType == GasPurchaseProcessed.MilageType.LitersPerKm)
+            {
+                RadioButtonList_MilesKms.SelectedIndex = 0;
+                RadioButtonList_MilesKms.Items[1].Selected = false;
+            }
+            else
+            {
+                RadioButtonList_MilesKms.SelectedIndex = 1;
+                RadioButtonList_MilesKms.Items[0].Selected = false;
+            }
+        }
+
+        #endregion
     }
 }

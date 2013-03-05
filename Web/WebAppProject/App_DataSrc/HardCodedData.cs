@@ -15,7 +15,7 @@ namespace WebAppProject.App_SrcCode
             purchases.Add(new GasPurchase(date, 1.24F, 20.51F, 80));
             purchases.Add(new GasPurchase(date.AddDays(2), 1.23F, 30.88F, 95));
             purchases.Add(new GasPurchase(date.AddDays(3), 1.25F, 28.76F, 85));
-            purchases.Add(new GasPurchase(date.AddDays(5), 1.24F, 6.55F, 100));
+            purchases.Add(new GasPurchase(date.AddDays(12), 1.24F, 6.55F, 100));
 
             return purchases;
         }

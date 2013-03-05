@@ -30,8 +30,7 @@
          <tr><td><asp:Label ID="LabelInfo" runat="server" /></td></tr>
          <tr>
             <td align="right" colspan="2">
-            <asp:RadioButtonList ID="RadioButtonList_MilesKms" 
-                RepeatDirection="Horizontal" TextAlign="Right" AutoPostBack="true" runat="server"
+            <asp:RadioButtonList ID="RadioButtonList_MilesKms" RepeatDirection="Horizontal" TextAlign="Right" AutoPostBack="true" runat="server"
                 OnSelectedIndexChanged="RadioButtonList_MilesKms_SelectedIndexChanged">
                 <asp:ListItem>Liters/100 Kms</asp:ListItem>
                 <asp:ListItem>Miles/Gallon</asp:ListItem>
@@ -50,11 +49,11 @@
                             <HeaderStyle BackColor="Tan" Font-Bold="True" />
                             <AlternatingRowStyle BackColor="PaleGoldenrod" />
                             <Columns>
-                                <asp:BoundField DataField="When" HeaderText="When" />
+                                <asp:BoundField DataField="When" HeaderText="When" dataformatstring="{0:MMM d, yyyy}" htmlencode="false"/>
                                 <asp:BoundField DataField="Price" HeaderText="Price" />
                                 <asp:BoundField DataField="Amount" HeaderText="Amount" />
                                 <asp:BoundField DataField="Distance" HeaderText="Distance" />
-                                <asp:BoundField DataField="Milage" HeaderText="Milage" />
+                                <asp:BoundField DataField="Milage" HeaderText="Milage" dataformatstring="{0:F1}"/>
                             </Columns>
                             <PagerSettings PageButtonCount="3" />
                         </asp:GridView>
