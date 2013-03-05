@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="LogAnalizer">
+</Property><Property Name="Solution File" Value="C:\Users\Peter\Documents\GitHub\Prototypes\LogAnalyser\LogAnalizer.sln">
+</Property><Property Name="User Options File" Value="C:\Users\Peter\Documents\GitHub\Prototypes\LogAnalyser\LogAnalizer.suo">
+</Property><Property Name="Date" Value="Monday, March 04, 2013">
+</Property><Property Name="Time" Value="23:20 PM">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="LogAnalizer.sln" Description="File successfully backed up as C:\Users\Peter\Documents\GitHub\Prototypes\LogAnalyser\Backup\LogAnalizer.sln">
+</Event><Event ErrorLevel="0" Project="" Source="LogAnalizer.suo" Description="File successfully backed up as C:\Users\Peter\Documents\GitHub\Prototypes\LogAnalyser\Backup\LogAnalizer.suo">
+</Event><Event ErrorLevel="0" Project="LogAnalizer" Source="LogAnalizer.csproj" Description="Project file successfully backed up as C:\Users\Peter\Documents\GitHub\Prototypes\LogAnalyser\Backup\LogAnalizer.csproj">
+</Event><Event ErrorLevel="0" Project="LogAnalizer" Source="CollectionHelpers.cs" Description="File successfully backed up as C:\Users\Peter\Documents\GitHub\Prototypes\LogAnalyser\Backup\CollectionHelpers.cs">
+</Event><Event ErrorLevel="0" Project="LogAnalizer" Source="MainForm.cs" Description="File successfully backed up as C:\Users\Peter\Documents\GitHub\Prototypes\LogAnalyser\Backup\MainForm.cs">
+</Event><Event ErrorLevel="0" Project="LogAnalizer" Source="MainForm.Designer.cs" Description="File successfully backed up as C:\Users\Peter\Documents\GitHub\Prototypes\LogAnalyser\Backup\MainForm.Designer.cs">
+</Event><Event ErrorLevel="0" Project="LogAnalizer" Source="ISLogAnaliser.cs" Description="File successfully backed up as C:\Users\Peter\Documents\GitHub\Prototypes\LogAnalyser\Backup\ISLogAnaliser.cs">
+</Event><Event ErrorLevel="0" Project="LogAnalizer" Source="Program.cs" Description="File successfully backed up as C:\Users\Peter\Documents\GitHub\Prototypes\LogAnalyser\Backup\Program.cs">
+</Event><Event ErrorLevel="0" Project="LogAnalizer" Source="Properties\AssemblyInfo.cs" Description="File successfully backed up as C:\Users\Peter\Documents\GitHub\Prototypes\LogAnalyser\Backup\Properties\AssemblyInfo.cs">
+</Event><Event ErrorLevel="0" Project="LogAnalizer" Source="Properties\Resources.Designer.cs" Description="File successfully backed up as C:\Users\Peter\Documents\GitHub\Prototypes\LogAnalyser\Backup\Properties\Resources.Designer.cs">
+</Event><Event ErrorLevel="0" Project="LogAnalizer" Source="Properties\Settings.Designer.cs" Description="File successfully backed up as C:\Users\Peter\Documents\GitHub\Prototypes\LogAnalyser\Backup\Properties\Settings.Designer.cs">
+</Event><Event ErrorLevel="0" Project="LogAnalizer" Source="Properties\Settings.settings" Description="File successfully backed up as C:\Users\Peter\Documents\GitHub\Prototypes\LogAnalyser\Backup\Properties\Settings.settings">
+</Event><Event ErrorLevel="0" Project="LogAnalizer" Source="MainForm.resx" Description="File successfully backed up as C:\Users\Peter\Documents\GitHub\Prototypes\LogAnalyser\Backup\MainForm.resx">
+</Event><Event ErrorLevel="0" Project="LogAnalizer" Source="Properties\Resources.resx" Description="File successfully backed up as C:\Users\Peter\Documents\GitHub\Prototypes\LogAnalyser\Backup\Properties\Resources.resx">
+</Event><Event ErrorLevel="1" Project="LogAnalizer" Source="LogAnalizer.csproj" Description="Your project is targeting .NET Framework 2.0 or 3.0. If your project uses assemblies requiring a newer .NET Framework, your project will fail to build. You can change the .NET Framework version by clicking Properties on the project menu and then selecting a new version in the '.NET Framework' dropdown box. (In Visual Basic, this is located on the Compile tab by clicking the 'Advanced Compiler Options...' button.)">
+</Event><Event ErrorLevel="0" Project="LogAnalizer" Source="LogAnalizer.csproj" Description="Project converted successfully">
+</Event><Event ErrorLevel="3" Project="LogAnalizer" Source="LogAnalizer.csproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="LogAnalizer.sln" Description="Solution converted successfully">
+</Event><Event ErrorLevel="3" Project="" Source="LogAnalizer.sln" Description="Converted">
+</Event><Event ErrorLevel="0" Project="LogAnalizer" Source="LogAnalizer.csproj" Description="Scan complete: Upgrade not required for project files.">
+</Event></UpgradeLog>
