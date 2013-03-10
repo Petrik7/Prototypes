@@ -11,3 +11,5 @@ Web/WebAppProject/bin/
 Web/WebAppProject/obj/
 Web/HtmlForm/
 Web/MsdnExamples/
+MemoryFragmentationTest/bin 
+MemoryFragmentationTest/obj
