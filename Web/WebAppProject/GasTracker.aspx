@@ -27,14 +27,24 @@
             <td align="left"><asp:Label ID="LabelWelcome" runat="server" /></td>
             <td align="right"> <asp:LinkButton ID="ButtonSignOut" Text="Sign Out" OnClick="Signout_Click" runat="server" Width="68px" /></td> 
          </tr>
-         <tr><td><asp:Label ID="LabelInfo" runat="server" /></td></tr>
+         <tr><td>
+                 <asp:UpdatePanel ID="UpdatePanel2" runat="server"> 
+                    <ContentTemplate> <asp:Label ID="LabelInfo" runat="server" text="Your gas consumtion statistics."/></td></tr> </ContentTemplate> 
+                </asp:UpdatePanel> 
          <tr>
             <td align="right" colspan="2">
-            <asp:RadioButtonList ID="RadioButtonList_MilesKms" RepeatDirection="Horizontal" TextAlign="Right" AutoPostBack="true" runat="server"
+<%--            <asp:RadioButtonList ID="RadioButtonList_MilesKms" RepeatDirection="Horizontal" TextAlign="Right" AutoPostBack="true" runat="server"
                 OnSelectedIndexChanged="RadioButtonList_MilesKms_SelectedIndexChanged">
-                <asp:ListItem>Liters/100 Kms</asp:ListItem>
+                <asp:ListItem Selected="True">Liters/100 Kms</asp:ListItem>
                 <asp:ListItem>Miles/Gallon</asp:ListItem>
             </asp:RadioButtonList> 
+--%>            
+            <asp:DropDownList ID="DropDownList_MilesKms" runat="server" AutoPostBack="True" 
+                            DataTextField= "ENTITY_ID" DataValueField="ENTITY_ID" OnSelectedIndexChanged="DropDownList_MilesKms_SelectedIndexChanged">
+                <asp:ListItem>Liters/100 Kms</asp:ListItem>
+                <asp:ListItem>Miles/Gallon</asp:ListItem>
+            </asp:DropDownList>
+
             </td>
          </tr>
          <tr>
@@ -57,10 +67,12 @@
                             </Columns>
                             <PagerSettings PageButtonCount="3" />
                         </asp:GridView>
-                        <asp:Label runat="server" ID="Label1"><%=DateTime.Now %></asp:Label>
+                        <asp:Label runat="server" ID="LabelLoadType"></asp:Label>
+                        <asp:Label runat="server" ID="LabelDateTime"><%=DateTime.Now %></asp:Label>
                     </ContentTemplate>
                     <Triggers>
-                        <asp:AsyncPostBackTrigger ControlID="RadioButtonList_MilesKms" EventName="SelectedIndexChanged" />
+                        <%--<asp:AsyncPostBackTrigger ControlID="RadioButtonList_MilesKms" EventName="SelectedIndexChanged" />--%>
+                        <asp:AsyncPostBackTrigger ControlID="DropDownList_MilesKms" EventName="SelectedIndexChanged" />
                     </Triggers>
                 </asp:UpdatePanel>
             </td>
@@ -68,6 +80,11 @@
            <tr><td></td></tr>
         </table>
 
+<%--        <asp:UpdatePanel ID="UpdatePanel1" runat="server"> 
+            <ContentTemplate> 
+                <asp:TextBox ID="UserEmail" runat="server" /></td>
+            </ContentTemplate> 
+        </asp:UpdatePanel> --%>
     </form>
 </body>
 </html>

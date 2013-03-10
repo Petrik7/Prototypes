@@ -17,18 +17,21 @@ namespace WebAppProject
             Label labelWelcome = (Label)Page.FindControl("LabelWelcome");
             labelWelcome.Text = "Hi, " + Context.User.Identity.Name + "!";
 
-            Label labelInfo = (Label)Page.FindControl("LabelInfo");
+            Label labelLoadType = (Label)Page.FindControl("LabelLoadType");
 
             if (IsPostBack)
             {
-                labelInfo.Text = "Page_Load Postback...";
+                TextBox tb = (TextBox)Page.FindControl("UserEmail");
+                labelLoadType.Text = "Updated by postback: ";
             }
             else
             {
-                labelInfo.Text = "Page_Load Initial...";
-                SelectMilegeType(GasPurchaseProcessed.MilageType.LitersPerKm);
+                labelLoadType.Text = "Loaded: ";
+                //SelectMilegeType(GasPurchaseProcessed.MilageType.LitersPerKm);
             }
 
+            //UpdateRadioList();
+            
             LoadPurchasesForMonth();
         }
 
@@ -38,7 +41,7 @@ namespace WebAppProject
             Response.Redirect("MyLogon.aspx");
         }
 
-        protected void RadioButtonList_MilesKms_SelectedIndexChanged(object sender, EventArgs e)
+        protected void DropDownList_MilesKms_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadPurchasesForMonth();
         }
@@ -50,11 +53,7 @@ namespace WebAppProject
             DateTime now = DateTime.Now;
             GasData gasData = new GasData(new HardCodedData());
             GasPurchaseProcessed.MilageType milegType = GasPurchaseProcessed.MilageType.LitersPerKm;
-            RadioButtonList radioButtonList_MilesKms = (RadioButtonList)Page.FindControl("RadioButtonList_MilesKms");
-            if (radioButtonList_MilesKms != null && radioButtonList_MilesKms.SelectedIndex == 1)
-            {
-                milegType = GasPurchaseProcessed.MilageType.Miles;
-            }
+            milegType = GetMilageType();
 
             purchasesList = gasData.GetPurchasesForMonth(Context.User.Identity.Name, now.AddMonths(-1).Month, milegType);
 
@@ -66,20 +65,25 @@ namespace WebAppProject
             }
         }
 
-        private void SelectMilegeType(GasPurchaseProcessed.MilageType milageType)
+        private GasPurchaseProcessed.MilageType GetMilageType()
         {
-            RadioButtonList RadioButtonList_MilesKms = (RadioButtonList)Page.FindControl("RadioButtonList_MilesKms");
-            if (milageType == GasPurchaseProcessed.MilageType.LitersPerKm)
-            {
-                RadioButtonList_MilesKms.SelectedIndex = 0;
-                RadioButtonList_MilesKms.Items[1].Selected = false;
-            }
+            DropDownList dropDownList_MilesKms = (DropDownList)Page.FindControl("DropDownList_MilesKms");
+            if (dropDownList_MilesKms != null && dropDownList_MilesKms.SelectedIndex == 1)
+                return GasPurchaseProcessed.MilageType.Miles;
             else
-            {
-                RadioButtonList_MilesKms.SelectedIndex = 1;
-                RadioButtonList_MilesKms.Items[0].Selected = false;
-            }
+                return GasPurchaseProcessed.MilageType.LitersPerKm;
         }
+
+        //private void SelectMilegeType(GasPurchaseProcessed.MilageType milageType)
+        //{
+        //    RadioButtonList RadioButtonList_MilesKms = (RadioButtonList)Page.FindControl("RadioButtonList_MilesKms");
+        //    if (milageType == GasPurchaseProcessed.MilageType.LitersPerKm)
+        //    {
+        //        //RadioButtonList_MilesKms.SelectedIndex = 0;
+        //        RadioButtonList_MilesKms.Items.FindByText("Liters/100 Kms").Selected = true;
+        //        RadioButtonList_MilesKms.Items[1].Selected = false;
+        //    }
+        //}
 
         #endregion
     }
