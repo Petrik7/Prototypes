@@ -9,14 +9,12 @@
     <meta name="HandheldFriendly" content="true" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=4.0;" />
 
-    <title>This is Gas Tracker</title>
+    <title>Gas Tracker</title>
     <script runat="server">
     </script>
 </head>
 
-<body>
-
-    
+<body>    
     <form id="form1" runat="server">
     <div></div>
     
@@ -24,13 +22,19 @@
           
     <table align="center">
          <tr>
-            <td align="left"><asp:Label ID="LabelWelcome" runat="server" /></td>
-            <td align="right"> <asp:LinkButton ID="ButtonSignOut" Text="Sign Out" OnClick="Signout_Click" runat="server" Width="68px" /></td> 
+            <td align="left" width="58px"><asp:Label ID="LabelWelcome" runat="server"/></td>
+            <td align="right"> 
+                <asp:LinkButton ID="ButtonAddPurchase" Text="Add Purchase" OnClick="AddPurchase_Click" runat="server" Width="88px"/>
+                <asp:LinkButton ID="ButtonDirectory" Text="Directory" OnClick="Directory_Click" runat="server" Width="68px"/>
+                <asp:LinkButton ID="ButtonSignOut" Text="Sign Out" OnClick="Signout_Click" runat="server" Width="68px" />
+            </td> 
          </tr>
-         <tr><td>
+         <tr>
+            <td align="left" colspan="2">
                  <asp:UpdatePanel ID="UpdatePanel2" runat="server"> 
                     <ContentTemplate> <asp:Label ID="LabelInfo" runat="server" text="Your gas consumtion statistics."/></td></tr> </ContentTemplate> 
-                </asp:UpdatePanel> 
+                </asp:UpdatePanel></td>
+         </tr>
          <tr>
             <td align="right" colspan="2">
 <%--            <asp:RadioButtonList ID="RadioButtonList_MilesKms" RepeatDirection="Horizontal" TextAlign="Right" AutoPostBack="true" runat="server"
@@ -77,7 +81,7 @@
                 </asp:UpdatePanel>
             </td>
            </tr>
-           <tr><td></td></tr>
+           <tr></tr>
         </table>
 
 <%--        <asp:UpdatePanel ID="UpdatePanel1" runat="server"> 

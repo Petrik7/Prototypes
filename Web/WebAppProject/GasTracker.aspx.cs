@@ -41,6 +41,16 @@ namespace WebAppProject
             Response.Redirect("MyLogon.aspx");
         }
 
+        public void Directory_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Directory.aspx");
+        }
+
+        public void AddPurchase_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("AddPurchase.aspx");
+        }
+
         protected void DropDownList_MilesKms_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadPurchasesForMonth();
