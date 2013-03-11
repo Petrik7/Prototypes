@@ -18,7 +18,6 @@
                     <table cellpadding="1" border="0" align="center">
                         <tr>
                             <td align="left" width="58px"><asp:Label ID="LabelWelcome" runat="server"/></td>
-                            <td align="left" width="58px"><asp:Label ID="Dummy_td_ToAlignColumns" runat="server"/></td>
                             <td align="right"> 
                                 <asp:LinkButton ID="GasTracker" Text="Gas Tracker" OnClick="GasTracker_Click" runat="server" Width="88px"/>
                                 <asp:LinkButton ID="ButtonDirectory" Text="Directory" OnClick="Directory_Click" runat="server" Width="68px"/>
@@ -40,44 +39,55 @@
                             <tr>
                                 <td><asp:Label ID="LabelDate" runat="server" AssociatedControlID="Calendar" 
                                              Text="Date" ForeColor="Black" /></td>
-                                <td><asp:Calendar ID="Calendar" runat="server" Text="Select Purchase Date" ForeColor="Black" /></td>
+                                <td colspan="2" align="center"><asp:Calendar ID="Calendar" runat="server" Text="Select Purchase Date" ForeColor="Black" /></td>
+                            </tr>
+                            <tr>
+                                <td colspan="3" align="center"><asp:ValidationSummary ID="ValidationSummary1" runat="server" 
+                                                                HeaderText="There were errors on the page:" ForeColor="DarkRed"/></td>
                             </tr>
                             <tr>
                               <td><asp:Label ID="PriceLabel" runat="server" AssociatedControlID="PriceTextBox" 
                                              Text="Price" ForeColor="Black" /></td>
-                              <td><asp:TextBox runat="server" ID="PriceTextBox" style="width:98%;height:100%" /></td>
+                              <td><asp:TextBox runat="server" ID="PriceTextBox" style="width:130px;height:100%" /></td>
                               <td><asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" DataTextField= "ENTITY_ID"
                                                     DataValueField="ENTITY_ID" style="width:98%;height:100%">
                                         <asp:ListItem>CAD</asp:ListItem>
                                         <asp:ListItem>USD</asp:ListItem>           
                                   </asp:DropDownList></td>
+                              <td><asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="PriceTextBox"
+                                        ErrorMessage="Price is required." ForeColor="DarkRed"> *
+                                  </asp:RequiredFieldValidator></td>
                             </tr>
                             <tr>
                               <td><asp:Label ID="AmountLabel" runat="server" AssociatedControlID="AmountTextBox" 
                                              Text="Amount" ForeColor="Black" /></td>
-                              <td><asp:TextBox runat="server" ID="AmountTextBox" style="width:98%;height:100%"/></td>
+                              <td><asp:TextBox runat="server" ID="AmountTextBox" style="width:130px;height:100%"/></td>
                               <td><asp:DropDownList ID="LiterGallonDropDownList" runat="server" AutoPostBack="True" DataTextField= "ENTITY_ID"
                                                     DataValueField="ENTITY_ID" style="width:98%;height:100%">
                                         <asp:ListItem>Liters</asp:ListItem>
                                         <asp:ListItem>Gallons</asp:ListItem>           
                                   </asp:DropDownList></td>
+                              <td><asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="AmountTextBox"
+                                        ErrorMessage="Amount is required." ForeColor="DarkRed"> *
+                                  </asp:RequiredFieldValidator></td>
                             </tr>
                             <tr>
                               <td><asp:Label ID="DistanceLabel" runat="server" AssociatedControlID="DistanceTextBox" 
                                              Text="Distance" ForeColor="Black" /></td>
-                              <td><asp:TextBox runat="server" ID="DistanceTextBox" style="width:98%;height:100%"/></td>
+                              <td><asp:TextBox runat="server" ID="DistanceTextBox" style="width:130px;height:100%"/></td>
                               <td><asp:DropDownList ID="KmMileDropDownList" runat="server" AutoPostBack="True" DataTextField= "ENTITY_ID"
                                                     DataValueField="ENTITY_ID" style="width:98%;height:100%">
                                         <asp:ListItem>Kms</asp:ListItem>
                                         <asp:ListItem>Miles</asp:ListItem>           
                                     </asp:DropDownList></td>
+                              <td><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="DistanceTextBox"
+                                        ErrorMessage="Distance is required." ForeColor="DarkRed"> *
+                                  </asp:RequiredFieldValidator></td>
                             </tr>
                             <tr>
                               <td></td>
-                              <td  align="right">
-                                <asp:LinkButton ID="InsertButton" runat="server" Text="Insert" OnClick="InsertButton_Click" ForeColor="Black" />
-                                <asp:LinkButton ID="Cancelbutton" runat="server" Text="Cancel" OnClick="CancelButton_Click" ForeColor="Black" />
-                              </td>
+                              <td align="right"> <asp:LinkButton ID="InsertButton" runat="server" Text="Insert" OnClick="InsertButton_Click" /></td>
+                              <td align="left"> <asp:LinkButton ID="Cancelbutton" runat="server" Text="Cancel" OnClick="CancelButton_Click" /></td>
                             </tr>
                             <tr>
                                 <td align="left" colspan="3"><asp:Label runat="server" ID="InputTimeLabel"><%=DateTime.Now %></asp:Label></td>

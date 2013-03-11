@@ -40,15 +40,6 @@ namespace WebAppProject {
         protected global::System.Web.UI.WebControls.Label LabelWelcome;
         
         /// <summary>
-        /// Dummy_td_ToAlignColumns control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Dummy_td_ToAlignColumns;
-        
-        /// <summary>
         /// GasTracker control.
         /// </summary>
         /// <remarks>
@@ -112,6 +103,15 @@ namespace WebAppProject {
         protected global::System.Web.UI.WebControls.Calendar Calendar;
         
         /// <summary>
+        /// ValidationSummary1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ValidationSummary ValidationSummary1;
+        
+        /// <summary>
         /// PriceLabel control.
         /// </summary>
         /// <remarks>
@@ -137,6 +137,15 @@ namespace WebAppProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
+        
+        /// <summary>
+        /// RequiredFieldValidator3 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
         
         /// <summary>
         /// AmountLabel control.
@@ -166,6 +175,15 @@ namespace WebAppProject {
         protected global::System.Web.UI.WebControls.DropDownList LiterGallonDropDownList;
         
         /// <summary>
+        /// RequiredFieldValidator1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        
+        /// <summary>
         /// DistanceLabel control.
         /// </summary>
         /// <remarks>
@@ -191,6 +209,15 @@ namespace WebAppProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList KmMileDropDownList;
+        
+        /// <summary>
+        /// RequiredFieldValidator2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
         
         /// <summary>
         /// InsertButton control.
