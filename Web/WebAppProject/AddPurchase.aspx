@@ -22,9 +22,9 @@
                         <tr>
                             <td align="left" width="58px"><asp:Label ID="LabelWelcome" runat="server"/></td>
                             <td align="right"> 
-                                <asp:LinkButton ID="GasTracker" Text="Gas Tracker" OnClick="GasTracker_Click" runat="server" Width="88px"/>
-                                <asp:LinkButton ID="ButtonDirectory" Text="Directory" OnClick="Directory_Click" runat="server" Width="68px"/>
-                                <asp:LinkButton ID="ButtonSignOut" Text="Sign Out" OnClick="Signout_Click" runat="server" Width="68px" />
+                                <asp:LinkButton ID="GasTracker" Text="Gas Tracker" OnClick="GasTracker_Click" runat="server" Width="88px" CausesValidation="false"/>
+                                <asp:LinkButton ID="ButtonDirectory" Text="Directory" OnClick="Directory_Click" runat="server" Width="68px" CausesValidation="false"/>
+                                <asp:LinkButton ID="ButtonSignOut" Text="Sign Out" OnClick="Signout_Click" runat="server" Width="68px" CausesValidation="false"/>
                             </td>
                         </tr>
                         <tr>
@@ -90,7 +90,7 @@
                             <tr>
                               <td></td>
                               <td align="right"> <asp:LinkButton ID="InsertButton" runat="server" Text="Insert" OnClick="InsertButton_Click" /></td>
-                              <td align="left"> <asp:LinkButton ID="Cancelbutton" runat="server" Text="Cancel" OnClick="CancelButton_Click" /></td>
+                              <td align="left"> <asp:LinkButton ID="Cancelbutton" runat="server" Text="Cancel" OnClick="CancelButton_Click"  CausesValidation="false"/></td>
                             </tr>
                             <tr>
                                 <td align="left" colspan="3"><asp:Label runat="server" ID="InputTimeLabel"><%=DateTime.Now %></asp:Label></td>
