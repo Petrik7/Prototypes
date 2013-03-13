@@ -139,13 +139,22 @@ namespace WebAppProject {
         protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
         
         /// <summary>
-        /// RequiredFieldValidator3 control.
+        /// RequiredFieldPriceValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldPriceValidator;
+        
+        /// <summary>
+        /// RegularExpressionPriceValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionPriceValidator;
         
         /// <summary>
         /// AmountLabel control.
@@ -175,13 +184,22 @@ namespace WebAppProject {
         protected global::System.Web.UI.WebControls.DropDownList LiterGallonDropDownList;
         
         /// <summary>
-        /// RequiredFieldValidator1 control.
+        /// RequiredFieldAmountValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldAmountValidator;
+        
+        /// <summary>
+        /// RegularExpressionAmountValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionAmountValidator;
         
         /// <summary>
         /// DistanceLabel control.
@@ -211,13 +229,22 @@ namespace WebAppProject {
         protected global::System.Web.UI.WebControls.DropDownList KmMileDropDownList;
         
         /// <summary>
-        /// RequiredFieldValidator2 control.
+        /// RequiredFieldDistanceValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldDistanceValidator;
+        
+        /// <summary>
+        /// RegularExpressionDistanceValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionDistanceValidator;
         
         /// <summary>
         /// InsertButton control.

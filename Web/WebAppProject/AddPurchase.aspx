@@ -57,9 +57,13 @@
                                         <asp:ListItem>CAD</asp:ListItem>
                                         <asp:ListItem>USD</asp:ListItem>           
                                   </asp:DropDownList></td>
-                              <td><asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="PriceTextBox"
+                              <td><asp:RequiredFieldValidator ID="RequiredFieldPriceValidator" runat="server" ControlToValidate="PriceTextBox"
                                         ErrorMessage="Price is required." ForeColor="DarkRed"> *
-                                  </asp:RequiredFieldValidator></td>
+                                  </asp:RequiredFieldValidator>
+                                  <asp:RegularExpressionValidator ID="RegularExpressionPriceValidator" runat="server" ControlToValidate="PriceTextBox"
+                                        ErrorMessage="Price must be in format $$$$[.cc]." Text="*" ForeColor="DarkRed"
+                                        ValidationExpression="^([0-9]){1,4}(\.+[0-9][0-9]?)?"/>                               
+                              </td>
                             </tr>
                             <tr>
                               <td><asp:Label ID="AmountLabel" runat="server" AssociatedControlID="AmountTextBox" 
@@ -70,9 +74,13 @@
                                         <asp:ListItem>Liters</asp:ListItem>
                                         <asp:ListItem>Gallons</asp:ListItem>           
                                   </asp:DropDownList></td>
-                              <td><asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="AmountTextBox"
+                              <td><asp:RequiredFieldValidator ID="RequiredFieldAmountValidator" runat="server" ControlToValidate="AmountTextBox"
                                         ErrorMessage="Amount is required." ForeColor="DarkRed"> *
-                                  </asp:RequiredFieldValidator></td>
+                                  </asp:RequiredFieldValidator>
+                                  <asp:RegularExpressionValidator ID="RegularExpressionAmountValidator" runat="server" ControlToValidate="AmountTextBox"
+                                        ErrorMessage="Amount must be in format LLLL[.ll]" Text="*" ForeColor="DarkRed"
+                                        ValidationExpression="^([0-9]){1,4}(\.+[0-9][0-9]?)?"/>
+                              </td>
                             </tr>
                             <tr>
                               <td><asp:Label ID="DistanceLabel" runat="server" AssociatedControlID="DistanceTextBox" 
@@ -83,9 +91,13 @@
                                         <asp:ListItem>Kms</asp:ListItem>
                                         <asp:ListItem>Miles</asp:ListItem>           
                                     </asp:DropDownList></td>
-                              <td><asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="DistanceTextBox"
+                              <td><asp:RequiredFieldValidator ID="RequiredFieldDistanceValidator" runat="server" ControlToValidate="DistanceTextBox"
                                         ErrorMessage="Distance is required." ForeColor="DarkRed"> *
-                                  </asp:RequiredFieldValidator></td>
+                                  </asp:RequiredFieldValidator>
+                                  <asp:RegularExpressionValidator ID="RegularExpressionDistanceValidator" runat="server" ControlToValidate="DistanceTextBox"
+                                        ErrorMessage="Distance must be in format MMMM[.mm]" Text="*" ForeColor="DarkRed"
+                                        ValidationExpression="^([0-9]){1,4}(\.+[0-9][0-9]?)?" />
+                              </td>
                             </tr>
                             <tr>
                               <td></td>
