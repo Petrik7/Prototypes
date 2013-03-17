@@ -7,11 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace WebAppProject
 {
-    public partial class Welcome : SignedInBasePage//System.Web.UI.Page
+    public partial class HomePage : SignedInBasePage//System.Web.UI.Page
     {
         new protected void Page_Load(object sender, EventArgs e)
         {
-
+            SayHello();
         }
     }
 }

@@ -22,10 +22,10 @@
           
     <table align="center">
          <tr>
-            <td align="left" width="58px"><asp:Label ID="LabelWelcome" runat="server"/></td>
+            <td align="left" width="58px"><asp:Label ID="LabelHello" runat="server"/></td>
             <td align="right"> 
                 <asp:LinkButton ID="ButtonAddPurchase" Text="Add Purchase" OnClick="AddPurchase_Click" runat="server" Width="88px"/>
-                <asp:LinkButton ID="ButtonDirectory" Text="Directory" OnClick="Directory_Click" runat="server" Width="68px"/>
+                <asp:LinkButton ID="ButtonHomePage" Text="Home Page" OnClick="HomePage_Click" runat="server" />
                 <asp:LinkButton ID="ButtonSignOut" Text="Sign Out" OnClick="Signout_Click" runat="server" Width="68px" />
             </td> 
          </tr>

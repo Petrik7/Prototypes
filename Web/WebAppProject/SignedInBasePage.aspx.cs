@@ -23,9 +23,20 @@ namespace WebAppProject
 
         }
 
+        protected void SayHello()
+        {
+            Label labelWelcome = (Label)Page.FindControl("LabelHello");
+            labelWelcome.Text = "Hi, " + Context.User.Identity.Name + "!";
+        }
+
         public void Signout_Click(object sender, EventArgs e)
         {
             FormsAuthentication.SignOut();
+            Response.Redirect("MyLogon.aspx");
+        }
+
+        public void Signin_Click(object sender, EventArgs e)
+        {
             Response.Redirect("MyLogon.aspx");
         }
     }

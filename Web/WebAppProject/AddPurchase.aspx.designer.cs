@@ -31,13 +31,13 @@ namespace WebAppProject {
         protected global::System.Web.UI.UpdatePanel UpdatePanel1;
         
         /// <summary>
-        /// LabelWelcome control.
+        /// LabelHello control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelWelcome;
+        protected global::System.Web.UI.WebControls.Label LabelHello;
         
         /// <summary>
         /// GasTracker control.
@@ -49,13 +49,13 @@ namespace WebAppProject {
         protected global::System.Web.UI.WebControls.LinkButton GasTracker;
         
         /// <summary>
-        /// ButtonDirectory control.
+        /// ButtonHomePage control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton ButtonDirectory;
+        protected global::System.Web.UI.WebControls.LinkButton ButtonHomePage;
         
         /// <summary>
         /// ButtonSignOut control.
@@ -148,13 +148,13 @@ namespace WebAppProject {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldPriceValidator;
         
         /// <summary>
-        /// RegularExpressionPriceValidator control.
+        /// RegularExpression_PriceValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionPriceValidator;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpression_PriceValidator;
         
         /// <summary>
         /// AmountLabel control.
@@ -193,13 +193,13 @@ namespace WebAppProject {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldAmountValidator;
         
         /// <summary>
-        /// RegularExpressionAmountValidator control.
+        /// RegularExpression_AmountValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionAmountValidator;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpression_AmountValidator;
         
         /// <summary>
         /// DistanceLabel control.
@@ -238,13 +238,13 @@ namespace WebAppProject {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldDistanceValidator;
         
         /// <summary>
-        /// RegularExpressionDistanceValidator control.
+        /// RegularExpression_DistanceValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpressionDistanceValidator;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpression_DistanceValidator;
         
         /// <summary>
         /// InsertButton control.

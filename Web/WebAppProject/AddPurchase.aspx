@@ -20,10 +20,10 @@
                 <ContentTemplate>
                     <table cellpadding="1" border="0" align="center">
                         <tr>
-                            <td align="left" width="58px"><asp:Label ID="LabelWelcome" runat="server"/></td>
+                            <td align="left" width="58px"><asp:Label ID="LabelHello" runat="server"/></td>
                             <td align="right"> 
                                 <asp:LinkButton ID="GasTracker" Text="Gas Tracker" OnClick="GasTracker_Click" runat="server" Width="88px" CausesValidation="false"/>
-                                <asp:LinkButton ID="ButtonDirectory" Text="Directory" OnClick="Directory_Click" runat="server" Width="68px" CausesValidation="false"/>
+                                <asp:LinkButton ID="ButtonHomePage" Text="Home Page" OnClick="HomePage_Click" runat="server" CausesValidation="false"/>
                                 <asp:LinkButton ID="ButtonSignOut" Text="Sign Out" OnClick="Signout_Click" runat="server" Width="68px" CausesValidation="false"/>
                             </td>
                         </tr>
@@ -60,9 +60,9 @@
                               <td><asp:RequiredFieldValidator ID="RequiredFieldPriceValidator" runat="server" ControlToValidate="PriceTextBox"
                                         ErrorMessage="Price is required." ForeColor="DarkRed"> *
                                   </asp:RequiredFieldValidator>
-                                  <asp:RegularExpressionValidator ID="RegularExpressionPriceValidator" runat="server" ControlToValidate="PriceTextBox"
+                                  <asp:RegularExpressionValidator ID="RegularExpression_PriceValidator" runat="server" ControlToValidate="PriceTextBox"
                                         ErrorMessage="Price must be in format $$$$[.cc]." Text="*" ForeColor="DarkRed"
-                                        ValidationExpression="^([0-9]){1,4}(\.+[0-9][0-9]?)?"/>                               
+                                        ValidationExpression="empty"/>                               
                               </td>
                             </tr>
                             <tr>
@@ -77,9 +77,9 @@
                               <td><asp:RequiredFieldValidator ID="RequiredFieldAmountValidator" runat="server" ControlToValidate="AmountTextBox"
                                         ErrorMessage="Amount is required." ForeColor="DarkRed"> *
                                   </asp:RequiredFieldValidator>
-                                  <asp:RegularExpressionValidator ID="RegularExpressionAmountValidator" runat="server" ControlToValidate="AmountTextBox"
+                                  <asp:RegularExpressionValidator ID="RegularExpression_AmountValidator" runat="server" ControlToValidate="AmountTextBox"
                                         ErrorMessage="Amount must be in format LLLL[.ll]" Text="*" ForeColor="DarkRed"
-                                        ValidationExpression="^([0-9]){1,4}(\.+[0-9][0-9]?)?"/>
+                                        ValidationExpression="empty"/>
                               </td>
                             </tr>
                             <tr>
@@ -94,9 +94,9 @@
                               <td><asp:RequiredFieldValidator ID="RequiredFieldDistanceValidator" runat="server" ControlToValidate="DistanceTextBox"
                                         ErrorMessage="Distance is required." ForeColor="DarkRed"> *
                                   </asp:RequiredFieldValidator>
-                                  <asp:RegularExpressionValidator ID="RegularExpressionDistanceValidator" runat="server" ControlToValidate="DistanceTextBox"
+                                  <asp:RegularExpressionValidator ID="RegularExpression_DistanceValidator" runat="server" ControlToValidate="DistanceTextBox"
                                         ErrorMessage="Distance must be in format MMMM[.mm]" Text="*" ForeColor="DarkRed"
-                                        ValidationExpression="^([0-9]){1,4}(\.+[0-9][0-9]?)?" />
+                                        ValidationExpression="empty" />
                               </td>
                             </tr>
                             <tr>

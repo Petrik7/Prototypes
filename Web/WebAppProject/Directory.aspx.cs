@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Diagnostics;
 
 namespace WebAppProject
 {
@@ -14,7 +15,21 @@ namespace WebAppProject
 
         new protected void Page_Load(object sender, EventArgs e)
         {
+            LinkButton buttonToHide = null;
 
+            if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated &&
+                !string.IsNullOrEmpty(HttpContext.Current.User.Identity.Name))
+            {
+                SayHello();
+                buttonToHide = (LinkButton)Page.FindControl("SignIn");
+            }
+            else
+            {
+                buttonToHide = (LinkButton)Page.FindControl("SignOut");
+            }
+
+            Debug.Assert(buttonToHide != null);
+            buttonToHide.Visible = false;
         }
     }
 }

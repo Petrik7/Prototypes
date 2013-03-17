@@ -12,15 +12,24 @@
 
 <body>
     <form id="form1" runat="server">
+    <table align="center">
+        <tr>
+            <td><asp:Label ID="LabelHello" runat="server" /></td>
+            <td><asp:LinkButton ID="SignIn" OnClick="Signin_Click" Text="Sign In" runat="server" /><p/></td>
+            <td><asp:LinkButton ID="SignOut" OnClick="Signout_Click" Text="Sign Out" runat="server" /><p/></td>
+        </tr>
+        <tr>
+            <td><asp:Label ID="PaageDirLabel" cellpadding="3" Text="Pages Directory" runat="server" Font-Bold="true"/></td>
+        </tr>
 
-    <h3>Pages Directory</h3>
-    <div>
-    <asp:HyperLink ID="LinkToWelcome" NavigateUrl="./Welcome.aspx" Text="Welcome" Target="_self" runat="server" /><p/>
-    <asp:HyperLink ID="LinkToGasTracker" NavigateUrl="./GasTracker.aspx" Text="Gas Tracker" Target="_self" runat="server" /><p/>
-    </div>
+        <tr>
+            <td><asp:HyperLink ID="LinkToWelcome" NavigateUrl="./HomePage.aspx" Text="Home Page" Target="_self" runat="server" /></td>
+        </tr>
+        <tr>
+            <td><asp:HyperLink ID="LinkToGasTracker" NavigateUrl="./GasTracker.aspx" Text="Gas Tracker" Target="_self" runat="server" /></td>
+        </tr>
+    </table>
 
-    <div></div>
-    <asp:LinkButton ID="SignOut" OnClick="Signout_Click" Text="Sign Out" runat="server" /><p/>
     </form>
 </body>
 </html>

@@ -5,15 +5,31 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
+using System.Globalization;
+using System.Threading;
+using System.Resources;
 
 namespace WebAppProject
 {
     public partial class AddPurchase_Click : SignedInBasePage //System.Web.UI.Page
     {
+        private const string RegExpr_NNNN_nn = @"^([0-9]){1,4}(\.+[0-9][0-9]?)?";
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            Label labelWelcome = (Label)Page.FindControl("LabelWelcome");
-            labelWelcome.Text = "Hi, " + Context.User.Identity.Name + "!";
+            //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
+
+            SayHello();
+
+            RegularExpressionValidator priceValidator = (RegularExpressionValidator)Page.FindControl("RegularExpression_PriceValidator");
+            if (priceValidator != null)
+                priceValidator.ValidationExpression = RegExpr_NNNN_nn;
+            RegularExpressionValidator amountValidator = (RegularExpressionValidator)Page.FindControl("RegularExpression_AmountValidator");
+            if (amountValidator != null)
+                amountValidator.ValidationExpression = RegExpr_NNNN_nn;
+            RegularExpressionValidator distanceValidator = (RegularExpressionValidator)Page.FindControl("RegularExpression_DistanceValidator");
+            if (distanceValidator != null)
+                distanceValidator.ValidationExpression = RegExpr_NNNN_nn;
         }
 
         protected void InsertButton_Click(object sender, EventArgs e)
@@ -43,15 +59,9 @@ namespace WebAppProject
             DistanceTextBox.Text = String.Empty;
         }
 
-        public void Signout_Click(object sender, EventArgs e)
+        public void HomePage_Click(object sender, EventArgs e)
         {
-            FormsAuthentication.SignOut();
-            Response.Redirect("MyLogon.aspx");
-        }
-
-        public void Directory_Click(object sender, EventArgs e)
-        {
-            Response.Redirect("Directory.aspx");
+            Response.Redirect("HomePage.aspx");
         }
 
         public void GasTracker_Click(object sender, EventArgs e)

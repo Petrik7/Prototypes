@@ -14,8 +14,7 @@ namespace WebAppProject
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Label labelWelcome = (Label)Page.FindControl("LabelWelcome");
-            labelWelcome.Text = "Hi, " + Context.User.Identity.Name + "!";
+            SayHello();
 
             Label labelLoadType = (Label)Page.FindControl("LabelLoadType");
 
@@ -41,9 +40,9 @@ namespace WebAppProject
             Response.Redirect("MyLogon.aspx");
         }
 
-        public void Directory_Click(object sender, EventArgs e)
+        public void HomePage_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Directory.aspx");
+            Response.Redirect("HomePage.aspx");
         }
 
         public void AddPurchase_Click(object sender, EventArgs e)
