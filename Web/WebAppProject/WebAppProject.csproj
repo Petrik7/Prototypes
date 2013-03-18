@@ -57,6 +57,7 @@
     <Content Include="Account\Login.aspx" />
     <Content Include="Account\Register.aspx" />
     <Content Include="AddPurchase.aspx" />
+    <Content Include="CreateAccount.aspx" />
     <Content Include="Directory.aspx" />
     <Content Include="GasTracker.aspx" />
     <Content Include="MyLogon.aspx" />
@@ -128,6 +129,13 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>MyAppResources.aspx.resx</DependentUpon>
+    </Compile>
+    <Compile Include="CreateAccount.aspx.cs">
+      <DependentUpon>CreateAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreateAccount.aspx.designer.cs">
+      <DependentUpon>CreateAccount.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
