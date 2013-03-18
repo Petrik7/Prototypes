@@ -13,6 +13,7 @@ namespace WebAppProject
         protected override void OnLoad(EventArgs e)
         {
             MakePageUncacheble();
+            SayHello();
 
             // Be sure to call the base class's OnLoad method!
             base.OnLoad(e);
@@ -26,7 +27,10 @@ namespace WebAppProject
         protected void SayHello()
         {
             Label labelWelcome = (Label)Page.FindControl("LabelHello");
-            labelWelcome.Text = "Hi, " + Context.User.Identity.Name + "!";
+            if (string.IsNullOrEmpty(Context.User.Identity.Name))
+                labelWelcome.Text = "Hello!";
+            else
+                labelWelcome.Text = "Hi, " + Context.User.Identity.Name + "!";
         }
 
         public void Signout_Click(object sender, EventArgs e)

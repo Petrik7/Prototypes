@@ -14,8 +14,6 @@ namespace WebAppProject
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            SayHello();
-
             Label labelLoadType = (Label)Page.FindControl("LabelLoadType");
 
             if (IsPostBack)

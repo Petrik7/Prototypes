@@ -20,7 +20,6 @@ namespace WebAppProject
             if (System.Web.HttpContext.Current.User.Identity.IsAuthenticated &&
                 !string.IsNullOrEmpty(HttpContext.Current.User.Identity.Name))
             {
-                SayHello();
                 buttonToHide = (LinkButton)Page.FindControl("SignIn");
             }
             else

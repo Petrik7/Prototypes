@@ -19,8 +19,6 @@ namespace WebAppProject
         {
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
 
-            SayHello();
-
             RegularExpressionValidator priceValidator = (RegularExpressionValidator)Page.FindControl("RegularExpression_PriceValidator");
             if (priceValidator != null)
                 priceValidator.ValidationExpression = RegExpr_NNNN_nn;
