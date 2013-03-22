@@ -28,12 +28,12 @@ namespace WebAppProject
             // Create an open a connection.
             using (SqlConnection connection = new SqlConnection())
             {
-                connection.ConnectionString = connectionString;
-                connection.Open();
-
                 string strSQL = "Select * From Accounts";
                 using (SqlCommand myCommand = new SqlCommand(strSQL, connection))
                 {
+                    connection.ConnectionString = connectionString;
+                    connection.Open();
+
                     using (SqlDataReader myDataReader = myCommand.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         string UserName = string.Empty;
@@ -81,8 +81,6 @@ namespace WebAppProject
 
             using (SqlConnection connection = new SqlConnection())
             {
-                connection.ConnectionString = ConfigurationManager.ConnectionStrings["gasTrackerConnectionString"].ConnectionString; ;
-                connection.Open();
                 using (SqlCommand command = new SqlCommand(sqlInsert, connection))
                 {
                     SqlParameter parameter = new SqlParameter();
@@ -109,6 +107,8 @@ namespace WebAppProject
                     parameter.Size = SOLT_FIELD_LENGHT;
                     command.Parameters.Add(parameter);
 
+                    connection.ConnectionString = ConfigurationManager.ConnectionStrings["gasTrackerConnectionString"].ConnectionString; ;
+                    connection.Open();
                     command.ExecuteNonQuery();
                 }
              }
