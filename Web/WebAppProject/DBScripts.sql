@@ -9,7 +9,9 @@ CREATE TABLE dbo.Accounts
 (
 UserName varchar(32) NOT NULL,
 Password varchar(64) NOT NULL,
-Solt varchar(64) NOT NULL,
+Salt varchar(64) NOT NULL,
+Created datetime2(7) NOT NULL,
+Updated datetime2(7) NOT NULL,
 PRIMARY KEY (UserName),
 UNIQUE (UserName)
 )

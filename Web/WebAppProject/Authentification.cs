@@ -9,28 +9,28 @@ namespace WebAppProject
 {
     public class Authentification
     {
-        public static byte[] MakeEncriptedSoltedPassword(string password, byte[] solt)
+        public static byte[] MakeEncriptedSaltedPassword(string password, byte[] salt)
         {
             Validator.ThrowIfNullOrEmpty<ArgumentNullException>(password, "password cannot be null o empty");
-            Validator.ThrowIfNull<ArgumentNullException>(password, "solt cannot be null o empty");
+            Validator.ThrowIfNull<ArgumentNullException>(password, "salt cannot be null o empty");
 
-            byte[] soltedPassword = new byte[solt.Length + password.Length];
-            byte[] encriptedSoltedPassword = null;
+            byte[] saltedPassword = new byte[salt.Length + password.Length];
+            byte[] encriptedSaltedPassword = null;
 
-            using (MemoryStream soltedPasswordStream = new MemoryStream())
+            using (MemoryStream saltedPasswordStream = new MemoryStream())
             {
-                using (StreamWriter streamWriter = new StreamWriter(soltedPasswordStream, System.Text.Encoding.BigEndianUnicode))
+                using (StreamWriter streamWriter = new StreamWriter(saltedPasswordStream, System.Text.Encoding.BigEndianUnicode))
                 {
                     streamWriter.Write(password);
-                    streamWriter.Write(solt);
+                    streamWriter.Write(salt);
                     streamWriter.Flush();
-                    soltedPasswordStream.Seek(0, SeekOrigin.Begin);
+                    saltedPasswordStream.Seek(0, SeekOrigin.Begin);
 
                     SHA1 sha = new SHA1CryptoServiceProvider();
-                    encriptedSoltedPassword = sha.ComputeHash(soltedPasswordStream);
+                    encriptedSaltedPassword = sha.ComputeHash(saltedPasswordStream);
                 }
             }
-            return encriptedSoltedPassword;
+            return encriptedSaltedPassword;
         }
 
         public static bool PassworsAreEqual(byte[] password1, byte[] password2)

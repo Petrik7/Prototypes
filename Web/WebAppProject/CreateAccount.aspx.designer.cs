@@ -22,6 +22,24 @@ namespace WebAppProject {
         protected global::System.Web.UI.HtmlControls.HtmlForm FormCreateAccount;
         
         /// <summary>
+        /// ErrorOnThePage control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ErrorOnThePage;
+        
+        /// <summary>
+        /// ServerSideValidation control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label ServerSideValidation;
+        
+        /// <summary>
         /// ValidationSummary1 control.
         /// </summary>
         /// <remarks>
@@ -49,13 +67,22 @@ namespace WebAppProject {
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator1;
         
         /// <summary>
-        /// UserPass control.
+        /// RegularExpression_UserNameValidator control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox UserPass;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpression_UserNameValidator;
+        
+        /// <summary>
+        /// Password control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Password;
         
         /// <summary>
         /// RequiredFieldValidator2 control.
@@ -65,6 +92,15 @@ namespace WebAppProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator2;
+        
+        /// <summary>
+        /// RegularExpression_PasswordValidator control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator RegularExpression_PasswordValidator;
         
         /// <summary>
         /// ConfirmPassword control.
@@ -83,6 +119,15 @@ namespace WebAppProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.RequiredFieldValidator RequiredFieldValidator3;
+        
+        /// <summary>
+        /// comparePasswords control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CompareValidator comparePasswords;
         
         /// <summary>
         /// Persist control.

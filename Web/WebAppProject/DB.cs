@@ -16,9 +16,9 @@ namespace WebAppProject
         public static int MAX_PASSWORD_LENGHT = 32;
         public static int MAX_USERNAME_LENGHT = 32;
 
-        private static int SOLT_LENGHT = 32;
+        private static int SALT_LENGHT = 32;
         private static int PASSWORD_FIELD_LENGHT = 64;
-        private static int SOLT_FIELD_LENGHT = 64;
+        private static int SALT_FIELD_LENGHT = 64;
 
         public void ReadData()
         {
@@ -38,46 +38,46 @@ namespace WebAppProject
                     {
                         string UserName = string.Empty;
                         string Password = string.Empty;
-                        string Solt = string.Empty;
+                        string Salt = string.Empty;
 
                         while (myDataReader.Read())
                         {
                             UserName = myDataReader["UserName"].ToString().Trim();
                             Password = myDataReader["Password"].ToString().Trim();
-                            Solt = myDataReader["Solt"].ToString().Trim();
+                            Salt = myDataReader["Salt"].ToString().Trim();
                         }
                     }
                 }
             }            
         }
 
-        public static void AddAccount(string userName, string password)
+        static public void AddAccount(string userName, string password)
         {
             ValidateUserNamePassword(userName, password);
 
             string sqlInsert = string.Format("Insert Into dbo.Accounts " +
-                                                "(UserName, Password, Solt) Values " +
-                                                "(@UserName, @Password, @Solt)");
+                                                "(UserName, Password, Salt, Created, Updated) Values " +
+                                                "(@UserName, @Password, @Salt, @Created, @Updated)");
 
-            byte[] solt = new byte[SOLT_LENGHT];
-            using (RNGCryptoServiceProvider soltGenerator = new RNGCryptoServiceProvider())
+            byte[] salt = new byte[SALT_LENGHT];
+            using (RNGCryptoServiceProvider saltGenerator = new RNGCryptoServiceProvider())
             {
-                soltGenerator.GetBytes(solt);
+                saltGenerator.GetBytes(salt);
             }
 
-            byte[] soltedPassword = new byte[solt.Length + password.Length];
-            byte[] encriptedSoltedPassword = Authentification.MakeEncriptedSoltedPassword(password, solt);
-            string encriptedSoltedPasswordString = Convert.ToBase64String(encriptedSoltedPassword);
+            //byte[] saltedPassword = new byte[salt.Length + password.Length];
+            byte[] encriptedSaltedPassword = Authentification.MakeEncriptedSaltedPassword(password, salt);
+            string encriptedSaltedPasswordString = Convert.ToBase64String(encriptedSaltedPassword);
 
-            Debug.Print(string.Format("encriptedSoltedPasswordString.Length {0}", encriptedSoltedPasswordString.Length));
-            Validator.ThrowIfTrue<ArgumentOutOfRangeException>(encriptedSoltedPasswordString.Length > PASSWORD_FIELD_LENGHT,
-                    string.Format("The encriptedSoltedPasswordString is loo long:  {0}", encriptedSoltedPasswordString.Length));
+            Debug.Print(string.Format("encriptedSaltedPasswordString.Length {0}", encriptedSaltedPasswordString.Length));
+            Validator.ThrowIfTrue<ArgumentOutOfRangeException>(encriptedSaltedPasswordString.Length > PASSWORD_FIELD_LENGHT,
+                    string.Format("The encriptedSaltedPasswordString is loo long:  {0}", encriptedSaltedPasswordString.Length));
 
-            string encodedSoltBase64String = Convert.ToBase64String(solt);
+            string encodedSaltBase64String = Convert.ToBase64String(salt);
 
-            Debug.Print(string.Format("encodedSoltBase64String.Length {0}", encodedSoltBase64String.Length));
-            Validator.ThrowIfTrue<ArgumentOutOfRangeException>(encodedSoltBase64String.Length > SOLT_FIELD_LENGHT,
-                    string.Format("The encodedSoltBase64String is loo long:  {0}", encodedSoltBase64String.Length));
+            Debug.Print(string.Format("encodedSaltBase64String.Length {0}", encodedSaltBase64String.Length));
+            Validator.ThrowIfTrue<ArgumentOutOfRangeException>(encodedSaltBase64String.Length > SALT_FIELD_LENGHT,
+                    string.Format("The encodedSaltBase64String is loo long:  {0}", encodedSaltBase64String.Length));
 
             using (SqlConnection connection = new SqlConnection())
             {
@@ -92,19 +92,31 @@ namespace WebAppProject
 
                     parameter = new SqlParameter();
                     parameter.ParameterName = "@Password";
-                    parameter.Value = encriptedSoltedPasswordString;
+                    parameter.Value = encriptedSaltedPasswordString;
                     parameter.SqlDbType = SqlDbType.VarChar;
                     parameter.Size = PASSWORD_FIELD_LENGHT;
                     command.Parameters.Add(parameter);
 
-                    byte[] verifyPassword = Convert.FromBase64String((string)parameter.Value);
-                    bool good = Authentification.PassworsAreEqual(encriptedSoltedPassword, verifyPassword);
+                    //byte[] verifyPassword = Convert.FromBase64String((string)parameter.Value);
+                    //bool good = Authentification.PassworsAreEqual(encriptedSaltedPassword, verifyPassword);
 
                     parameter = new SqlParameter();
-                    parameter.ParameterName = "@Solt";
-                    parameter.Value = encodedSoltBase64String;
+                    parameter.ParameterName = "@Salt";
+                    parameter.Value = encodedSaltBase64String;
                     parameter.SqlDbType = SqlDbType.VarChar;
-                    parameter.Size = SOLT_FIELD_LENGHT;
+                    parameter.Size = SALT_FIELD_LENGHT;
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter();
+                    parameter.ParameterName = "@Created";
+                    parameter.Value = DateTime.Now.ToUniversalTime();
+                    parameter.SqlDbType = SqlDbType.DateTime2;
+                    command.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter();
+                    parameter.ParameterName = "@Updated";
+                    parameter.Value = DateTime.Now.ToUniversalTime();
+                    parameter.SqlDbType = SqlDbType.DateTime2;
                     command.Parameters.Add(parameter);
 
                     connection.ConnectionString = ConfigurationManager.ConnectionStrings["gasTrackerConnectionString"].ConnectionString; ;
@@ -114,7 +126,53 @@ namespace WebAppProject
              }
         }
 
-        private static void ValidateUserNamePassword(string userName, string password)
+        static public bool AccessIsAllowed(string userName, string password)
+        {
+            string dataProvider = ConfigurationManager.AppSettings["dataProvider"];
+            string connectionString = ConfigurationManager.ConnectionStrings["gasTrackerConnectionString"].ConnectionString;
+
+            // Create an open a connection.
+            using (SqlConnection connection = new SqlConnection())
+            {
+                string strSQL = "Select * From Accounts where UserName = @UserName";
+                using (SqlCommand selectUserCommand = new SqlCommand(strSQL, connection))
+                {
+                    SqlParameter parameter = new SqlParameter();
+                    parameter.ParameterName = "@UserName";
+                    parameter.Value = userName;
+                    parameter.SqlDbType = SqlDbType.VarChar;
+                    parameter.Size = MAX_USERNAME_LENGHT;
+                    selectUserCommand.Parameters.Add(parameter);
+
+                    connection.ConnectionString = connectionString;
+                    connection.Open();
+
+                    using (SqlDataReader myDataReader = selectUserCommand.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        string userNameDB = string.Empty;
+                        string passwordDB = string.Empty;
+                        string saltString = string.Empty;
+
+                        if (!myDataReader.Read())
+                            return false;
+
+                        userNameDB = myDataReader["UserName"].ToString().Trim();
+                        passwordDB = myDataReader["Password"].ToString().Trim();
+                        saltString = myDataReader["Salt"].ToString().Trim();
+                        byte[] salt = Convert.FromBase64String(saltString);
+
+                        byte[] encriptedSaltedPassword = Authentification.MakeEncriptedSaltedPassword(password, salt);
+                        string encriptedSaltedPasswordStringByUser = Convert.ToBase64String(encriptedSaltedPassword);
+                        
+                        return encriptedSaltedPasswordStringByUser == passwordDB;
+                    }
+                }
+            }            
+
+            return true;
+        }
+
+        static private void ValidateUserNamePassword(string userName, string password)
         { 
             Validator.ThrowIfNullOrEmpty<ArgumentNullException>(userName, "userName cannot be null o empty");
             Validator.ThrowIfNullOrEmpty<ArgumentNullException>(password, "password cannot be null o empty");

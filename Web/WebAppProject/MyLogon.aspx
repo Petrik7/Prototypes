@@ -5,19 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <script runat="server">
-  void Logon_Click(object sender, EventArgs e)
-  {
-    if ((UserEmail.Text == "mas") && 
-            (UserPass.Text == "mmm"))
-      {
-          FormsAuthentication.RedirectFromLoginPage 
-             (UserEmail.Text, Persist.Checked);
-      }
-      else
-      {
-          Msg.Text = "Invalid credentials. Please try again.";
-      }
-  }
+
 </script>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -53,10 +41,10 @@
       </tr>
       <tr>
         <td>Password:</td>
-        <td><asp:TextBox ID="UserPass" TextMode="Password" runat="server" /></td>
+        <td><asp:TextBox ID="UserPassword" TextMode="Password" runat="server" /></td>
         <td>
           <asp:RequiredFieldValidator ID="RequiredFieldValidator2" 
-            ControlToValidate="UserPass"
+            ControlToValidate="UserPassword"
             ErrorMessage="Password cannot be empty." ForeColor="DarkRed"
             runat="server" >*</asp:RequiredFieldValidator>
         </td>
@@ -69,11 +57,12 @@
         <td><asp:Button ID="ButtonLogOn" OnClick="Logon_Click" Text="Log On" runat="server" /></td>
         <td><asp:Button ID="ButtonCreateAccount" OnClick="CreateAccount_Click" Text="Create new account" style="width:100%" CausesValidation="false" runat="server" /></td>
       </tr>
+      <tr>
+        <td colspan="3">
+            <asp:Label ID="ErrorMessage" ForeColor="red" runat="server" /></td>
+      </tr>
     </table>
 
-    <p>
-      <asp:Label ID="Msg" ForeColor="red" runat="server" />
-    </p>
   </form>
 </body>
 </html>
