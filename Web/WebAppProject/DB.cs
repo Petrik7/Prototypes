@@ -25,7 +25,6 @@ namespace WebAppProject
             string dataProvider = ConfigurationManager.AppSettings["dataProvider"];
             string connectionString = ConfigurationManager.ConnectionStrings["gasTrackerConnectionString"].ConnectionString;
         
-            // Create an open a connection.
             using (SqlConnection connection = new SqlConnection())
             {
                 string strSQL = "Select * From Accounts";
@@ -65,7 +64,6 @@ namespace WebAppProject
                 saltGenerator.GetBytes(salt);
             }
 
-            //byte[] saltedPassword = new byte[salt.Length + password.Length];
             byte[] encriptedSaltedPassword = Authentification.MakeEncriptedSaltedPassword(password, salt);
             string encriptedSaltedPasswordString = Convert.ToBase64String(encriptedSaltedPassword);
 
@@ -96,9 +94,6 @@ namespace WebAppProject
                     parameter.SqlDbType = SqlDbType.VarChar;
                     parameter.Size = PASSWORD_FIELD_LENGHT;
                     command.Parameters.Add(parameter);
-
-                    //byte[] verifyPassword = Convert.FromBase64String((string)parameter.Value);
-                    //bool good = Authentification.PassworsAreEqual(encriptedSaltedPassword, verifyPassword);
 
                     parameter = new SqlParameter();
                     parameter.ParameterName = "@Salt";
@@ -131,7 +126,6 @@ namespace WebAppProject
             string dataProvider = ConfigurationManager.AppSettings["dataProvider"];
             string connectionString = ConfigurationManager.ConnectionStrings["gasTrackerConnectionString"].ConnectionString;
 
-            // Create an open a connection.
             using (SqlConnection connection = new SqlConnection())
             {
                 string strSQL = "Select * From Accounts where UserName = @UserName";
@@ -168,8 +162,6 @@ namespace WebAppProject
                     }
                 }
             }            
-
-            return true;
         }
 
         static private void ValidateUserNamePassword(string userName, string password)
