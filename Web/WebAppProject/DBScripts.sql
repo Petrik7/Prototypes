@@ -12,6 +12,7 @@ Password varchar(64) NOT NULL,
 Salt varchar(64) NOT NULL,
 Created datetime2(7) NOT NULL,
 Updated datetime2(7) NOT NULL,
+State int NOT NULL,
 PRIMARY KEY (UserName),
 UNIQUE (UserName)
 )

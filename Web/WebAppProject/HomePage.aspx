@@ -24,7 +24,10 @@
         </tr>
         <%--Row 2--%>
         <tr>
-            <td><asp:Label ID="PageDirLabel" cellpadding="3" Text="Home page" runat="server" Font-Bold="true"/></td>
+            <td><asp:Label ID="MemberSince" cellpadding="3" Text="Member since : " runat="server" Font-Bold="false"/></td>
+        </tr>
+        <tr>
+            <td><asp:Label ID="LastUpdated" cellpadding="3" Text="Last updated   : " runat="server" Font-Bold="false"/></td>
         </tr>
         <%--Row 3--%>
         <tr>
