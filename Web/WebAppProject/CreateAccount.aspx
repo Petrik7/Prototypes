@@ -5,7 +5,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-</head>
+    <style type="text/css">
+        body {font-family:Calibri;}
+    </style>
+ </head>
 <body>
     <form id="FormCreateAccount" runat="server">
      <table align="center" style="border-left: 3px solid PaleGoldenrod; border-right: 3px solid PaleGoldenrod;

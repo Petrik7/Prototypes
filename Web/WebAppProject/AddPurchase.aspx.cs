@@ -15,9 +15,11 @@ namespace WebAppProject
     {
         private const string RegExpr_NNNN_nn = @"^([0-9]){1,4}(\.+[0-9][0-9]?)?";
 
-        protected void Page_Load(object sender, EventArgs e)
+        protected new void Page_Load(object sender, EventArgs e)
         {
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
+            ErrorLabel.Visible = false;
+            Calendar.SelectedDate = DateTime.Now;
 
             RegularExpressionValidator priceValidator = (RegularExpressionValidator)Page.FindControl("RegularExpression_PriceValidator");
             if (priceValidator != null)
@@ -32,22 +34,29 @@ namespace WebAppProject
 
         protected void InsertButton_Click(object sender, EventArgs e)
         {
-            //if (String.IsNullOrEmpty(FirstNameTextBox.Text) ||
-            //   String.IsNullOrEmpty(LastNameTextBox.Text)) { return; }
+            int price = 0;
+            if (!int.TryParse(PriceTextBox.Text, out price))
+            {
+                ShowError("Error while adding your purchase. Invalid price format");
+                return;
+            }
 
-            //int employeeID = EmployeeList[EmployeeList.Count - 1].EmployeeID + 1;
+            int amount = 0;
+            if (!int.TryParse(AmountTextBox.Text, out amount))
+            {
+                ShowError("Error while adding your purchase. Invalid amount format");
+                return;
+            }
 
-            //string lastName = Server.HtmlEncode(FirstNameTextBox.Text);
-            //string firstName = Server.HtmlEncode(LastNameTextBox.Text);
+            int distance = 0;
+            if (!int.TryParse(DistanceTextBox.Text, out distance))
+            {
+                ShowError("Error while adding your purchase. Invalid distance format");
+                return;
+            }
 
-            //FirstNameTextBox.Text = String.Empty;
-            //LastNameTextBox.Text = String.Empty;
-
-            //EmployeeList.Add(new Employee(employeeID, lastName, firstName));
-            //ViewState["EmployeeList"] = EmployeeList;
-
-            //EmployeesGridView.DataBind();
-            //EmployeesGridView.PageIndex = EmployeesGridView.PageCount;
+            if (DB.AddPurchase(Context.User.Identity.Name, price, amount, distance, Calendar.SelectedDate))
+                Label1.Text = "Purchase has been added successfully. One more?";
         }
 
         protected void CancelButton_Click(object sender, EventArgs e)
@@ -65,6 +74,12 @@ namespace WebAppProject
         public void GasTracker_Click(object sender, EventArgs e)
         {
             Response.Redirect("GasTracker.aspx");
+        }
+
+        private void ShowError(string message)
+        {
+            ErrorLabel.Visible = true;
+            ErrorLabel.Text = message;
         }
     }
 }

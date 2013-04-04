@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0;" />
 
   <title>Home Page</title>
+    <style type="text/css">
+        body {font-family:Calibri;}
+    </style>
 </head>
 
 <%--<script runat="server">
@@ -28,6 +31,9 @@
         </tr>
         <tr>
             <td><asp:Label ID="LastUpdated" cellpadding="3" Text="Last updated   : " runat="server" Font-Bold="false"/></td>
+        </tr>
+        <tr>
+            <td><asp:Label ID="LastLogin" cellpadding="3" Text="Last login   : " runat="server" Font-Bold="false"/></td>
         </tr>
         <%--Row 3--%>
         <tr>

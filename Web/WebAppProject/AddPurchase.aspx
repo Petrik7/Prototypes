@@ -8,6 +8,14 @@
      <!-- To scale page on mobile browsers -->
     <meta name="HandheldFriendly" content="true" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=4.0;" />
+    <style type="text/css">
+        body {font-family:Calibri;}
+        
+        table.AddPurchase tr.d0 td {background-color: #FCF6CF;}
+        table.AddPurchase tr.d1 td {background-color: #FEFEF2;}
+    </style>
+
+
 </head>
 <body>
     <form id="form1" runat="server">
@@ -27,9 +35,6 @@
                                 <asp:LinkButton ID="ButtonSignOut" Text="Sign Out" OnClick="Signout_Click" runat="server" Width="68px" CausesValidation="false"/>
                             </td>
                         </tr>
-                        <tr>
-                            <td align="left" colspan="3"><asp:Label ID="Label1" text="Enter your gas purchase:" runat="server" /></td>
-                        </tr>
                      </table>
                  </ContentTemplate>
                  </asp:UpdatePanel>
@@ -38,25 +43,35 @@
                 <td style="height: 206px" valign="top">
                     <asp:UpdatePanel ID="InsertGasPurchaseUpdatePanel" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                          <table cellpadding="2" border="0" style="background-color:Tan" align="center">
-                            <tr>
+                          <table class="AddPurchase" cellpadding="2" align="center" style="border-left: 3px solid PaleGoldenrod; border-right: 3px solid PaleGoldenrod;
+                            border-top: 3px solid PaleGoldenrod; border-bottom: 3px solid PaleGoldenrod"> <%--; background-color:#FAFAD2 ">--%>
+                            <tr style="background-color:Tan">
+                                <td align="left" colspan="4"><asp:Label ID="Label1" text="Enter your gas purchase:" runat="server" /></td>
+                            </tr>
+                            <tr class="d1">
+                                <td colspan="4"><asp:Label ID="ErrorLabel" runat="server" ForeColor="Black" /></td>
+                            </tr>
+                            <tr class="d0">
                                 <td><asp:Label ID="LabelDate" runat="server" AssociatedControlID="Calendar" 
                                              Text="Date" ForeColor="Black" /></td>
-                                <td colspan="2" align="center"><asp:Calendar ID="Calendar" runat="server" Text="Select Purchase Date" ForeColor="Black" /></td>
+                                <td colspan="2" align="center"><asp:Calendar ID="Calendar" SelectedDate="<%# DateTime.Now %>" Text="Select Purchase Date" ForeColor="Black" runat="server"/></td>
+                                <td></td>
                             </tr>
-                            <tr>
-                                <td colspan="3" align="center"><asp:ValidationSummary ID="ValidationSummary1" runat="server" 
+                            <tr class="d1">
+                                <td colspan="4" align="center"><asp:ValidationSummary ID="ValidationSummary1" runat="server" 
                                                                 HeaderText="There were errors on the page:" ForeColor="DarkRed"/></td>
                             </tr>
-                            <tr>
+                            <tr  class="d0">
                               <td><asp:Label ID="PriceLabel" runat="server" AssociatedControlID="PriceTextBox" 
                                              Text="Price" ForeColor="Black" /></td>
                               <td><asp:TextBox runat="server" ID="PriceTextBox" style="width:130px;height:100%" /></td>
-                              <td><asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" DataTextField= "ENTITY_ID"
+                              <td>
+                              <%--<asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" DataTextField= "ENTITY_ID"
                                                     DataValueField="ENTITY_ID" style="width:98%;height:100%">
                                         <asp:ListItem>CAD</asp:ListItem>
                                         <asp:ListItem>USD</asp:ListItem>           
-                                  </asp:DropDownList></td>
+                                  </asp:DropDownList>--%>
+                                  </td>
                               <td><asp:RequiredFieldValidator ID="RequiredFieldPriceValidator" runat="server" ControlToValidate="PriceTextBox"
                                         ErrorMessage="Price is required." ForeColor="DarkRed"> *
                                   </asp:RequiredFieldValidator>
@@ -65,7 +80,7 @@
                                         ValidationExpression="empty"/>                               
                               </td>
                             </tr>
-                            <tr>
+                            <tr  class="d1">
                               <td><asp:Label ID="AmountLabel" runat="server" AssociatedControlID="AmountTextBox" 
                                              Text="Amount" ForeColor="Black" /></td>
                               <td><asp:TextBox runat="server" ID="AmountTextBox" style="width:130px;height:100%"/></td>
@@ -82,7 +97,7 @@
                                         ValidationExpression="empty"/>
                               </td>
                             </tr>
-                            <tr>
+                            <tr  class="d0">
                               <td><asp:Label ID="DistanceLabel" runat="server" AssociatedControlID="DistanceTextBox" 
                                              Text="Distance" ForeColor="Black" /></td>
                               <td><asp:TextBox runat="server" ID="DistanceTextBox" style="width:130px;height:100%"/></td>
@@ -99,13 +114,14 @@
                                         ValidationExpression="empty" />
                               </td>
                             </tr>
-                            <tr>
+                            <tr class="d1">
                               <td></td>
                               <td align="right"> <asp:LinkButton ID="InsertButton" runat="server" Text="Insert" OnClick="InsertButton_Click" /></td>
                               <td align="left"> <asp:LinkButton ID="Cancelbutton" runat="server" Text="Cancel" OnClick="CancelButton_Click"  CausesValidation="false"/></td>
+                              <td></td>
                             </tr>
-                            <tr>
-                                <td align="left" colspan="3"><asp:Label runat="server" ID="InputTimeLabel"><%=DateTime.Now %></asp:Label></td>
+                            <tr class="d0">
+                                <td align="left" colspan="4"><asp:Label runat="server" ID="InputTimeLabel"><%=DateTime.Now %></asp:Label></td>
                             </tr>
                           </table>                          
                         </ContentTemplate>

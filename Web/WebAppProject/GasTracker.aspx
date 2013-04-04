@@ -12,6 +12,9 @@
     <title>Gas Tracker</title>
     <script runat="server">
     </script>
+    <style type="text/css">
+        body {font-family:Calibri;}
+    </style>
 </head>
 
 <body>    

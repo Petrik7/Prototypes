@@ -67,6 +67,15 @@ namespace WebAppProject {
         protected global::System.Web.UI.WebControls.LinkButton ButtonSignOut;
         
         /// <summary>
+        /// InsertGasPurchaseUpdatePanel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel InsertGasPurchaseUpdatePanel;
+        
+        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>
@@ -76,13 +85,13 @@ namespace WebAppProject {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// InsertGasPurchaseUpdatePanel control.
+        /// ErrorLabel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.UpdatePanel InsertGasPurchaseUpdatePanel;
+        protected global::System.Web.UI.WebControls.Label ErrorLabel;
         
         /// <summary>
         /// LabelDate control.
@@ -128,15 +137,6 @@ namespace WebAppProject {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox PriceTextBox;
-        
-        /// <summary>
-        /// DropDownList1 control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DropDownList1;
         
         /// <summary>
         /// RequiredFieldPriceValidator control.

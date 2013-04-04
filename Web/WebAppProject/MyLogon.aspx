@@ -15,6 +15,9 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=5.0;" />
 
   <title>Forms Authentication - Sign in</title>
+    <style type="text/css">
+        body {font-family:Calibri;}
+    </style>
 </head>
 <body>
   <form id="form1" runat="server">

@@ -25,6 +25,7 @@ namespace WebAppProject
 
         public class AccountTable
         {
+            static public string Id = "Id";
             static public string UserName   = "UserName";
             static public string Password   = "Password";
             static public string Salt       = "Salt";
@@ -33,6 +34,14 @@ namespace WebAppProject
             static public string State      = "State";
         }
 
+        public class PurchaseTable
+        {
+            static public string Account = "Account";
+            static public string Price = "Price";
+            static public string Amount = "Amount";
+            static public string Distance = "Distance";
+            static public string Date = "Date";
+        }
 
         public void ReadData()
         {
@@ -229,5 +238,68 @@ namespace WebAppProject
             }
         }
 
+        static public bool AddPurchase(string userName, decimal price, int amount, int distance, DateTime date)
+        {
+            try
+            {
+                DataTable accountsTable = GetAccount(userName);
+                if (accountsTable == null || accountsTable.Rows.Count < 1)
+                    return false;
+
+                DataRow accountRow = accountsTable.Rows[0];
+                int accountId = (int)accountRow[DB.AccountTable.Id];
+
+                string sqlInsert = string.Format("Insert Into dbo.Purchase " +
+                                                 "({0}, {1}, {2}, {3}, {4}) Values " +
+                                                 "(@{0}, @{1}, @{2}, @{3}, @{4})",
+                                                 PurchaseTable.Account, PurchaseTable.Price, PurchaseTable.Amount, PurchaseTable.Distance, PurchaseTable.Date);
+
+                using (SqlConnection connection = new SqlConnection())
+                {
+                    using (SqlCommand command = new SqlCommand(sqlInsert, connection))
+                    {
+                        SqlParameter parameter = new SqlParameter();
+                        parameter.ParameterName = "@" + PurchaseTable.Account;
+                        parameter.Value = accountId;
+                        parameter.SqlDbType = SqlDbType.Int;
+                        command.Parameters.Add(parameter);
+
+                        parameter = new SqlParameter();
+                        parameter.ParameterName = "@" + PurchaseTable.Price;
+                        parameter.Value = price;
+                        parameter.SqlDbType = SqlDbType.Money;
+                        command.Parameters.Add(parameter);
+
+                        parameter = new SqlParameter();
+                        parameter.ParameterName = "@" + PurchaseTable.Amount;
+                        parameter.Value = amount;
+                        parameter.SqlDbType = SqlDbType.Int;
+                        command.Parameters.Add(parameter);
+
+                        parameter = new SqlParameter();
+                        parameter.ParameterName = "@" + PurchaseTable.Distance;
+                        parameter.Value = distance;
+                        parameter.SqlDbType = SqlDbType.Int;
+                        command.Parameters.Add(parameter);
+
+                        parameter = new SqlParameter();
+                        parameter.ParameterName = "@" + PurchaseTable.Date;
+                        parameter.Value = date;
+                        parameter.SqlDbType = SqlDbType.Date;
+                        command.Parameters.Add(parameter);
+
+                        connection.ConnectionString = ConfigurationManager.ConnectionStrings["gasTrackerConnectionString"].ConnectionString; ;
+                        connection.Open();
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            { 
+                //Log exception...
+                return false;
+            }
+            return true;
+        }
     }
 }
