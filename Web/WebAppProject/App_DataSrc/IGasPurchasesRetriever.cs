@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace WebAppProject.App_SrcCode
+namespace WebAppProject.App_DataSrc
 {
-    public interface IGasPurchasesData
+    public interface IGasPurchasesRetriever
     {
         IEnumerable<GasPurchase> GetPurchasesForMonth(string userName, int month);
     }

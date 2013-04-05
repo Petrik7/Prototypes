@@ -123,8 +123,9 @@
     <Compile Include="App_DataSrc\GasData.cs" />
     <Compile Include="App_DataSrc\GasPurchase.cs" />
     <Compile Include="App_DataSrc\GasPurchaseProcessed.cs" />
+    <Compile Include="App_DataSrc\GasPurchasesDBRetriever.cs" />
     <Compile Include="App_DataSrc\HardCodedData.cs" />
-    <Compile Include="App_DataSrc\IGasPurchasesData.cs" />
+    <Compile Include="App_DataSrc\IGasPurchasesRetriever.cs" />
     <Compile Include="App_LocalResources\MyAppResources.aspx.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

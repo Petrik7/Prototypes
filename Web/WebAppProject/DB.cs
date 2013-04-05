@@ -20,6 +20,7 @@ namespace WebAppProject
         private static int SALT_LENGHT = 32;
         private static int PASSWORD_FIELD_LENGHT = 64;
         private static int SALT_FIELD_LENGHT = 64;
+        private static int ACCOUNT_NOT_FOUND = -1;
 
         public enum AccountState {Disabled = 0, Active = 1, Suspended = 2};
 
@@ -45,7 +46,7 @@ namespace WebAppProject
 
         public void ReadData()
         {
-            string dataProvider = ConfigurationManager.AppSettings["dataProvider"];
+            //string dataProvider = ConfigurationManager.AppSettings["dataProvider"];
             string connectionString = ConfigurationManager.ConnectionStrings["gasTrackerConnectionString"].ConnectionString;
         
             using (SqlConnection connection = new SqlConnection())
@@ -153,7 +154,6 @@ namespace WebAppProject
 
         static public bool AccessIsAllowed(string userName, string password)
         {
-            string dataProvider = ConfigurationManager.AppSettings["dataProvider"];
             string connectionString = ConfigurationManager.ConnectionStrings["gasTrackerConnectionString"].ConnectionString;
 
             using (SqlConnection connection = new SqlConnection())
@@ -205,9 +205,6 @@ namespace WebAppProject
 
         static public DataTable GetAccount(string userName)
         {
-            DataTable accountsTable = new DataTable();
-
-            string dataProvider = ConfigurationManager.AppSettings["dataProvider"];
             string connectionString = ConfigurationManager.ConnectionStrings["gasTrackerConnectionString"].ConnectionString;
 
             using (SqlConnection connection = new SqlConnection())
@@ -227,7 +224,7 @@ namespace WebAppProject
 
                     using (SqlDataReader myDataReader = selectUserCommand.ExecuteReader(CommandBehavior.CloseConnection))
                     {
-                        accountsTable = new DataTable();
+                        DataTable accountsTable = new DataTable();
                         accountsTable.Load(myDataReader);
                         if (accountsTable.Rows.Count != 1 || accountsTable.HasErrors)
                             return null;
@@ -238,16 +235,24 @@ namespace WebAppProject
             }
         }
 
+        static private int GetAccountId(string userName)
+        {
+            DataTable accountsTable = GetAccount(userName);
+            if (accountsTable == null || accountsTable.Rows.Count < 1)
+                return ACCOUNT_NOT_FOUND;
+
+            DataRow accountRow = accountsTable.Rows[0];
+            int accountId = (int)accountRow[DB.AccountTable.Id];
+            return accountId;
+        }
+
         static public bool AddPurchase(string userName, decimal price, int amount, int distance, DateTime date)
         {
             try
             {
-                DataTable accountsTable = GetAccount(userName);
-                if (accountsTable == null || accountsTable.Rows.Count < 1)
+                int accountId = GetAccountId(userName);
+                if (accountId == ACCOUNT_NOT_FOUND)
                     return false;
-
-                DataRow accountRow = accountsTable.Rows[0];
-                int accountId = (int)accountRow[DB.AccountTable.Id];
 
                 string sqlInsert = string.Format("Insert Into dbo.Purchase " +
                                                  "({0}, {1}, {2}, {3}, {4}) Values " +
@@ -300,6 +305,39 @@ namespace WebAppProject
                 return false;
             }
             return true;
+        }
+
+        static public DataTable GetPurchases(string userName)
+        {
+            DataTable purchasesTable = new DataTable(); 
+            
+            int accountId = GetAccountId(userName);
+            if (accountId == ACCOUNT_NOT_FOUND)
+                return purchasesTable;
+
+            string connectionString = ConfigurationManager.ConnectionStrings["gasTrackerConnectionString"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection())
+            {
+                string strSQL = string.Format("Select * From Purchase where {0} = @{0} order by Date", PurchaseTable.Account);
+                using (SqlCommand selectUserCommand = new SqlCommand(strSQL, connection))
+                {
+                    SqlParameter parameter = new SqlParameter();
+                    parameter.ParameterName = "@" + PurchaseTable.Account;
+                    parameter.Value = accountId;
+                    parameter.SqlDbType = SqlDbType.Int;
+                    selectUserCommand.Parameters.Add(parameter);
+
+                    connection.ConnectionString = connectionString;
+                    connection.Open();
+
+                    using (SqlDataReader myDataReader = selectUserCommand.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        purchasesTable.Load(myDataReader);
+                        return purchasesTable;
+                    }
+                }
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebAppProject;
-using WebAppProject.App_SrcCode;
+using WebAppProject.App_DataSrc;
 
 namespace WebAppProject
 {
@@ -58,7 +58,10 @@ namespace WebAppProject
         {
             IEnumerable<GasPurchaseProcessed> purchasesList = null;
             DateTime now = DateTime.Now;
-            GasData gasData = new GasData(new HardCodedData());
+            
+            //GasData gasData = new GasData(new HardCodedData());
+            GasData gasData = new GasData(new GasPurchasesDBRetriever());
+
             GasPurchaseProcessed.MilageType milegType = GasPurchaseProcessed.MilageType.LitersPerKm;
             milegType = GetMilageType();
 

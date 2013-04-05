@@ -30,7 +30,7 @@
             <td><asp:Label ID="MemberSince" cellpadding="3" Text="Member since : " runat="server" Font-Bold="false"/></td>
         </tr>
         <tr>
-            <td><asp:Label ID="LastUpdated" cellpadding="3" Text="Last updated   : " runat="server" Font-Bold="false"/></td>
+            <td><asp:Label ID="LastUpdated" cellpadding="3" Text="Last updated...: " runat="server" Font-Bold="false"/></td>
         </tr>
         <tr>
             <td><asp:Label ID="LastLogin" cellpadding="3" Text="Last login   : " runat="server" Font-Bold="false"/></td>

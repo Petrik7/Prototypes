@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WebAppProject.App_SrcCode
+namespace WebAppProject.App_DataSrc
 {
     public class GasPurchaseProcessed
     {
         private DateTime _when;
-        private float _price;
-        private float _amount;
+        private decimal _price;
+        private int _amount;
         private int _distance;
 
         public enum MilageType {LitersPerKm, Miles};
@@ -20,12 +20,12 @@ namespace WebAppProject.App_SrcCode
             get { return _when; }
         }
 
-        public float Price
+        public decimal Price
         {
             get { return _price; }
         }
 
-        public float Amount
+        public int Amount
         {
             get { return _amount; }
         }
@@ -39,6 +39,8 @@ namespace WebAppProject.App_SrcCode
         {
             get 
             {
+                if (_distance == 0)
+                    _distance = 1;
                 if (_type == MilageType.LitersPerKm)
                     return (_amount * 100) / _distance;
                 else
@@ -46,7 +48,7 @@ namespace WebAppProject.App_SrcCode
             }
         }
 
-        public GasPurchaseProcessed(DateTime when, float price, float amount, int distance, MilageType type = MilageType.LitersPerKm)
+        public GasPurchaseProcessed(DateTime when, decimal price, int amount, int distance, MilageType type = MilageType.LitersPerKm)
         {
             _type = type;
             _when = when;

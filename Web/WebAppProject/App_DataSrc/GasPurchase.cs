@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace WebAppProject.App_SrcCode
+namespace WebAppProject.App_DataSrc
 {
     [Serializable]
     public class GasPurchase
     {
         private DateTime _when;
-        private float _price;
-        private float _amount;
+        private decimal _price;
+        private int _amount;
         private int _distance;
 
         public DateTime When
@@ -18,12 +18,12 @@ namespace WebAppProject.App_SrcCode
             get { return _when; }
         }
 
-        public float Price
+        public decimal Price
         {
             get { return _price; }
         }
 
-        public float Amount
+        public int Amount
         {
             get { return _amount; }
         }
@@ -33,7 +33,7 @@ namespace WebAppProject.App_SrcCode
             get { return _distance; }
         }
 
-        public GasPurchase(DateTime when, float price, float amount, int distance)
+        public GasPurchase(DateTime when, decimal price, int amount, int distance)
         {
             _when = when;
             _price = price;

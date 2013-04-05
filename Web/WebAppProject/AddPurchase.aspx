@@ -11,8 +11,9 @@
     <style type="text/css">
         body {font-family:Calibri;}
         
-        table.AddPurchase tr.d0 td {background-color: #FCF6CF;}
-        table.AddPurchase tr.d1 td {background-color: #FEFEF2;}
+        <%--table.AddPurchase tr.d0 td {background-color: #FCF6CF;}--%>
+        table.AddPurchase tr.d0 td {background-color: #F5F5DC;}
+        table.AddPurchase tr.d1 td {background-color: "PaleGoldenrod";} <%--#FEFEF2--%>
     </style>
 
 
@@ -43,12 +44,12 @@
                 <td style="height: 206px" valign="top">
                     <asp:UpdatePanel ID="InsertGasPurchaseUpdatePanel" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                          <table class="AddPurchase" cellpadding="2" align="center" style="border-left: 3px solid PaleGoldenrod; border-right: 3px solid PaleGoldenrod;
-                            border-top: 3px solid PaleGoldenrod; border-bottom: 3px solid PaleGoldenrod"> <%--; background-color:#FAFAD2 ">--%>
+                          <table class="AddPurchase" cellpadding="2" align="center" style="border-left: 1px solid Tan; border-right: 1px solid Tan;
+                            border-top: 1px solid Tan; border-bottom: 1px solid Tan"> <%--; background-color:#FAFAD2 ">--%>
                             <tr style="background-color:Tan">
                                 <td align="left" colspan="4"><asp:Label ID="Label1" text="Enter your gas purchase:" runat="server" /></td>
                             </tr>
-                            <tr class="d1">
+                            <tr class="d0">
                                 <td colspan="4"><asp:Label ID="ErrorLabel" runat="server" ForeColor="Black" /></td>
                             </tr>
                             <tr class="d0">
@@ -57,7 +58,7 @@
                                 <td colspan="2" align="center"><asp:Calendar ID="Calendar" SelectedDate="<%# DateTime.Now %>" Text="Select Purchase Date" ForeColor="Black" runat="server"/></td>
                                 <td></td>
                             </tr>
-                            <tr class="d1">
+                            <tr class="d0">
                                 <td colspan="4" align="center"><asp:ValidationSummary ID="ValidationSummary1" runat="server" 
                                                                 HeaderText="There were errors on the page:" ForeColor="DarkRed"/></td>
                             </tr>

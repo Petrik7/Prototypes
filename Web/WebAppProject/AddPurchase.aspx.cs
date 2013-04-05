@@ -14,12 +14,14 @@ namespace WebAppProject
     public partial class AddPurchase_Click : SignedInBasePage //System.Web.UI.Page
     {
         private const string RegExpr_NNNN_nn = @"^([0-9]){1,4}(\.+[0-9][0-9]?)?";
+        private const string Miles = "Miles";
+        private const string Gallons = "Gallons";
 
         protected new void Page_Load(object sender, EventArgs e)
         {
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
             ErrorLabel.Visible = false;
-            Calendar.SelectedDate = DateTime.Now;
+            //Calendar.SelectedDate = DateTime.Now;
 
             RegularExpressionValidator priceValidator = (RegularExpressionValidator)Page.FindControl("RegularExpression_PriceValidator");
             if (priceValidator != null)
@@ -34,8 +36,8 @@ namespace WebAppProject
 
         protected void InsertButton_Click(object sender, EventArgs e)
         {
-            int price = 0;
-            if (!int.TryParse(PriceTextBox.Text, out price))
+            decimal price = 0;
+            if (!decimal.TryParse(PriceTextBox.Text, out price))
             {
                 ShowError("Error while adding your purchase. Invalid price format");
                 return;
@@ -54,6 +56,12 @@ namespace WebAppProject
                 ShowError("Error while adding your purchase. Invalid distance format");
                 return;
             }
+
+            if (KmMileDropDownList.SelectedValue == Miles)
+                distance = (int)(distance * 1.6F);
+
+            if (LiterGallonDropDownList.SelectedValue == Gallons)
+                amount = (int)(amount * 3.7854F);
 
             if (DB.AddPurchase(Context.User.Identity.Name, price, amount, distance, Calendar.SelectedDate))
                 Label1.Text = "Purchase has been added successfully. One more?";
