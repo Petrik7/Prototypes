@@ -66,7 +66,9 @@
                             <HeaderStyle BackColor="Tan" Font-Bold="True" />
                             <AlternatingRowStyle BackColor="PaleGoldenrod" />
                             <Columns>
-                                <asp:BoundField DataField="When" HeaderText="When" dataformatstring="{0:MMM d, yyyy}" htmlencode="false"/>
+                                <%--<asp:BoundField DataField="When" HeaderText="When" dataformatstring="{0:MMM d, yyyy}" htmlencode="false"/>--%>
+                                <asp:hyperlinkfield  datatextfield="When" HeaderText="When" datatextformatstring="{0:MMM d, yyyy}"
+                                                    datanavigateurlfields="ID" datanavigateurlformatstring="~\PurchaseDetails.aspx?ID={0}"/>
                                 <asp:BoundField DataField="Price" HeaderText="Price" />
                                 <asp:BoundField DataField="Amount" HeaderText="Amount" />
                                 <asp:BoundField DataField="Distance" HeaderText="Distance" />

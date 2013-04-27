@@ -56,13 +56,12 @@ namespace WebAppProject
         #region Private
         private void LoadPurchasesForMonth()
         {
-            IEnumerable<GasPurchaseProcessed> purchasesList = null;
+            IEnumerable<GasPurchase> purchasesList = null;
             DateTime now = DateTime.Now;
             
-            //GasData gasData = new GasData(new HardCodedData());
             GasData gasData = new GasData(new GasPurchasesDBRetriever());
 
-            GasPurchaseProcessed.MilageType milegType = GasPurchaseProcessed.MilageType.LitersPerKm;
+            GasPurchase.MilageType milegType = GasPurchase.MilageType.LitersPerKm;
             milegType = GetMilageType();
 
             purchasesList = gasData.GetPurchasesForMonth(Context.User.Identity.Name, now.AddMonths(-1).Month, milegType);
@@ -75,13 +74,13 @@ namespace WebAppProject
             }
         }
 
-        private GasPurchaseProcessed.MilageType GetMilageType()
+        private GasPurchase.MilageType GetMilageType()
         {
             DropDownList dropDownList_MilesKms = (DropDownList)Page.FindControl("DropDownList_MilesKms");
             if (dropDownList_MilesKms != null && dropDownList_MilesKms.SelectedIndex == 1)
-                return GasPurchaseProcessed.MilageType.Miles;
+                return GasPurchase.MilageType.Miles;
             else
-                return GasPurchaseProcessed.MilageType.LitersPerKm;
+                return GasPurchase.MilageType.LitersPerKm;
         }
 
         //private void SelectMilegeType(GasPurchaseProcessed.MilageType milageType)

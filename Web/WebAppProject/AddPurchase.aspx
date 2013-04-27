@@ -11,9 +11,8 @@
     <style type="text/css">
         body {font-family:Calibri;}
         
-        <%--table.AddPurchase tr.d0 td {background-color: #FCF6CF;}--%>
-        table.AddPurchase tr.d0 td {background-color: #F5F5DC;}
-        table.AddPurchase tr.d1 td {background-color: "PaleGoldenrod";} <%--#FEFEF2--%>
+        table.AddPurchase tr.light td {background-color: #FAFAD2;}
+        table.AddPurchase tr.dark0 td {background-color: #EEE8AA;}
     </style>
 
 
@@ -40,39 +39,33 @@
                  </ContentTemplate>
                  </asp:UpdatePanel>
              </tr>
+             <%-- --%>
              <tr>
                 <td style="height: 206px" valign="top">
                     <asp:UpdatePanel ID="InsertGasPurchaseUpdatePanel" runat="server" UpdateMode="Conditional">
                         <ContentTemplate>
-                          <table class="AddPurchase" cellpadding="2" align="center" style="border-left: 1px solid Tan; border-right: 1px solid Tan;
-                            border-top: 1px solid Tan; border-bottom: 1px solid Tan"> <%--; background-color:#FAFAD2 ">--%>
+                          <table class="AddPurchase" cellpadding="2" align="center" cellspacing = "0" runat="server" borderwidth="8"
+                          style="border-left: 1px solid Tan; border-right: 1px solid Tan; border-top: 1px solid Tan; border-bottom: 1px solid Tan"> 
                             <tr style="background-color:Tan">
                                 <td align="left" colspan="4"><asp:Label ID="Label1" text="Enter your gas purchase:" runat="server" /></td>
                             </tr>
-                            <tr class="d0">
+                            <tr class="light">
                                 <td colspan="4"><asp:Label ID="ErrorLabel" runat="server" ForeColor="Black" /></td>
                             </tr>
-                            <tr class="d0">
+                            <tr class="light">
                                 <td><asp:Label ID="LabelDate" runat="server" AssociatedControlID="Calendar" 
                                              Text="Date" ForeColor="Black" /></td>
                                 <td colspan="2" align="center"><asp:Calendar ID="Calendar" SelectedDate="<%# DateTime.Now %>" Text="Select Purchase Date" ForeColor="Black" runat="server"/></td>
                                 <td></td>
                             </tr>
-                            <tr class="d0">
+                            <tr class="light">
                                 <td colspan="4" align="center"><asp:ValidationSummary ID="ValidationSummary1" runat="server" 
                                                                 HeaderText="There were errors on the page:" ForeColor="DarkRed"/></td>
                             </tr>
-                            <tr  class="d0">
-                              <td><asp:Label ID="PriceLabel" runat="server" AssociatedControlID="PriceTextBox" 
+                            <tr  class="dark0">
+                               <td><asp:Label ID="PriceLabel" runat="server" AssociatedControlID="PriceTextBox" 
                                              Text="Price" ForeColor="Black" /></td>
-                              <td><asp:TextBox runat="server" ID="PriceTextBox" style="width:130px;height:100%" /></td>
-                              <td>
-                              <%--<asp:DropDownList ID="DropDownList1" runat="server" AutoPostBack="True" DataTextField= "ENTITY_ID"
-                                                    DataValueField="ENTITY_ID" style="width:98%;height:100%">
-                                        <asp:ListItem>CAD</asp:ListItem>
-                                        <asp:ListItem>USD</asp:ListItem>           
-                                  </asp:DropDownList>--%>
-                                  </td>
+                              <td colspan="2"><asp:TextBox runat="server" ID="PriceTextBox" style="width:98%;height:100%" /></td>
                               <td><asp:RequiredFieldValidator ID="RequiredFieldPriceValidator" runat="server" ControlToValidate="PriceTextBox"
                                         ErrorMessage="Price is required." ForeColor="DarkRed"> *
                                   </asp:RequiredFieldValidator>
@@ -81,7 +74,7 @@
                                         ValidationExpression="empty"/>                               
                               </td>
                             </tr>
-                            <tr  class="d1">
+                            <tr  class="light">
                               <td><asp:Label ID="AmountLabel" runat="server" AssociatedControlID="AmountTextBox" 
                                              Text="Amount" ForeColor="Black" /></td>
                               <td><asp:TextBox runat="server" ID="AmountTextBox" style="width:130px;height:100%"/></td>
@@ -98,7 +91,7 @@
                                         ValidationExpression="empty"/>
                               </td>
                             </tr>
-                            <tr  class="d0">
+                            <tr  class="dark0">
                               <td><asp:Label ID="DistanceLabel" runat="server" AssociatedControlID="DistanceTextBox" 
                                              Text="Distance" ForeColor="Black" /></td>
                               <td><asp:TextBox runat="server" ID="DistanceTextBox" style="width:130px;height:100%"/></td>
@@ -115,13 +108,35 @@
                                         ValidationExpression="empty" />
                               </td>
                             </tr>
-                            <tr class="d1">
+                            <tr class="light">
+                                <td><asp:Label ID="Grade" runat="server" AssociatedControlID="DropDownListGrade" 
+                                             Text="Grade" ForeColor="Black" /></td>
+                                <td colspan="2"><asp:DropDownList ID="DropDownListGrade" runat="server" AutoPostBack="True" DataTextField= "ENTITY_ID"
+                                             DataValueField="ENTITY_ID" style="width:99%;height:100%">
+                                        <asp:ListItem>Mid-grade (89)</asp:ListItem>
+                                        <asp:ListItem>Regular (87)</asp:ListItem>
+                                        <asp:ListItem>Premium (92)</asp:ListItem>
+                                        <asp:ListItem>Diesel</asp:ListItem>          
+                                    </asp:DropDownList></td>
+                                    <td></td>
+                            </tr>
+                            <tr class="dark0">
+                               <td><asp:Label ID="Note" runat="server" AssociatedControlID="NoteTextBox" 
+                                             Text="Note" ForeColor="Black" /></td>
+                               <td colspan="2"><asp:TextBox runat="server" ID="NoteTextBox" style="width:98%;height:100%" /></td>
+                               <td>
+                                  <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="NoteTextBox"
+                                        ErrorMessage="Note cannot be longer than 64" Text="*" ForeColor="DarkRed"
+                                        ValidationExpression="^[ -~]{0,64}$"/>
+                              </td>
+                            </tr>
+                            <tr class="light">
                               <td></td>
                               <td align="right"> <asp:LinkButton ID="InsertButton" runat="server" Text="Insert" OnClick="InsertButton_Click" /></td>
                               <td align="left"> <asp:LinkButton ID="Cancelbutton" runat="server" Text="Cancel" OnClick="CancelButton_Click"  CausesValidation="false"/></td>
                               <td></td>
                             </tr>
-                            <tr class="d0">
+                            <tr class="dark0">
                                 <td align="left" colspan="4"><asp:Label runat="server" ID="InputTimeLabel"><%=DateTime.Now %></asp:Label></td>
                             </tr>
                           </table>                          

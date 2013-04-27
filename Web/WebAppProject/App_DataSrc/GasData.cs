@@ -15,15 +15,10 @@ namespace WebAppProject.App_DataSrc
         IGasPurchasesRetriever _gasPurchasesData;
 
         // date-time price amount miles
-        public IEnumerable<GasPurchaseProcessed> GetPurchasesForMonth(string userName, int month, GasPurchaseProcessed.MilageType type)
+        public IEnumerable<GasPurchase> GetPurchasesForMonth(string userName, int month, GasPurchase.MilageType type)
         {
-            List<GasPurchaseProcessed> viewPurchases = new List<GasPurchaseProcessed>();
-            
-            foreach (GasPurchase purchase in _gasPurchasesData.GetPurchasesForMonth(userName, month))
-            {
-                viewPurchases.Add(new GasPurchaseProcessed(purchase, type));
-            }
-
+            List<GasPurchase> viewPurchases = new List<GasPurchase>();
+            viewPurchases.AddRange(_gasPurchasesData.GetPurchasesForMonth(userName, month));
             return viewPurchases;
         }
     }

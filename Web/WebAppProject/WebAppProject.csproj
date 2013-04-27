@@ -61,6 +61,7 @@
     <Content Include="Directory.aspx" />
     <Content Include="GasTracker.aspx" />
     <Content Include="MyLogon.aspx" />
+    <Content Include="PurchaseDetails.aspx" />
     <Content Include="SignedInBasePage.aspx" />
     <Content Include="Styles\Site.css" />
     <Content Include="Default.aspx" />
@@ -122,7 +123,6 @@
     </Compile>
     <Compile Include="App_DataSrc\GasData.cs" />
     <Compile Include="App_DataSrc\GasPurchase.cs" />
-    <Compile Include="App_DataSrc\GasPurchaseProcessed.cs" />
     <Compile Include="App_DataSrc\GasPurchasesDBRetriever.cs" />
     <Compile Include="App_DataSrc\HardCodedData.cs" />
     <Compile Include="App_DataSrc\IGasPurchasesRetriever.cs" />
@@ -164,6 +164,13 @@
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PurchaseDetails.aspx.cs">
+      <DependentUpon>PurchaseDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PurchaseDetails.aspx.designer.cs">
+      <DependentUpon>PurchaseDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="SignedInBasePage.aspx.cs">
       <DependentUpon>SignedInBasePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

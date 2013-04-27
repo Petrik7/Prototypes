@@ -17,12 +17,13 @@ namespace WebAppProject.App_DataSrc
                 return purchases;
             foreach (DataRow purchaceRow in purchasesTable.Rows)
             {
+                int id = (int)purchaceRow[DB.PurchaseTable.ID];
                 DateTime date = (DateTime)purchaceRow[DB.PurchaseTable.Date];
                 decimal price = (decimal)purchaceRow[DB.PurchaseTable.Price];
                 int amount = (int)purchaceRow[DB.PurchaseTable.Amount];
                 int distance = (int)purchaceRow[DB.PurchaseTable.Distance];
 
-                purchases.Add(new GasPurchase(date, price, amount, distance));
+                purchases.Add(new GasPurchase(id, date, price, amount, distance));
             }
 
             return purchases;

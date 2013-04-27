@@ -16,6 +16,7 @@ namespace WebAppProject
         private const string RegExpr_NNNN_nn = @"^([0-9]){1,4}(\.+[0-9][0-9]?)?";
         private const string Miles = "Miles";
         private const string Gallons = "Gallons";
+        private const int PurchaseNoteMaxLen = 64;
 
         protected new void Page_Load(object sender, EventArgs e)
         {
@@ -56,14 +57,14 @@ namespace WebAppProject
                 ShowError("Error while adding your purchase. Invalid distance format");
                 return;
             }
-
+             
             if (KmMileDropDownList.SelectedValue == Miles)
                 distance = (int)(distance * 1.6F);
 
             if (LiterGallonDropDownList.SelectedValue == Gallons)
                 amount = (int)(amount * 3.7854F);
 
-            if (DB.AddPurchase(Context.User.Identity.Name, price, amount, distance, Calendar.SelectedDate))
+            if (DB.AddPurchase(Context.User.Identity.Name, price, amount, distance, Calendar.SelectedDate, NoteTextBox.Text))
                 Label1.Text = "Purchase has been added successfully. One more?";
         }
 

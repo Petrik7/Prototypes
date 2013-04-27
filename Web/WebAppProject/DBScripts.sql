@@ -33,6 +33,8 @@ Price money NOT NULL,
 Amount int NOT NULL,
 Distance int NOT NULL,
 Date date NOT NULL,
+Note char(64),
+Grade int,
 PRIMARY KEY (ID),
 )
 

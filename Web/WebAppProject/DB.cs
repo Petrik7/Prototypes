@@ -37,11 +37,13 @@ namespace WebAppProject
 
         public class PurchaseTable
         {
+            static public string ID = "ID";
             static public string Account = "Account";
             static public string Price = "Price";
             static public string Amount = "Amount";
             static public string Distance = "Distance";
             static public string Date = "Date";
+            static public string Note = "Note";
         }
 
         public void ReadData()
@@ -246,7 +248,7 @@ namespace WebAppProject
             return accountId;
         }
 
-        static public bool AddPurchase(string userName, decimal price, int amount, int distance, DateTime date)
+        static public bool AddPurchase(string userName, decimal price, int amount, int distance, DateTime date, string note)
         {
             try
             {
@@ -255,9 +257,9 @@ namespace WebAppProject
                     return false;
 
                 string sqlInsert = string.Format("Insert Into dbo.Purchase " +
-                                                 "({0}, {1}, {2}, {3}, {4}) Values " +
-                                                 "(@{0}, @{1}, @{2}, @{3}, @{4})",
-                                                 PurchaseTable.Account, PurchaseTable.Price, PurchaseTable.Amount, PurchaseTable.Distance, PurchaseTable.Date);
+                                                 "({0}, {1}, {2}, {3}, {4}, {5}) Values " +
+                                                 "(@{0}, @{1}, @{2}, @{3}, @{4}, @{5})",
+                                                 PurchaseTable.Account, PurchaseTable.Price, PurchaseTable.Amount, PurchaseTable.Distance, PurchaseTable.Date, PurchaseTable.Note);
 
                 using (SqlConnection connection = new SqlConnection())
                 {
@@ -291,6 +293,12 @@ namespace WebAppProject
                         parameter.ParameterName = "@" + PurchaseTable.Date;
                         parameter.Value = date;
                         parameter.SqlDbType = SqlDbType.Date;
+                        command.Parameters.Add(parameter);
+
+                        parameter = new SqlParameter();
+                        parameter.ParameterName = "@" + PurchaseTable.Note;
+                        parameter.Value = note;
+                        parameter.SqlDbType = SqlDbType.Char;
                         command.Parameters.Add(parameter);
 
                         connection.ConnectionString = ConfigurationManager.ConnectionStrings["gasTrackerConnectionString"].ConnectionString; ;
