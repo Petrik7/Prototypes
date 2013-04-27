@@ -19,6 +19,8 @@ namespace WebAppProject.App_DataSrc
         {
             List<GasPurchase> viewPurchases = new List<GasPurchase>();
             viewPurchases.AddRange(_gasPurchasesData.GetPurchasesForMonth(userName, month));
+            foreach (GasPurchase purchase in viewPurchases)
+                purchase.Type = type;
             return viewPurchases;
         }
     }

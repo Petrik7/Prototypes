@@ -43,6 +43,12 @@ namespace WebAppProject.App_DataSrc
             get { return _distance; }
         }
 
+        public MilageType Type
+        {
+            set { _type = value; }
+            get { return _type; }
+        }
+
         public float Milage
         {
             get
