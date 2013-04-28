@@ -8,6 +8,7 @@ using System.Web.Security;
 using System.Globalization;
 using System.Threading;
 using System.Resources;
+using WebAppProject.App_DataSrc;
 
 namespace WebAppProject
 {
@@ -18,11 +19,18 @@ namespace WebAppProject
         private const string Gallons = "Gallons";
         private const int PurchaseNoteMaxLen = 64;
 
+        private SortedDictionary<int, KeyValuePair<GasPurchase.Grade, string>> _indexGrade = new SortedDictionary<int, KeyValuePair<GasPurchase.Grade, string> >();
+
         protected new void Page_Load(object sender, EventArgs e)
         {
             //Thread.CurrentThread.CurrentUICulture = new CultureInfo("en");
             ErrorLabel.Visible = false;
             //Calendar.SelectedDate = DateTime.Now;
+            InitGradeMap();
+            if (!IsPostBack)
+            {
+                PopulateGradeDropDownList();
+            }
 
             RegularExpressionValidator priceValidator = (RegularExpressionValidator)Page.FindControl("RegularExpression_PriceValidator");
             if (priceValidator != null)
@@ -33,6 +41,21 @@ namespace WebAppProject
             RegularExpressionValidator distanceValidator = (RegularExpressionValidator)Page.FindControl("RegularExpression_DistanceValidator");
             if (distanceValidator != null)
                 distanceValidator.ValidationExpression = RegExpr_NNNN_nn;
+        }
+
+        private void InitGradeMap()
+        {
+            int index = 0;
+            _indexGrade.Add(index++, new KeyValuePair<GasPurchase.Grade, string>(GasPurchase.Grade.MidGrade, "Mid-grade(89)")); // Will be selected By Default
+            _indexGrade.Add(index++, new KeyValuePair<GasPurchase.Grade, string>(GasPurchase.Grade.Regular, "Regular (87)"));
+            _indexGrade.Add(index++, new KeyValuePair<GasPurchase.Grade, string>(GasPurchase.Grade.Premium, "Premium (92)"));
+            _indexGrade.Add(index++, new KeyValuePair<GasPurchase.Grade, string>(GasPurchase.Grade.Diesel, "Diesel"));
+        }
+
+        private void PopulateGradeDropDownList()
+        {
+            foreach(KeyValuePair<GasPurchase.Grade, string> grade in _indexGrade.Values)
+                DropDownListGrade.Items.Add(grade.Value);
         }
 
         protected void InsertButton_Click(object sender, EventArgs e)
@@ -64,7 +87,11 @@ namespace WebAppProject
             if (LiterGallonDropDownList.SelectedValue == Gallons)
                 amount = (int)(amount * 3.7854F);
 
-            if (DB.AddPurchase(Context.User.Identity.Name, price, amount, distance, Calendar.SelectedDate, NoteTextBox.Text))
+            int grade = DEFAULT_GRADE;
+
+            grade = (int)(_indexGrade[DropDownListGrade.SelectedIndex].Key);
+
+            if (DB.AddPurchase(Context.User.Identity.Name, price, amount, distance, grade, Calendar.SelectedDate, NoteTextBox.Text))
                 Label1.Text = "Purchase has been added successfully. One more?";
         }
 

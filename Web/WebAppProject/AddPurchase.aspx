@@ -113,10 +113,6 @@
                                              Text="Grade" ForeColor="Black" /></td>
                                 <td colspan="2"><asp:DropDownList ID="DropDownListGrade" runat="server" AutoPostBack="True" DataTextField= "ENTITY_ID"
                                              DataValueField="ENTITY_ID" style="width:99%;height:100%">
-                                        <asp:ListItem>Mid-grade (89)</asp:ListItem>
-                                        <asp:ListItem>Regular (87)</asp:ListItem>
-                                        <asp:ListItem>Premium (92)</asp:ListItem>
-                                        <asp:ListItem>Diesel</asp:ListItem>          
                                     </asp:DropDownList></td>
                                     <td></td>
                             </tr>

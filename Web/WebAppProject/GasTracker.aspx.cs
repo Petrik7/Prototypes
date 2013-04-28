@@ -12,7 +12,7 @@ namespace WebAppProject
 {
     public partial class GasTracker : SignedInBasePage //System.Web.UI.Page
     {
-        protected void Page_Load(object sender, EventArgs e)
+        new protected void Page_Load(object sender, EventArgs e)
         {
             Label labelLoadType = (Label)Page.FindControl("LabelLoadType");
 

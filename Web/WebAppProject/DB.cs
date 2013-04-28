@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Data.SqlClient;
 using System.Security.Cryptography;
-using System.Diagnostics;
 
 namespace WebAppProject
 {
@@ -42,6 +41,7 @@ namespace WebAppProject
             static public string Price = "Price";
             static public string Amount = "Amount";
             static public string Distance = "Distance";
+            static public string Grade = "Grade";
             static public string Date = "Date";
             static public string Note = "Note";
         }
@@ -248,7 +248,7 @@ namespace WebAppProject
             return accountId;
         }
 
-        static public bool AddPurchase(string userName, decimal price, int amount, int distance, DateTime date, string note)
+        static public bool AddPurchase(string userName, decimal price, int amount, int distance, int grade, DateTime date, string note)
         {
             try
             {
@@ -257,9 +257,9 @@ namespace WebAppProject
                     return false;
 
                 string sqlInsert = string.Format("Insert Into dbo.Purchase " +
-                                                 "({0}, {1}, {2}, {3}, {4}, {5}) Values " +
-                                                 "(@{0}, @{1}, @{2}, @{3}, @{4}, @{5})",
-                                                 PurchaseTable.Account, PurchaseTable.Price, PurchaseTable.Amount, PurchaseTable.Distance, PurchaseTable.Date, PurchaseTable.Note);
+                                                 "({0}, {1}, {2}, {3}, {4}, {5}, {6}) Values " +
+                                                 "(@{0}, @{1}, @{2}, @{3}, @{4}, @{5}, @{6})",
+                                                 PurchaseTable.Account, PurchaseTable.Price, PurchaseTable.Amount, PurchaseTable.Distance, PurchaseTable.Date, PurchaseTable.Note, PurchaseTable.Grade);
 
                 using (SqlConnection connection = new SqlConnection())
                 {
@@ -286,6 +286,12 @@ namespace WebAppProject
                         parameter = new SqlParameter();
                         parameter.ParameterName = "@" + PurchaseTable.Distance;
                         parameter.Value = distance;
+                        parameter.SqlDbType = SqlDbType.Int;
+                        command.Parameters.Add(parameter);
+
+                        parameter = new SqlParameter();
+                        parameter.ParameterName = "@" + PurchaseTable.Grade;
+                        parameter.Value = grade;
                         parameter.SqlDbType = SqlDbType.Int;
                         command.Parameters.Add(parameter);
 
