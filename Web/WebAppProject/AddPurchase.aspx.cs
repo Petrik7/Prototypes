@@ -87,9 +87,7 @@ namespace WebAppProject
             if (LiterGallonDropDownList.SelectedValue == Gallons)
                 amount = (int)(amount * 3.7854F);
 
-            int grade = DEFAULT_GRADE;
-
-            grade = (int)(_indexGrade[DropDownListGrade.SelectedIndex].Key);
+            int grade = (int)(_indexGrade[DropDownListGrade.SelectedIndex].Key);
 
             if (DB.AddPurchase(Context.User.Identity.Name, price, amount, distance, grade, Calendar.SelectedDate, NoteTextBox.Text))
                 Label1.Text = "Purchase has been added successfully. One more?";
