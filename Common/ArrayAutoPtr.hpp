@@ -8,7 +8,7 @@ public:
 	{
 	}
 
-	ArrayAutoPtr(T * arrayToKeep):array_(arrayToKeep)
+	ArrayAutoPtr(T * arrayToKeep):_array(arrayToKeep)
 	{
 	}
 

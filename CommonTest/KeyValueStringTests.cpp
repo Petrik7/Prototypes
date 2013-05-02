@@ -43,7 +43,7 @@ public:
 
 };
 
-class TestScenarios
+class TestScenario 
 {
 public:
 
@@ -67,11 +67,11 @@ public:
 		wPS4 += pairSeparator;
 		wPS4 += pairSeparator;
 
-		_wDeviceIdKey = L"SomeId";
-		_wCameraNameKey = L"SomeName";
-		_wCameraNameValue = L"Some name";
-		_wManufactureKey = L"Mamamuche";
-		_wManufactureValue = L"Mamamuche name";
+		_wDeviceIdKey = L"DeviceId";
+		_wCameraNameKey = L"CameraName";
+		_wCameraNameValue = L"camera name";
+		_wManufactureKey = L"Manufacture";
+		_wManufactureValue = L"manufacture name";
 		_wOptions1Key = L"Options1";
 		_wOptions1Value = L"separator at the end" + wPS1;
 		_wOptions2Key = L"Options2";
@@ -211,48 +211,48 @@ private:
 
 TEST(NumStrHelpers_KeyValueString, CreateString_ReadString)
 {
-	TestScenarios testScenarios;
-	testScenarios.RunScenario_1<char, char>();
+	TestScenario testScenario;
+	testScenario.RunScenario_1<char, char>();
 }
 
 TEST(NumStrHelpers_KeyValueString, CreateString_ReadString_ChangeSeparators)
 {
-	TestScenarios testScenarios;
-	testScenarios.RunScenario_1<char, char>(':', ',');
+	TestScenario testScenario;
+	testScenario.RunScenario_1<char, char>(':', ',');
 }
 
 TEST(NumStrHelpers_KeyValueString, CreateWideString_ReadWideString)
 {
-	TestScenarios testScenarios;
-	testScenarios.RunScenario_1<wchar_t, wchar_t>();
+	TestScenario testScenario;
+	testScenario.RunScenario_1<wchar_t, wchar_t>();
 }
 
 TEST(NumStrHelpers_KeyValueString, CreateWideString_ReadWideString_ChangeSeparators)
 {
-	TestScenarios testScenarios;
-	testScenarios.RunScenario_1<wchar_t, wchar_t>('^', ']');
+	TestScenario testScenario;
+	testScenario.RunScenario_1<wchar_t, wchar_t>('^', ']');
 }
 
 TEST(NumStrHelpers_KeyValueString, CreateWideString_ReadString)
 {
-	TestScenarios testScenarios;
-	testScenarios.RunScenario_1<wchar_t, char>();
+	TestScenario testScenario;
+	testScenario.RunScenario_1<wchar_t, char>();
 }
 
 TEST(NumStrHelpers_KeyValueString, CreateWideString_ReadString_ChangeSeparators)
 {
-	TestScenarios testScenarios;
-	testScenarios.RunScenario_1<wchar_t, char>('-', '|');
+	TestScenario testScenario;
+	testScenario.RunScenario_1<wchar_t, char>('-', '|');
 }
 
 TEST(NumStrHelpers_KeyValueString, CreateString_ReadWideString)
 {
-	TestScenarios testScenarios;
-	testScenarios.RunScenario_1<char, wchar_t>();
+	TestScenario testScenario;
+	testScenario.RunScenario_1<char, wchar_t>();
 }
 
 TEST(NumStrHelpers_KeyValueString, CreateString_ReadWideString_ChangeSeparators)
 {
-	TestScenarios testScenarios;
-	testScenarios.RunScenario_1<char, wchar_t>('.', '&');
+	TestScenario testScenario;
+	testScenario.RunScenario_1<char, wchar_t>('.', '&');
 }
