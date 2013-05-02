@@ -189,6 +189,7 @@
       <DependentUpon>HomePage.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="ThreeDropListCalendar.cs" />
     <Compile Include="Validator.cs" />
   </ItemGroup>
   <ItemGroup>
