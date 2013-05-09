@@ -21,8 +21,9 @@
 <form id="PurchaseDetailsForm" runat="server">
     <div></div>
     <asp:ScriptManager ID="ScriptManager" runat="server" EnablePartialRendering="true" />
+        <asp:Label ID="PageErrorLabel" runat="server" Visible="false"></asp:Label>
 
-        <table align="center">
+        <table id="MainTable" align="center">
             <tr>
                 <asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
                 <ContentTemplate>
@@ -55,11 +56,10 @@
 
                             
                             <tr class="light" >
+                            <%--<tr >--%>
                                 <td><asp:Label ID="LabelShortDate" runat="server" Text="Date" ForeColor="Black" /></td>
                                 <td colspan="2" >
-                                    <asp:DropDownList ID="MonthDropList" style="width:32%;height:100%" ForeColor="Black" runat="server"/>
-                                    <asp:DropDownList ID="DateDropList" style="width:32%;height:100%" ForeColor="Black" runat="server"/>
-                                    <asp:DropDownList ID="YearDropList" style="width:32%;height:100%" ForeColor="Black" runat="server"/>
+                                    <asp:Calendar ID="Calendar" Text="Select Purchase Date" ForeColor="Black" runat="server"/>
                                 </td>
                                 <td></td>
                             </tr>
@@ -145,7 +145,6 @@
                         <Triggers>
                             <asp:AsyncPostBackTrigger ControlID="UpdateButton" EventName="Click" />
                             <asp:AsyncPostBackTrigger ControlID="DeleteButton" EventName="Click" />
-                            <asp:AsyncPostBackTrigger ControlID="MonthDropList" EventName="SelectedIndexChanged" />
                         </Triggers>
                     </asp:UpdatePanel>
                 </td>

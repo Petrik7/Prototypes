@@ -11,7 +11,7 @@ namespace WebAppProject
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Response.Redirect("HomePage.aspx");
+            Response.Redirect(Pages.HomePage);
         }
     }
 }

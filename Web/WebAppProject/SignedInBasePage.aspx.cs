@@ -36,12 +36,12 @@ namespace WebAppProject
         public void Signout_Click(object sender, EventArgs e)
         {
             FormsAuthentication.SignOut();
-            Response.Redirect("MyLogon.aspx");
+            Response.Redirect(Pages.MyLogon);
         }
 
         public void Signin_Click(object sender, EventArgs e)
         {
-            Response.Redirect("MyLogon.aspx");
+            Response.Redirect(Pages.MyLogon);
         }
 
         protected void MakePageUncacheble()

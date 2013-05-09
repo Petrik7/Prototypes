@@ -16,7 +16,7 @@ public partial class MyLogon : System.Web.UI.Page
 
     protected void CreateAccount_Click(object sender, EventArgs e)
     {
-        Response.Redirect("CreateAccount.aspx");
+        Response.Redirect(Pages.CreateAccount);
     }
 
     protected void Logon_Click(object sender, EventArgs e)

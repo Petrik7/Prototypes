@@ -40,6 +40,15 @@ namespace WebAppProject {
         protected global::System.Web.UI.ScriptManager ScriptManager;
         
         /// <summary>
+        /// PageErrorLabel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label PageErrorLabel;
+        
+        /// <summary>
         /// UpdatePanel1 control.
         /// </summary>
         /// <remarks>
@@ -130,31 +139,13 @@ namespace WebAppProject {
         protected global::System.Web.UI.WebControls.Label LabelShortDate;
         
         /// <summary>
-        /// MonthDropList control.
+        /// Calendar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList MonthDropList;
-        
-        /// <summary>
-        /// DateDropList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList DateDropList;
-        
-        /// <summary>
-        /// YearDropList control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList YearDropList;
+        protected global::System.Web.UI.WebControls.Calendar Calendar;
         
         /// <summary>
         /// ValidationSummary1 control.

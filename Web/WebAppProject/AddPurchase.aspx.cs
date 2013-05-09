@@ -15,7 +15,7 @@ namespace WebAppProject
     public partial class AddPurchase_Click : SignedInBasePage //System.Web.UI.Page
     {
         private const string RegExpr_NNNN_nn = @"^([0-9]){1,4}(\.+[0-9][0-9]?)?";
-        private const string Miles = "Miles";
+        private const string Miles = "Miles"; // common
         private const string Gallons = "Gallons";
         private const int PurchaseNoteMaxLen = 64;
 
@@ -29,6 +29,8 @@ namespace WebAppProject
             InitGradeMap();
             if (!IsPostBack)
             {
+                Calendar.SelectedDate = DateTime.Today;
+                Calendar.VisibleDate = Calendar.SelectedDate;
                 PopulateGradeDropDownList();
             }
 
@@ -41,6 +43,8 @@ namespace WebAppProject
             RegularExpressionValidator distanceValidator = (RegularExpressionValidator)Page.FindControl("RegularExpression_DistanceValidator");
             if (distanceValidator != null)
                 distanceValidator.ValidationExpression = RegExpr_NNNN_nn;
+
+            Page.DataBind();
         }
 
         private void InitGradeMap()
@@ -102,12 +106,12 @@ namespace WebAppProject
 
         public void HomePage_Click(object sender, EventArgs e)
         {
-            Response.Redirect("HomePage.aspx");
+            Response.Redirect(Pages.HomePage);
         }
 
         public void GasTracker_Click(object sender, EventArgs e)
         {
-            Response.Redirect("GasTracker.aspx");
+            Response.Redirect(Pages.GasTracker);
         }
 
         private void ShowError(string message)

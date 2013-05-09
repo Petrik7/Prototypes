@@ -321,6 +321,75 @@ namespace WebAppProject
             return true;
         }
 
+        static public bool UpdatePurchase(string userName, decimal price, int amount, int distance, int grade, DateTime date, string note, int purchaseID)
+        {
+            try
+            {
+                int accountId = GetAccountId(userName);
+                if (accountId == ACCOUNT_NOT_FOUND)
+                    return false;
+
+                string sqlInsert = string.Format("UPDATE dbo.Purchase SET " +
+                                                 "{0} = @{0}, {1} = @{1}, {2} = @{2}, {3} = @{3}, {4} = @{4}, {5} = @{5} WHERE {6} = {7} and {8}={9}",
+                                                 PurchaseTable.Price, PurchaseTable.Amount, PurchaseTable.Distance,
+                                                 PurchaseTable.Date, PurchaseTable.Note, PurchaseTable.Grade, PurchaseTable.ID, purchaseID,
+                                                 PurchaseTable.Account, accountId);
+
+                using (SqlConnection connection = new SqlConnection())
+                {
+                    using (SqlCommand command = new SqlCommand(sqlInsert, connection))
+                    {
+                        SqlParameter parameter = new SqlParameter();
+                        parameter.ParameterName = "@" + PurchaseTable.Price;
+                        parameter.Value = price;
+                        parameter.SqlDbType = SqlDbType.Money;
+                        command.Parameters.Add(parameter);
+
+                        parameter = new SqlParameter();
+                        parameter.ParameterName = "@" + PurchaseTable.Amount;
+                        parameter.Value = amount;
+                        parameter.SqlDbType = SqlDbType.Int;
+                        command.Parameters.Add(parameter);
+
+                        parameter = new SqlParameter();
+                        parameter.ParameterName = "@" + PurchaseTable.Distance;
+                        parameter.Value = distance;
+                        parameter.SqlDbType = SqlDbType.Int;
+                        command.Parameters.Add(parameter);
+
+                        parameter = new SqlParameter();
+                        parameter.ParameterName = "@" + PurchaseTable.Grade;
+                        parameter.Value = grade;
+                        parameter.SqlDbType = SqlDbType.Int;
+                        command.Parameters.Add(parameter);
+
+                        parameter = new SqlParameter();
+                        parameter.ParameterName = "@" + PurchaseTable.Date;
+                        parameter.Value = date;
+                        parameter.SqlDbType = SqlDbType.Date;
+                        command.Parameters.Add(parameter);
+
+                        parameter = new SqlParameter();
+                        parameter.ParameterName = "@" + PurchaseTable.Note;
+                        parameter.Value = note;
+                        parameter.SqlDbType = SqlDbType.Char;
+                        command.Parameters.Add(parameter);
+
+                        connection.ConnectionString = ConfigurationManager.ConnectionStrings["gasTrackerConnectionString"].ConnectionString; ;
+                        connection.Open();
+                        if (command.ExecuteNonQuery() != 1)
+                            return false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                //Log exception...
+                return false;
+            }
+            return true;
+        }
+
         static public DataTable GetPurchases(string userName)
         {
             DataTable purchasesTable = new DataTable(); 
@@ -334,18 +403,18 @@ namespace WebAppProject
             using (SqlConnection connection = new SqlConnection())
             {
                 string strSQL = string.Format("Select * From Purchase where {0} = @{0} order by Date", PurchaseTable.Account);
-                using (SqlCommand selectUserCommand = new SqlCommand(strSQL, connection))
+                using (SqlCommand getPurchasesCommand = new SqlCommand(strSQL, connection))
                 {
                     SqlParameter parameter = new SqlParameter();
                     parameter.ParameterName = "@" + PurchaseTable.Account;
                     parameter.Value = accountId;
                     parameter.SqlDbType = SqlDbType.Int;
-                    selectUserCommand.Parameters.Add(parameter);
+                    getPurchasesCommand.Parameters.Add(parameter);
 
                     connection.ConnectionString = connectionString;
                     connection.Open();
 
-                    using (SqlDataReader myDataReader = selectUserCommand.ExecuteReader(CommandBehavior.CloseConnection))
+                    using (SqlDataReader myDataReader = getPurchasesCommand.ExecuteReader(CommandBehavior.CloseConnection))
                     {
                         purchasesTable.Load(myDataReader);
                         return purchasesTable;
@@ -353,5 +422,83 @@ namespace WebAppProject
                 }
             }
         }
+
+        static public DataTable GetPurchase(string userName, int purchaseID)
+        {
+            DataTable purchasesTable = new DataTable();
+
+            int accountId = GetAccountId(userName);
+            if (accountId == ACCOUNT_NOT_FOUND)
+                return purchasesTable;
+
+            string connectionString = ConfigurationManager.ConnectionStrings["gasTrackerConnectionString"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection())
+            {
+                string strSQL = string.Format("Select * From Purchase where {0} = @{0} and {1} = @{1}", PurchaseTable.Account, PurchaseTable.ID);
+                using (SqlCommand getPurchaseCommand = new SqlCommand(strSQL, connection))
+                {
+                    SqlParameter parameter = new SqlParameter();
+                    parameter.ParameterName = "@" + PurchaseTable.Account;
+                    parameter.Value = accountId;
+                    parameter.SqlDbType = SqlDbType.Int;
+                    getPurchaseCommand.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter();
+                    parameter.ParameterName = "@" + PurchaseTable.ID;
+                    parameter.Value = purchaseID;
+                    parameter.SqlDbType = SqlDbType.Int;
+                    getPurchaseCommand.Parameters.Add(parameter);
+
+                    connection.ConnectionString = connectionString;
+                    connection.Open();
+
+                    using (SqlDataReader myDataReader = getPurchaseCommand.ExecuteReader(CommandBehavior.CloseConnection))
+                    {
+                        purchasesTable.Load(myDataReader);
+                        return purchasesTable;
+                    }
+                }
+            }
+        }
+
+        static public bool DeletePurchase(string userName, int purchaseID)
+        {
+            DataTable purchasesTable = new DataTable();
+
+            int accountId = GetAccountId(userName);
+            if (accountId == ACCOUNT_NOT_FOUND)
+                return false;
+
+            string connectionString = ConfigurationManager.ConnectionStrings["gasTrackerConnectionString"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection())
+            {
+                string strSQL = string.Format("DELETE FROM Purchase WHERE {0} = @{0} and {1} = @{1}", PurchaseTable.Account, PurchaseTable.ID);
+                using (SqlCommand deletePurchaseCommand = new SqlCommand(strSQL, connection))
+                {
+                    SqlParameter parameter = new SqlParameter();
+                    parameter.ParameterName = "@" + PurchaseTable.Account;
+                    parameter.Value = accountId;
+                    parameter.SqlDbType = SqlDbType.Int;
+                    deletePurchaseCommand.Parameters.Add(parameter);
+
+                    parameter = new SqlParameter();
+                    parameter.ParameterName = "@" + PurchaseTable.ID;
+                    parameter.Value = purchaseID;
+                    parameter.SqlDbType = SqlDbType.Int;
+                    deletePurchaseCommand.Parameters.Add(parameter);
+
+                    connection.ConnectionString = connectionString;
+                    connection.Open();
+
+                    if (deletePurchaseCommand.ExecuteNonQuery() != 1)
+                        return false;
+                }
+            }
+            return true;
+        }
+
+
     }
 }

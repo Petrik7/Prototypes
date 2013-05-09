@@ -17,16 +17,38 @@ namespace WebAppProject.App_DataSrc
                 return purchases;
             foreach (DataRow purchaceRow in purchasesTable.Rows)
             {
-                int id = (int)purchaceRow[DB.PurchaseTable.ID];
-                DateTime date = (DateTime)purchaceRow[DB.PurchaseTable.Date];
-                decimal price = (decimal)purchaceRow[DB.PurchaseTable.Price];
-                int amount = (int)purchaceRow[DB.PurchaseTable.Amount];
-                int distance = (int)purchaceRow[DB.PurchaseTable.Distance];
-
-                purchases.Add(new GasPurchase(id, date, price, amount, distance));
+                purchases.Add(GetGasPurchaseFromRow(purchaceRow));
             }
 
             return purchases;
+        }
+
+        public static GasPurchase GetPurchase(string userName, int purchaseID)
+        {
+            DataTable purchaseTable = DB.GetPurchase(userName, purchaseID);
+            if (purchaseTable.Rows.Count == 0 || purchaseTable.HasErrors)
+            {
+                return null;
+            }
+
+            DataRow purchaceRow = purchaseTable.Rows[0];
+            return GetGasPurchaseFromRow(purchaceRow);
+        }
+
+        private static GasPurchase GetGasPurchaseFromRow(DataRow purchaceRow)
+        {
+            int id = (int)purchaceRow[DB.PurchaseTable.ID];
+            DateTime date = (DateTime)purchaceRow[DB.PurchaseTable.Date];
+            decimal price = (decimal)purchaceRow[DB.PurchaseTable.Price];
+            int amount = (int)purchaceRow[DB.PurchaseTable.Amount];
+            int distance = (int)purchaceRow[DB.PurchaseTable.Distance];
+            GasPurchase.Grade grade = (GasPurchase.Grade)purchaceRow[DB.PurchaseTable.Grade];
+            string note = string.Empty;
+            object noteObj = purchaceRow[DB.PurchaseTable.Note];
+            if (!(noteObj is System.DBNull))
+                note = (string)noteObj;
+
+            return new GasPurchase(id, date, price, amount, distance, grade, note);
         }
     }
 }

@@ -13,6 +13,8 @@ namespace WebAppProject.App_DataSrc
         private decimal _price;
         private int _amount;
         private int _distance;
+        Grade _grade;
+        string _note;
 
         public enum Grade { Diesel = 1, Regular = 87, MidGrade = 89, Premium = 92};
         public enum MilageType { LitersPerKm, Miles };
@@ -49,6 +51,16 @@ namespace WebAppProject.App_DataSrc
             get { return _type; }
         }
 
+        public Grade GradeOfFuel
+        {
+            get { return _grade; }
+        }
+
+        public string Note
+        {
+            get { return _note; }
+        }
+
         public float Milage
         {
             get
@@ -62,7 +74,15 @@ namespace WebAppProject.App_DataSrc
             }
         }
 
-        public GasPurchase(int id, DateTime when, decimal price, int amount, int distance, MilageType type = MilageType.LitersPerKm)
+        public GasPurchase(
+            int id, 
+            DateTime when, 
+            decimal price, 
+            int amount, 
+            int distance, 
+            Grade grade,
+            string note,
+            MilageType type = MilageType.LitersPerKm)
         {
             _id = id;
             _type = type;
@@ -70,6 +90,8 @@ namespace WebAppProject.App_DataSrc
             _price = price;
             _amount = amount;
             _distance = distance;
+            _grade = grade;
+            _note = note;
         }
 
     }

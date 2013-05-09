@@ -55,7 +55,7 @@
                             <tr class="light">
                                 <td><asp:Label ID="LabelDate" runat="server" AssociatedControlID="Calendar" 
                                              Text="Date" ForeColor="Black" /></td>
-                                <td colspan="2" align="center"><asp:Calendar ID="Calendar" SelectedDate="<%# DateTime.Now %>" Text="Select Purchase Date" ForeColor="Black" runat="server"/></td>
+                                <td colspan="2" align="center"><asp:Calendar ID="Calendar" Text="Select Purchase Date" ForeColor="Black" runat="server"/></td>
                                 <td></td>
                             </tr>
                             <tr class="light">

@@ -35,17 +35,17 @@ namespace WebAppProject
         public void Signout_Click(object sender, EventArgs e)
         {
             FormsAuthentication.SignOut();
-            Response.Redirect("MyLogon.aspx");
+            Response.Redirect(Pages.MyLogon);
         }
 
         public void HomePage_Click(object sender, EventArgs e)
         {
-            Response.Redirect("HomePage.aspx");
+            Response.Redirect(Pages.HomePage);
         }
 
         public void AddPurchase_Click(object sender, EventArgs e)
         {
-            Response.Redirect("AddPurchase.aspx");
+            Response.Redirect(Pages.AddPurchase);
         }
 
         protected void DropDownList_MilesKms_SelectedIndexChanged(object sender, EventArgs e)
