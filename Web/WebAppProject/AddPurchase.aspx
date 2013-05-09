@@ -128,8 +128,8 @@
                             </tr>
                             <tr class="light">
                               <td></td>
-                              <td align="right"> <asp:LinkButton ID="InsertButton" runat="server" Text="Insert" OnClick="InsertButton_Click" /></td>
-                              <td align="left"> <asp:LinkButton ID="Cancelbutton" runat="server" Text="Cancel" OnClick="CancelButton_Click"  CausesValidation="false"/></td>
+                              <td align="right"> <asp:Button ID="InsertButton" runat="server" Text="Insert" OnClick="InsertButton_Click" /></td>
+                              <td align="left"> <asp:Button ID="Cancelbutton" runat="server" Text="Cancel" OnClick="CancelButton_Click"  CausesValidation="false"/></td>
                               <td></td>
                             </tr>
                             <tr class="dark0">

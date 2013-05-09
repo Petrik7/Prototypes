@@ -298,7 +298,7 @@ namespace WebAppProject {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton InsertButton;
+        protected global::System.Web.UI.WebControls.Button InsertButton;
         
         /// <summary>
         /// Cancelbutton control.
@@ -307,7 +307,7 @@ namespace WebAppProject {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton Cancelbutton;
+        protected global::System.Web.UI.WebControls.Button Cancelbutton;
         
         /// <summary>
         /// InputTimeLabel control.

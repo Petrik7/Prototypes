@@ -334,7 +334,7 @@ namespace WebAppProject {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton UpdateButton;
+        protected global::System.Web.UI.WebControls.Button UpdateButton;
         
         /// <summary>
         /// DeleteButton control.
@@ -343,7 +343,7 @@ namespace WebAppProject {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.LinkButton DeleteButton;
+        protected global::System.Web.UI.WebControls.Button DeleteButton;
         
         /// <summary>
         /// InputTimeLabel control.

@@ -7,13 +7,13 @@ using System.Web.UI.WebControls;
 
 namespace WebAppProject
 {
-    public partial class InfoPage : System.Web.UI.Page
+    public partial class InfoPage : SignedInBasePage
     {
         private const string UnknownErrorText = "Oups.. Unknown Error";
 
         SortedDictionary<int, string> _errors;
 
-        protected void Page_Load(object sender, EventArgs e)
+        new protected void Page_Load(object sender, EventArgs e)
         {
             _errors = new SortedDictionary<int, string>();
             _errors.Add(InfoMessages.PurchaseNotFound, "Sorry your purchase is not found.");
@@ -35,6 +35,16 @@ namespace WebAppProject
                 else
                     errorTextLabel.Text = UnknownErrorText;
             }
+        }
+
+        public void HomePage_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(Pages.HomePage);
+        }
+
+        public void GasTracker_Click(object sender, EventArgs e)
+        {
+            Response.Redirect(Pages.GasTracker);
         }
     }
 }
