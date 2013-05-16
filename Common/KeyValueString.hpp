@@ -37,6 +37,8 @@ public:
 	basic_string<T> GetStringCopy() const;
 	void SetString(const basic_string<T> & keyValueString);
 
+	bool GetKeyValueFromPair(const basic_string<T> & keyValuePair, basic_string<T> & key, basic_string<T> & value) const;
+
 	class Iterator
 	{
 	public:
@@ -190,6 +192,21 @@ void KeyValueString<T>::SetString(const basic_string<T> & keyValueString)
 {
 	_kvstring = keyValueString;
 }
+
+template<typename T>
+bool KeyValueString<T>::GetKeyValueFromPair(const basic_string<T> & keyValuePair, basic_string<T> & key, basic_string<T> & value) const
+{
+	size_t kvSeparatorPosition = keyValuePair.find(_keyValueSeparator);
+	if (kvSeparatorPosition == basic_string<T>::npos)
+		return false;
+
+	key = keyValuePair.substr(0, kvSeparatorPosition);
+	value = keyValuePair.substr(kvSeparatorPosition + 1, keyValuePair.length() - kvSeparatorPosition - 1);
+
+	return true;
+}
+
+// Private methods
 
 template<typename T>
 size_t KeyValueString<T>::FindNextPair(size_t beginPosition, basic_string<T> & resultPair) const
