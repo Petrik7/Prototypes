@@ -13,3 +13,6 @@ Web/HtmlForm/
 Web/MsdnExamples/
 MemoryFragmentationTest/bin 
 MemoryFragmentationTest/obj
+GraphTest/Debug/
+GraphTest/Release/
+GraphTest/ipch/
