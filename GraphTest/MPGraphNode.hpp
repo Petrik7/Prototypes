@@ -1,15 +1,14 @@
 #pragma once
 
 #include <list>
-#include <memory>
 
-using std::tr1::shared_ptr;
-
-template<typename Tnode>
+template<typename Tnode, typename Tkey>
 class MPGraphNode
 {
 public:
-	MPGraphNode(const Tnode & payload):_payload(payload)
+	MPGraphNode(const Tnode & payload, const Tkey & id):
+	  _payload(payload),
+	  _id(id)
 	{}
 
 	~MPGraphNode(void){};
@@ -19,19 +18,29 @@ public:
 		return _payload;
 	}
 
-	void GetPayload(Tnode * result)
+	void GetPayload(Tnode * result) const
 	{
 		 *result = _payload;
 	}
 
-	void AddConnection(MPGraphNode<Tnode> * nodeToConnect)
+	void AddConnection(MPGraphNode<Tnode, Tkey> * nodeToConnect)
 	{
 		_connections.push_back(nodeToConnect);
 	}
 
+	void GetConnections(std::list<MPGraphNode<Tnode, Tkey> * > & connections) const
+	{
+		connections.assign(_connections.begin(), _connections.end());
+	}
+
+	Tkey ID()
+	{
+		return _id;
+	}
+
 private:
 	Tnode _payload;
+	Tkey  _id;
 
-	//std::list<shared_ptr<MPGraphNode<Tnode> > > _connections;
-	std::list<MPGraphNode<Tnode> * > _connections;
+	std::list<MPGraphNode<Tnode, Tkey> * > _connections;
 };

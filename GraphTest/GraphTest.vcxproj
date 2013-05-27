@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GraphBuilder.hpp" />
+    <ClInclude Include="MPGraphIterator.hpp" />
     <ClInclude Include="MPGraph.hpp" />
     <ClInclude Include="MPGraphNode.hpp" />
     <ClInclude Include="stdafx.h" />

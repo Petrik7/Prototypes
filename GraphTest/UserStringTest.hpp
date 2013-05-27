@@ -34,6 +34,14 @@ public:
 			graph_file.close();
 		}
 
+		MPGraph<User<string>, string> :: Iterator nodeIter = userGraph.Begin();
+		MPGraph<User<string>, string> :: Iterator end = userGraph.End();
+
+		while(nodeIter != end)
+		{
+			nodeIter++;
+		}
+
 	}
 };
 

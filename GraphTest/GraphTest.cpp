@@ -13,7 +13,7 @@
 int _tmain(int argc, _TCHAR* argv[])
 {
 
-	UserIntTest::Run();
+	//UserIntTest::Run();
 	UserStringTest::Run();
 
 	return 0;
