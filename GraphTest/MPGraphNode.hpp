@@ -2,33 +2,35 @@
 
 #include <list>
 
-template<typename Tnode, typename Tkey>
+template<typename Tpayload, typename Tkey>
 class MPGraphNode
 {
 public:
-	MPGraphNode(const Tnode & payload, const Tkey & id):
+	MPGraphNode(){};
+
+	MPGraphNode(const Tpayload & payload, const Tkey & id):
 	  _payload(payload),
 	  _id(id)
 	{}
 
 	~MPGraphNode(void){};
 
-	Tnode GetPayload()
+	Tpayload GetPayload()
 	{
 		return _payload;
 	}
 
-	void GetPayload(Tnode * result) const
+	void GetPayload(Tpayload * result) const
 	{
 		 *result = _payload;
 	}
 
-	void AddConnection(MPGraphNode<Tnode, Tkey> * nodeToConnect)
+	void AddConnection(MPGraphNode<Tpayload, Tkey> * nodeToConnect)
 	{
 		_connections.push_back(nodeToConnect);
 	}
 
-	void GetConnections(std::list<MPGraphNode<Tnode, Tkey> * > & connections) const
+	void GetConnections(std::list<MPGraphNode<Tpayload, Tkey> * > & connections) const
 	{
 		connections.assign(_connections.begin(), _connections.end());
 	}
@@ -39,8 +41,8 @@ public:
 	}
 
 private:
-	Tnode _payload;
+	Tpayload _payload;
 	Tkey  _id;
 
-	std::list<MPGraphNode<Tnode, Tkey> * > _connections;
+	std::list<MPGraphNode<Tpayload, Tkey> * > _connections;
 };

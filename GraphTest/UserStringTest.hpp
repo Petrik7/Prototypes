@@ -42,6 +42,27 @@ public:
 			nodeIter++;
 		}
 
+		size_t numOfLevels = 3;
+		std::vector<std::list<User<string> > > firstNconnections;
+		firstNconnections.reserve(numOfLevels);
+		
+		userGraph.GetNodeConnectionsFirstNLevels("A", firstNconnections, numOfLevels);
+		
+		size_t level = 0;
+		for(std::vector<std::list<User<string> > > :: iterator levelI = firstNconnections.begin();
+			levelI != firstNconnections.end();
+			++levelI)
+		{
+			std::cout << "Level " << level++ << std::endl;
+			for(std::list<User<string> > :: iterator userI = (*levelI).begin();
+				userI != (*levelI).end();
+				++userI)
+			{
+				std::cout << (*userI).GetId() << ", ";			
+			}
+
+			std::cout << std::endl;
+		}
 	}
 };
 
