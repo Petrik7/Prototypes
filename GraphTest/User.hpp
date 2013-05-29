@@ -7,18 +7,24 @@ class User
 {
 public:
 
+	static size_t _created;
+	static size_t _deleted;
+
 	User():_id(T())
 	{
+		++_created;
 		OutputDebugString(L"User Default C-tor ->\n");
 	}
 
 	User(T id):_id(id)
 	{
+		++_created;
 		OutputDebugString(L"User C-tor 1 par ->\n");
 	}
 
 	User(const User & other)
 	{
+		++_created;
 		_id = other._id;
 		//std::cout << "User copy C-tor ->" << std::endl;
 		OutputDebugString(L"User copy C-tor\n");
@@ -26,6 +32,7 @@ public:
 
 	~User()
 	{
+		++_deleted;
 		OutputDebugString(L"User De-tor <--- \n");
 	}
 

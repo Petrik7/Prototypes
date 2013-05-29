@@ -11,6 +11,9 @@
 using std::string;
 using std::ifstream;
 
+size_t User<string>::_created = 0;
+size_t User<string>::_deleted = 0;
+
 class UserStringTest
 {
 public:
@@ -18,6 +21,7 @@ public:
 	~UserStringTest(void);
 
 	static void Run()
+	{
 	{
 		MPGraph<User<string>, string> userGraph;
 
@@ -72,6 +76,14 @@ public:
 			userGraph.GetNodeConnectionsFirstNLevels("D", firstNconnections, numOfLevels);
 			PrintLayers(firstNconnections);
 		}
+
+	}
+
+	assert(User<string>::_created == User<string>::_deleted);
+
+	std::cout << "_created  : " << User<string>::_created << std::endl;
+	std::cout << "_deleted  : " << User<string>::_deleted << std::endl;
+
 	}
 
 	static void PrintLayers(const std::vector<std::list<User<string> > > & connectionsByLayers)
