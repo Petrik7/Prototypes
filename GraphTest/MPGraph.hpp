@@ -22,8 +22,8 @@ public:
 	bool AddNode(const Tpayload & node, const Tkey id);
 	bool AddAndLinkNodes(Tpayload node1, Tkey id1, Tpayload node2, Tkey id2);
 	bool LinkNodes(Tkey idNode1, Tkey idNode2);
-
-	bool GetNode(const Tkey id, Tpayload * result);
+	
+	bool GetItem(const Tkey id, Tpayload * result);
 	void GetNodeConnections(const Tkey nodeID, std::list<Tpayload*> & connections);
 	void GetNodeConnectionsFirstNLevels(const Tkey nodeID, std::vector<std::list<Tpayload> > & connections, const size_t numberOfLevels);
 
@@ -36,6 +36,7 @@ public:
 private:
 	std::map<Tkey, shared_ptr<MPGraphNode<Tpayload, Tkey> > > _nodes;
 
+	MPGraphNode<Tpayload, Tkey> * GetNode(const Tkey id) const;
 };
 
 template<typename Tpayload, typename Tkey>
@@ -91,14 +92,24 @@ bool MPGraph<Tpayload, Tkey>::LinkNodes(Tkey idNode1, Tkey idNode2)
 }
 
 template<typename Tpayload, typename Tkey>
-bool MPGraph<Tpayload, Tkey>::GetNode(const Tkey id, Tpayload * result)
+bool MPGraph<Tpayload, Tkey>::GetItem(const Tkey id, Tpayload * result)
 {
-	std::map<Tkey, shared_ptr<MPGraphNode<Tpayload, Tkey> > > :: iterator item = _nodes.find(id);
-	if(item == _nodes.end())
+	MPGraphNode<Tpayload, Tkey> * node = GetNode(id);
+	if(node ==0)
 		return false;
-
-	(*item).second->GetPayload(result);
+	
+	node->GetPayload(result);
 	return true;
+}
+
+template<typename Tpayload, typename Tkey>
+MPGraphNode<Tpayload, Tkey> * MPGraph<Tpayload, Tkey>::GetNode(const Tkey id) const
+{
+	std::map<Tkey, shared_ptr<MPGraphNode<Tpayload, Tkey> > > :: const_iterator item = _nodes.find(id);
+	if(item == _nodes.end())
+		return 0;
+
+	return (*item).second.get();
 }
 
 template<typename Tpayload, typename Tkey>
@@ -128,7 +139,11 @@ typename MPGraphIterator<Tpayload, Tkey> MPGraph<Tpayload, Tkey>::End()
 template<typename Tpayload, typename Tkey>
 void MPGraph<Tpayload, Tkey>::GetNodeConnectionsFirstNLevels(const Tkey nodeID, std::vector<std::list<Tpayload> > & connections, const size_t numberOfLevels)
 {
-	Iterator nodeIter = this->Begin();
+	MPGraphNode<Tpayload, Tkey> * node = GetNode(nodeID);
+	if(node == 0)
+		return;
+
+	Iterator nodeIter = Iterator(node);
 	Iterator end = this->End();
 	int currentLevel = 0;
 

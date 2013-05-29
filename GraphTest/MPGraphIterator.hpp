@@ -42,11 +42,18 @@ public:
 		{
 			_currentNode = _nodesToVisit.front();
 
+			if(_currentNode == _levelSeparator.get())
+			{
+				_nodesToVisit.pop();
+				_currentNode = 0;
+				continue;
+			}
+
 			if(_visitedNodes.find(_currentNode->ID()) == _visitedNodes.end())
 				break;
 			else
 			{
-				std::cout << "Iterator node " << _currentNode->ID() << " has been already visited, skip" << std::endl;
+				//std::cout << "Iterator node " << _currentNode->ID() << " has been already visited, skip" << std::endl;
 				_nodesToVisit.pop();
 				_currentNode = 0;
 			}
@@ -54,11 +61,6 @@ public:
 
 		if(_currentNode == 0)
 			return *this;
-		if(_currentNode == _levelSeparator.get())
-		{
-			_nodesToVisit.pop();
-			return *this;
-		}
 
 		AddNodeNeighboursToToVisitCollection(_currentNode);
 		_nodesToVisit.pop();
@@ -119,7 +121,7 @@ private:
 		std::list<MPGraphNode<Tpayload, Tkey> *> neighbours;
 		node->GetConnections(neighbours);
 
-		std::cout << "Iterator current node " << _currentNode->ID() << " has connections: " << std::endl;
+		//std::cout << "Iterator current node " << _currentNode->ID() << " has connections: " << std::endl;
 		std::for_each(
 			neighbours.begin(), 
 			neighbours.end(), 
@@ -130,7 +132,7 @@ private:
 	static void AddNodeToNodesToVisit(MPGraphNode<Tpayload, Tkey> * nodeToVisit, const std::queue<MPGraphNode<Tpayload, Tkey> *> & nodesToVisitCollection)
 	{
 		(const_cast<std::queue<MPGraphNode<Tpayload, Tkey> *> &>(nodesToVisitCollection)).push(nodeToVisit);
-		std::cout << nodeToVisit->ID() << ", ";
+		//std::cout << nodeToVisit->ID() << ", ";
 	}
 
 };

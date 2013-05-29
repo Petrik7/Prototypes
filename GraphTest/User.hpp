@@ -20,7 +20,7 @@ public:
 	User(const User & other)
 	{
 		_id = other._id;
-		std::cout << "User copy C-tor ->" << std::endl;
+		//std::cout << "User copy C-tor ->" << std::endl;
 		OutputDebugString(L"User copy C-tor\n");
 	}
 
@@ -32,12 +32,12 @@ public:
 	User & operator = (const User & other)
 	{
 		_id = other._id;
-		std::cout << "User operator =" << std::endl;
+		//std::cout << "User operator =" << std::endl;
 		OutputDebugString(L"User operator =\n");
 		return *this;
 	}
 
-	T GetId()
+	T GetId() const
 	{
 		return _id;
 	}

@@ -42,19 +42,47 @@ public:
 			nodeIter++;
 		}
 
-		size_t numOfLevels = 3;
-		std::vector<std::list<User<string> > > firstNconnections;
-		firstNconnections.reserve(numOfLevels);
+		User<string> user;
+		assert(userGraph.GetItem("E", &user));
+		assert(!userGraph.GetItem("[", &user));
+
+		{
+			size_t numOfLevels = 3;
+			std::vector<std::list<User<string> > > firstNconnections;
+			firstNconnections.reserve(numOfLevels);
 		
-		userGraph.GetNodeConnectionsFirstNLevels("A", firstNconnections, numOfLevels);
+			userGraph.GetNodeConnectionsFirstNLevels("A", firstNconnections, numOfLevels);
+			PrintLayers(firstNconnections);
+		}
+
+		{
+			size_t numOfLevels = 4;
+			std::vector<std::list<User<string> > > firstNconnections;
+			firstNconnections.reserve(numOfLevels);
 		
+			userGraph.GetNodeConnectionsFirstNLevels("B", firstNconnections, numOfLevels);
+			PrintLayers(firstNconnections);
+		}
+
+		{	
+			size_t numOfLevels = 4;
+			std::vector<std::list<User<string> > > firstNconnections;
+			firstNconnections.reserve(numOfLevels);
+		
+			userGraph.GetNodeConnectionsFirstNLevels("D", firstNconnections, numOfLevels);
+			PrintLayers(firstNconnections);
+		}
+	}
+
+	static void PrintLayers(const std::vector<std::list<User<string> > > & connectionsByLayers)
+	{
 		size_t level = 0;
-		for(std::vector<std::list<User<string> > > :: iterator levelI = firstNconnections.begin();
-			levelI != firstNconnections.end();
+		for(std::vector<std::list<User<string> > > :: const_iterator levelI = connectionsByLayers.begin();
+			levelI != connectionsByLayers.end();
 			++levelI)
 		{
 			std::cout << "Level " << level++ << std::endl;
-			for(std::list<User<string> > :: iterator userI = (*levelI).begin();
+			for(std::list<User<string> > :: const_iterator userI = (*levelI).begin();
 				userI != (*levelI).end();
 				++userI)
 			{
@@ -63,6 +91,7 @@ public:
 
 			std::cout << std::endl;
 		}
+	
 	}
 };
 
