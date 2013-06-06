@@ -1,11 +1,34 @@
 #pragma once
 
-#include <list>
+#include <map>
+#include <algorithm>
+#include "ContainerHelpers.hpp"
+
+class ConnectionProperties
+{
+public:
+
+	ConnectionProperties():
+	  Wight(0)
+	{
+	}
+
+	ConnectionProperties(int weight):
+	  Wight(weight)
+	{
+	}
+
+	int Wight;
+
+};
 
 template<typename Tpayload, typename Tkey>
 class MPGraphNode
 {
 public:
+
+	typedef MPGraphNode<Tpayload, Tkey> Tnode;
+
 	MPGraphNode(){};
 
 	MPGraphNode(const Tpayload & payload, const Tkey & id):
@@ -27,12 +50,20 @@ public:
 
 	void AddConnection(MPGraphNode<Tpayload, Tkey> * nodeToConnect)
 	{
-		_connections.push_back(nodeToConnect);
+		_connections[nodeToConnect] = ConnectionProperties();
+	}
+
+	void AddConnection(MPGraphNode<Tpayload, Tkey> * nodeToConnect, int weight)
+	{
+		_connections[nodeToConnect] = ConnectionProperties(weight);
 	}
 
 	void GetConnections(std::list<MPGraphNode<Tpayload, Tkey> * > & connections) const
 	{
-		connections.assign(_connections.begin(), _connections.end());
+		std::for_each(
+			_connections.begin(), 
+			_connections.end(), 
+			std::bind2nd(std::ptr_fun(ContainerHelpers::AddKeyOfPairToList<Tnode *, ConnectionProperties>), connections));
 	}
 
 	Tkey ID()
@@ -44,5 +75,5 @@ private:
 	Tpayload _payload;
 	Tkey  _id;
 
-	std::list<MPGraphNode<Tpayload, Tkey> * > _connections;
+	std::map<Tnode *, ConnectionProperties> _connections;
 };

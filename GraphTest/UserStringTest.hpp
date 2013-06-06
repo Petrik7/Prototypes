@@ -77,6 +77,27 @@ public:
 			PrintLayers(firstNconnections);
 		}
 
+		{
+			string fromNode = "A";
+			string toNode = "E";
+			std::list<User<string> > AtoEpath;
+
+			AtoEpath.push_back(User<string>("AA"));
+			AtoEpath.push_back(User<string>("BB"));
+			AtoEpath.push_back(User<string>("CC"));
+
+			int AtoEWeight = 0;
+			if(userGraph.FindShortestPath(fromNode, toNode, AtoEpath, AtoEWeight))
+			{
+				std::cout << "Path from " << fromNode << " to " << toNode << std::endl;
+				std::for_each(AtoEpath.begin(), AtoEpath.end(), ContainerHelpers::PrintItemsInLine<User<string> >);
+				std::cout << std::endl;
+			}
+			else
+			{
+				std::cout << "No Path from " << fromNode << " to " << toNode << std::endl;
+			}
+		}
 	}
 
 	assert(User<string>::_created == User<string>::_deleted);

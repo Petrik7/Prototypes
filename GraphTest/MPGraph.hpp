@@ -20,13 +20,13 @@ public:
 	~MPGraph(void);
 
 	bool AddNode(const Tpayload & node, const Tkey id);
-	bool AddAndLinkNodes(Tpayload node1, Tkey id1, Tpayload node2, Tkey id2);
-	bool LinkNodes(Tkey idNode1, Tkey idNode2);
+	bool AddAndLinkNodes(Tpayload node1, Tkey id1, Tpayload node2, Tkey id2, int weight = 0);
+	bool LinkNodes(Tkey idNode1, Tkey idNode2, int weight = 0);
 	
 	bool GetItem(const Tkey id, Tpayload * result);
 	void GetNodeConnections(const Tkey nodeID, std::list<Tpayload*> & connections);
 	void GetNodeConnectionsFirstNLevels(const Tkey nodeID, std::vector<std::list<Tpayload> > & connections, const size_t numberOfLevels);
-
+	bool FindShortestPath(const Tkey & nodeFrom, const Tkey & nodeTo, std::list<Tpayload> & path, int & pathWeight) const;
 
 	typedef MPGraphIterator<Tpayload, Tkey> Iterator;
 
@@ -38,6 +38,8 @@ private:
 
 	MPGraphNode<Tpayload, Tkey> * GetNode(const Tkey id) const;
 };
+
+// Public methods v
 
 template<typename Tpayload, typename Tkey>
 MPGraph<Tpayload, Tkey>::MPGraph(void)
@@ -65,7 +67,7 @@ bool MPGraph<Tpayload, Tkey>::AddNode(const Tpayload & node, const Tkey id)
 }
 
 template<typename Tpayload, typename Tkey>
-bool MPGraph<Tpayload, Tkey>::AddAndLinkNodes(Tpayload node1, Tkey id1, Tpayload node2, Tkey id2)
+bool MPGraph<Tpayload, Tkey>::AddAndLinkNodes(Tpayload node1, Tkey id1, Tpayload node2, Tkey id2, int weight)
 {
 	AddNode(node1, id1);
 	AddNode(node2, id2);
@@ -75,7 +77,7 @@ bool MPGraph<Tpayload, Tkey>::AddAndLinkNodes(Tpayload node1, Tkey id1, Tpayload
 }
 
 template<typename Tpayload, typename Tkey>
-bool MPGraph<Tpayload, Tkey>::LinkNodes(Tkey idNode1, Tkey idNode2)
+bool MPGraph<Tpayload, Tkey>::LinkNodes(Tkey idNode1, Tkey idNode2, int weight)
 {
 	std::map<Tkey, shared_ptr<MPGraphNode<Tpayload, Tkey> > > :: iterator item1 = _nodes.find(idNode1);
 	if(item1 == _nodes.end())
@@ -85,8 +87,8 @@ bool MPGraph<Tpayload, Tkey>::LinkNodes(Tkey idNode1, Tkey idNode2)
 	if(item2 == _nodes.end())
 		return false;
 
-	(*item1).second->AddConnection((*item2).second.get());
-	(*item2).second->AddConnection((*item1).second.get());
+	(*item1).second->AddConnection((*item2).second.get(), weight);
+	(*item2).second->AddConnection((*item1).second.get(), weight);
 
 	return true;
 }
@@ -161,4 +163,14 @@ void MPGraph<Tpayload, Tkey>::GetNodeConnectionsFirstNLevels(const Tkey nodeID, 
 		++nodeIter;
 	}
 }
+
+template<typename Tpayload, typename Tkey>
+bool MPGraph<Tpayload, Tkey>::FindShortestPath(const Tkey & nodeFrom, const Tkey & nodeTo, std::list<Tpayload> & path, int & pathWeight) const
+{
+
+	return true;
+}
+
+
+// Public methods ^
 

@@ -3,7 +3,7 @@
 #include <windows.h>
 
 template<typename T>
-class User
+class	User
 {
 public:
 
@@ -53,3 +53,8 @@ private:
 	T _id;
 };
 
+template<typename T>
+std::ostream & operator << (std::ostream & outStream, const User<T> & user)
+{
+	return outStream << user.GetId();
+}
