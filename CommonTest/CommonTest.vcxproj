@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Common\SortedHeapTests.cpp" />
     <ClCompile Include="KeyValueStringTests.cpp" />
     <ClCompile Include="NumStrHelpersTests.cpp" />
     <ClCompile Include="CompileTimeAssertTests.cpp" />
@@ -95,9 +96,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\ArrayAutoPtr.hpp" />
+    <ClInclude Include="..\Common\ContainerHelpers.hpp" />
     <ClInclude Include="..\Common\KeyValueString.hpp" />
     <ClInclude Include="..\Common\NumStrHelpers.hpp" />
     <ClInclude Include="..\Common\CompileTimeAssert.hpp" />
+    <ClInclude Include="..\Common\SortedHeap.hpp" />
     <ClInclude Include="..\Common\ThreadSafeQueue.hpp" />
     <ClInclude Include="..\Common\WorkerThread.hpp" />
     <ClInclude Include="stdafx.h" />
