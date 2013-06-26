@@ -6,6 +6,8 @@
 #include "NumStrHelpers.hpp"
 #include "../Common/ContainerHelpers.hpp"
 
+using std::pair;
+
 template<typename Tk, typename Tv>
 class SortedHeap
 {
@@ -15,10 +17,10 @@ public:
 
 	void Insert(Tk key, Tv value);
 
-	Tv PeekMaxItem();
+	pair<Tk, Tv> PeekMaxItem() const;
 	void PopMaxItem();
 
-	Tv PeekMinItem();
+	pair<Tk, Tv> PeekMinItem() const;
 	void PopMinItem();
 
 	void ChangePriority(Tv value, Tk newPriority);
@@ -28,7 +30,7 @@ public:
 		return _queue.size();
 	}
 
-	Tk KeyAt(size_t position) const
+	pair<Tk, Tv> operator[](size_t position) const
 	{
 		return _queue[position];
 	}
@@ -36,34 +38,35 @@ public:
 	//Diagnostic
 	void PrintItemsInLine() const
 	{
-		std::for_each(_queue.begin(), _queue.end(), ContainerHelpers::PrintItemsInLine<Tk>);
+		std::for_each(_queue.begin(), _queue.end(), ContainerHelpers::PrintItemsInLine<Tk, Tv>);
 	}
 
 private:
-	std::deque<Tk> _queue;
+	std::deque<pair<Tk, Tv> > _queue;
 
 	size_t GetParentIndex(size_t childIndex) const;
 	void SwapElemnts(size_t index1, size_t index2)
 	{
-		Tk temp = _queue[index1];
+		pair<Tk, Tv> temp = _queue[index1];
 		_queue[index1] = _queue[index2];
 		_queue[index2] = temp;
 	}
 };
+
 
 // v Public methods
 
 template<typename Tk, typename Tv>
 void SortedHeap<Tk, Tv>::Insert(Tk key, Tv value)
 {
-	_queue.push_back(key);
+	_queue.push_back(pair<Tk, Tv>(key, value));
 	size_t i = _queue.size() - 1;
 	size_t parent_i = 0;
 
 	while(i > 0)
 	{
 		parent_i = GetParentIndex(i);
-		if(_queue[parent_i] < _queue[i])
+		if(_queue[parent_i].first < _queue[i].first)
 		{
 			SwapElemnts(parent_i, i);
 			i = parent_i;
@@ -74,17 +77,19 @@ void SortedHeap<Tk, Tv>::Insert(Tk key, Tv value)
 }
 
 template<typename Tk, typename Tv>
-Tv SortedHeap<Tk, Tv>::PeekMaxItem()
+pair<Tk, Tv> SortedHeap<Tk, Tv>::PeekMaxItem() const
 {
+	return _queue.front();
 }
 
 template<typename Tk, typename Tv>
 void SortedHeap<Tk, Tv>::PopMaxItem()
 {
+
 }
 
 template<typename Tk, typename Tv>
-Tv SortedHeap<Tk, Tv>::PeekMinItem()
+pair<Tk, Tv> SortedHeap<Tk, Tv>::PeekMinItem() const
 {
 }
 

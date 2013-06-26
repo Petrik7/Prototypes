@@ -46,7 +46,7 @@ TEST(SortedHeapTest1, TestInsert1)
 
 	for(size_t i = 0; i < expectedOrder.size(); ++i)
 	{
-		ASSERT_TRUE(sortedHeap.KeyAt(i) == expectedOrder[i]);
+		ASSERT_TRUE(sortedHeap[i].first == expectedOrder[i]);
 	}
 }
 
