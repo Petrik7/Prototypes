@@ -30,6 +30,11 @@ public:
 		return _queue.size();
 	}
 
+	bool IsEmpty()
+	{
+		return _queue.empty();
+	}
+
 	pair<Tk, Tv> operator[](size_t position) const
 	{
 		return _queue[position];
@@ -45,6 +50,7 @@ private:
 	std::deque<pair<Tk, Tv> > _queue;
 
 	size_t GetParentIndex(size_t childIndex) const;
+	size_t IndexOfMaxChild(size_t indexChild1, size_t indexChild2) const;
 	void SwapElemnts(size_t index1, size_t index2)
 	{
 		pair<Tk, Tv> temp = _queue[index1];
@@ -85,7 +91,37 @@ pair<Tk, Tv> SortedHeap<Tk, Tv>::PeekMaxItem() const
 template<typename Tk, typename Tv>
 void SortedHeap<Tk, Tv>::PopMaxItem()
 {
+	_queue[0] = _queue[_queue.size() - 1];
+	_queue.pop_back();
 
+	size_t i = 0;
+	while(i < _queue.size())
+	{
+		size_t child_1 = 2*i + 1;
+		size_t child_2 = child_1 + 1;
+		
+		size_t indexOfChildToCheck = 0;
+		if((child_1 < _queue.size()) && (child_2 < _queue.size()))
+		{
+			indexOfChildToCheck = IndexOfMaxChild(child_1, child_2);
+		}
+		else if(child_1 < _queue.size())
+		{
+			indexOfChildToCheck = child_1;
+		}
+		else
+		{
+			return;
+		}
+		
+		if(_queue[indexOfChildToCheck].first > _queue[i].first)
+		{
+			SwapElemnts(indexOfChildToCheck, i);
+			i = indexOfChildToCheck;
+		}
+		else
+			return;
+	}
 }
 
 template<typename Tk, typename Tv>
@@ -114,4 +150,17 @@ size_t SortedHeap<Tk, Tv>::GetParentIndex(size_t childIndex) const
 		return childIndex/2;
 	else
 		return childIndex/2 -1;
+}
+
+template<typename Tk, typename Tv>
+size_t SortedHeap<Tk, Tv>::IndexOfMaxChild(size_t indexChild1, size_t indexChild2) const
+{
+	if(_queue[indexChild1].first < _queue[indexChild2].first)
+	{
+		return indexChild2;
+	}
+	else
+	{
+		return indexChild1;
+	}
 }
