@@ -16,8 +16,25 @@
 
 #undef max
 
+template<typename Tk, typename Tv>
+class SortedHeapTest : public SortedHeap<Tk, Tv>
+{
+public:
+	void PrintItemsInLine() const
+	{
+		SortedHeap::PrintItemsInLine();
+	}
+
+	bool VerifyIndex() const
+	{
+		return SortedHeap::VerifyIndex();
+	}
+};
+
 TEST(SortedHeapTest1, TestInsert1)
 {
+	OutputDebugString(L"TestInsert1\n");
+	
 	std::vector<int> testData;
 	testData.push_back(15);
 	testData.push_back(9);
@@ -28,7 +45,7 @@ TEST(SortedHeapTest1, TestInsert1)
 	testData.push_back(3);
 	testData.push_back(17);
 
-	SortedHeap<int, std::string> sortedHeap;
+	SortedHeapTest<int, std::string> sortedHeap;
 	for(std::vector<int> :: iterator i = testData.begin();
 		i < testData.end();
 		++i)
@@ -37,7 +54,8 @@ TEST(SortedHeapTest1, TestInsert1)
 	}
 
 	ASSERT_TRUE(sortedHeap.Size() == testData.size());
-
+	ASSERT_TRUE(sortedHeap.VerifyIndex() == true);
+	
 	std::vector<int> expectedOrder;
 	expectedOrder.push_back(17);
 	expectedOrder.push_back(15);
@@ -63,12 +81,15 @@ TEST(SortedHeapTest1, TestInsert1)
 		if(prevKey < item.first)
 			int k = 0;
 		ASSERT_TRUE(prevKey > item.first);
+		ASSERT_TRUE(sortedHeap.VerifyIndex() == true);
 		prevKey = item.first;
 	}
 }
 
 TEST(SortedHeapTest1, TestInsert2)
 {
+	OutputDebugString(L"TestInsert2\n");
+
 	std::vector<int> testData;
 	testData.push_back(9);
 	testData.push_back(10);
@@ -81,7 +102,7 @@ TEST(SortedHeapTest1, TestInsert2)
 	testData.push_back(14);
 	testData.push_back(11);
 
-	SortedHeap<int, std::string> sortedHeap;
+	SortedHeapTest<int, std::string> sortedHeap;
 	for(std::vector<int> :: iterator i = testData.begin();
 		i < testData.end();
 		++i)
@@ -90,6 +111,7 @@ TEST(SortedHeapTest1, TestInsert2)
 	}
 
 	ASSERT_TRUE(sortedHeap.Size() == testData.size());
+	ASSERT_TRUE(sortedHeap.VerifyIndex() == true);
 
 	sortedHeap.PrintItemsInLine();
 
@@ -101,12 +123,14 @@ TEST(SortedHeapTest1, TestInsert2)
 		if(prevKey < item.first)
 			int k = 0;
 		ASSERT_TRUE(prevKey >= item.first);
+		ASSERT_TRUE(sortedHeap.VerifyIndex() == true);
 		prevKey = item.first;
 	}
 }
 
 TEST(SortedHeapTest1, TestInsert3)
 {
+	OutputDebugString(L"TestInsert3\n");
 	std::vector<int> testData;
 	testData.push_back(12);
 	testData.push_back(19);
@@ -119,7 +143,7 @@ TEST(SortedHeapTest1, TestInsert3)
 	testData.push_back(14);
 	testData.push_back(5);
 
-	SortedHeap<int, std::string> sortedHeap;
+	SortedHeapTest<int, std::string> sortedHeap;
 	for(std::vector<int> :: iterator i = testData.begin();
 		i < testData.end();
 		++i)
@@ -128,6 +152,7 @@ TEST(SortedHeapTest1, TestInsert3)
 	}
 
 	ASSERT_TRUE(sortedHeap.Size() == testData.size());
+	ASSERT_TRUE(sortedHeap.VerifyIndex() == true);
 
 	sortedHeap.PrintItemsInLine();
 
@@ -139,6 +164,7 @@ TEST(SortedHeapTest1, TestInsert3)
 		if(prevKey < item.first)
 			int k = 0;
 		ASSERT_TRUE(prevKey >= item.first);
+		ASSERT_TRUE(sortedHeap.VerifyIndex() == true);
 		prevKey = item.first;
 	}
 }
@@ -146,6 +172,7 @@ TEST(SortedHeapTest1, TestInsert3)
 
 TEST(SortedHeapTest1, TestRandom)
 {
+	OutputDebugString(L"TestInsertRandom\n");
 	std::cout << "cilcle:" << std::endl;
 	for(size_t nt = 0; nt < 10; ++nt)
 	{
@@ -154,14 +181,14 @@ TEST(SortedHeapTest1, TestRandom)
 		std::vector<int> testData;
 
 		srand (time(NULL));
-		const size_t numOfItems = 3000;
+		const size_t numOfItems = 500;
 		for(size_t i = 0; i < numOfItems; ++i)
 		{
 			int number = rand() % 1000;
 			testData.push_back(number);
 		}
 
-		SortedHeap<int, std::string> sortedHeap;
+		SortedHeapTest<int, std::string> sortedHeap;
 		for(std::vector<int> :: iterator i = testData.begin();
 			i < testData.end();
 			++i)
@@ -170,6 +197,7 @@ TEST(SortedHeapTest1, TestRandom)
 		}
 
 		ASSERT_TRUE(sortedHeap.Size() == testData.size());
+		ASSERT_TRUE(sortedHeap.VerifyIndex() == true);
 
 		std::vector<int> prioritizedData;
 	
@@ -182,10 +210,10 @@ TEST(SortedHeapTest1, TestRandom)
 			if(prevKey < item.first)
 				std::for_each(prioritizedData.begin(), prioritizedData.end(), ContainerHelpers::PrintItemsInLine<int>);
 			ASSERT_TRUE(prevKey >= item.first);
+			ASSERT_TRUE(sortedHeap.VerifyIndex() == true);
 			prevKey = item.first;
 		}
 	}
 
 	std::cout << "done" << std::endl;
-	//std::for_each(prioritizedData.begin(), prioritizedData.end(), ContainerHelpers::PrintItemsInLine<int>);
 }

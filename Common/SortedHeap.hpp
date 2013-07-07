@@ -1,12 +1,15 @@
 #pragma once
 
 #include <deque>
+#include <map>
 #include <algorithm>
 
 #include "NumStrHelpers.hpp"
 #include "../Common/ContainerHelpers.hpp"
 
 using std::pair;
+using std::multimap;
+using std::deque;
 
 template<typename Tk, typename Tv>
 class SortedHeap
@@ -40,23 +43,35 @@ public:
 		return _queue[position];
 	}
 
+protected:
 	//Diagnostic
 	void PrintItemsInLine() const
 	{
 		std::for_each(_queue.begin(), _queue.end(), ContainerHelpers::PrintItemsInLine<Tk, Tv>);
 	}
+	bool	VerifyIndex() const;
 
 private:
 	std::deque<pair<Tk, Tv> > _queue;
+	std::multimap<Tk, size_t> _index;
 
-	size_t GetParentIndex(size_t childIndex) const;
-	size_t IndexOfMaxChild(size_t indexChild1, size_t indexChild2) const;
+	size_t	GetParentIndex(size_t childIndex) const;
+	size_t	IndexOfMaxChild(size_t indexChild1, size_t indexChild2) const;
+	void	UpdateItemPositionInIndex(const Tk & key, size_t oldPozitionInQueue, size_t newPositionInQueue);
+	void	DeleteItemFromIndex(const Tk & key, size_t pozitionInQueue);	
+
 	void SwapElemnts(size_t index1, size_t index2)
 	{
 		pair<Tk, Tv> temp = _queue[index1];
+		
 		_queue[index1] = _queue[index2];
-		_queue[index2] = temp;
+		UpdateItemPositionInIndex(_queue[index1].first, index2, index1);
+
+		_queue[index2] = temp;		
+		UpdateItemPositionInIndex(_queue[index2].first, index1, index2);
 	}
+
+
 };
 
 
@@ -67,6 +82,7 @@ void SortedHeap<Tk, Tv>::Insert(Tk key, Tv value)
 {
 	_queue.push_back(pair<Tk, Tv>(key, value));
 	size_t i = _queue.size() - 1;
+	_index.insert(pair<Tk, size_t>(key, i));
 	size_t parent_i = 0;
 
 	while(i > 0)
@@ -91,7 +107,10 @@ pair<Tk, Tv> SortedHeap<Tk, Tv>::PeekMaxItem() const
 template<typename Tk, typename Tv>
 void SortedHeap<Tk, Tv>::PopMaxItem()
 {
+	// Remove item from index first (while item is still available)
+	DeleteItemFromIndex(_queue[0].first, 0);
 	_queue[0] = _queue[_queue.size() - 1];
+	UpdateItemPositionInIndex(_queue[0].first, _queue.size() - 1, 0);
 	_queue.pop_back();
 
 	size_t i = 0;
@@ -164,3 +183,72 @@ size_t SortedHeap<Tk, Tv>::IndexOfMaxChild(size_t indexChild1, size_t indexChild
 		return indexChild1;
 	}
 }
+
+template<typename Tk, typename Tv>
+void SortedHeap<Tk, Tv>::UpdateItemPositionInIndex(const Tk & key, size_t oldPozitionInQueue, size_t newPositionInQueue)
+{
+	pair<multimap<Tk, size_t>::iterator, multimap<Tk, size_t>::iterator> rangeOfItems;
+	rangeOfItems = _index.equal_range(key);
+	for (multimap<Tk, size_t>::iterator it= rangeOfItems.first; it != rangeOfItems.second; ++it)
+	{
+		if(it->second == oldPozitionInQueue)
+		{	
+			it->second = newPositionInQueue;
+			return;
+		}
+	}
+	assert("SortedHeap<Tk, Tv>::UpdateItemPositionInIndex - Oops, no index?!"); 
+}
+
+template<typename Tk, typename Tv>
+void SortedHeap<Tk, Tv>::DeleteItemFromIndex(const Tk & key, size_t pozitionInQueue)
+{
+	pair<multimap<Tk, size_t>::iterator, multimap<Tk, size_t>::iterator> rangeOfItems;
+	rangeOfItems = _index.equal_range(key);
+	for (multimap<Tk, size_t>::iterator it= rangeOfItems.first; it != rangeOfItems.second; ++it)
+	{
+		if(it->second == pozitionInQueue)
+		{	
+			_index.erase(it);
+			return;
+		}
+	}
+	assert("SortedHeap<Tk, Tv>::UpdateItemPositionInIndex - Oops, no index?!"); 
+}
+
+template<typename Tk, typename Tv>
+bool SortedHeap<Tk, Tv>::VerifyIndex() const
+{
+	//clock_t duration, startTime = clock();
+	
+	if(_index.size() != _queue.size())
+		return false;
+
+	for(size_t i = 0; i < _queue.size(); ++i)
+	{
+		pair<multimap<Tk, size_t>::const_iterator, multimap<Tk, size_t>::const_iterator> rangeOfItems;
+		rangeOfItems = _index.equal_range(_queue[i].first);
+
+		bool itemIsFound = false;
+		for (multimap<Tk, size_t>::const_iterator it= rangeOfItems.first; it != rangeOfItems.second; ++it)
+		{
+			if(it->second == i)
+			{	
+				itemIsFound = true;
+				break;
+			}
+		}
+
+		if(!itemIsFound)
+		{
+			//duration = clock() - startTime;
+			//OutputDebugString((L"VerifyIndex took: " + NumStrHelpers::ToString<wchar_t>(duration) + L"\n").c_str());
+			return false;
+		}
+	}
+
+	//duration = clock() - startTime;
+	//OutputDebugString((L"VerifyIndex took: " + NumStrHelpers::ToString<wchar_t>(duration) + L"\n").c_str());
+	return true;
+}
+

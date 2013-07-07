@@ -12,6 +12,8 @@ namespace ContainerHelpers
 		(const_cast<std::list<Tk> &>(list)).push_back(keyValuePair.first);
 	}
 
+
+	//std::for_each(collection.begin(), collection.end(), ContainerHelpers::PrintItemsInLine<ItemType>);
 	template<typename T>
 	void PrintItemsInLine(const T & item)
 	{
