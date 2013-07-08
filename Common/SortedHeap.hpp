@@ -23,9 +23,6 @@ public:
 	pair<Tk, Tv> PeekMaxItem() const;
 	void PopMaxItem();
 
-	pair<Tk, Tv> PeekMinItem() const;
-	void PopMinItem();
-
 	void ChangePriority(Tv value, Tk newPriority);
 	
 	size_t Size() const
@@ -53,22 +50,22 @@ protected:
 
 private:
 	std::deque<pair<Tk, Tv> > _queue;
-	std::multimap<Tk, size_t> _index;
+	std::multimap<Tv, size_t> _index;
 
 	size_t	GetParentIndex(size_t childIndex) const;
 	size_t	IndexOfMaxChild(size_t indexChild1, size_t indexChild2) const;
-	void	UpdateItemPositionInIndex(const Tk & key, size_t oldPozitionInQueue, size_t newPositionInQueue);
-	void	DeleteItemFromIndex(const Tk & key, size_t pozitionInQueue);	
+	void	UpdateItemPositionInIndex(const Tv & value, size_t oldPozitionInQueue, size_t newPositionInQueue);
+	void	DeleteItemFromIndex(const Tv & value, size_t pozitionInQueue);	
 
 	void SwapElemnts(size_t index1, size_t index2)
 	{
 		pair<Tk, Tv> temp = _queue[index1];
 		
 		_queue[index1] = _queue[index2];
-		UpdateItemPositionInIndex(_queue[index1].first, index2, index1);
+		UpdateItemPositionInIndex(_queue[index1].second, index2, index1);
 
 		_queue[index2] = temp;		
-		UpdateItemPositionInIndex(_queue[index2].first, index1, index2);
+		UpdateItemPositionInIndex(_queue[index2].second, index1, index2);
 	}
 
 
@@ -82,7 +79,7 @@ void SortedHeap<Tk, Tv>::Insert(Tk key, Tv value)
 {
 	_queue.push_back(pair<Tk, Tv>(key, value));
 	size_t i = _queue.size() - 1;
-	_index.insert(pair<Tk, size_t>(key, i));
+	_index.insert(pair<Tv, size_t>(value, i));
 	size_t parent_i = 0;
 
 	while(i > 0)
@@ -108,9 +105,9 @@ template<typename Tk, typename Tv>
 void SortedHeap<Tk, Tv>::PopMaxItem()
 {
 	// Remove item from index first (while item is still available)
-	DeleteItemFromIndex(_queue[0].first, 0);
+	DeleteItemFromIndex(_queue[0].second, 0);
 	_queue[0] = _queue[_queue.size() - 1];
-	UpdateItemPositionInIndex(_queue[0].first, _queue.size() - 1, 0);
+	UpdateItemPositionInIndex(_queue[0].second, _queue.size() - 1, 0);
 	_queue.pop_back();
 
 	size_t i = 0;
@@ -141,16 +138,6 @@ void SortedHeap<Tk, Tv>::PopMaxItem()
 		else
 			return;
 	}
-}
-
-template<typename Tk, typename Tv>
-pair<Tk, Tv> SortedHeap<Tk, Tv>::PeekMinItem() const
-{
-}
-
-template<typename Tk, typename Tv>
-void SortedHeap<Tk, Tv>::PopMinItem()
-{
 }
 
 template<typename Tk, typename Tv>
@@ -185,11 +172,11 @@ size_t SortedHeap<Tk, Tv>::IndexOfMaxChild(size_t indexChild1, size_t indexChild
 }
 
 template<typename Tk, typename Tv>
-void SortedHeap<Tk, Tv>::UpdateItemPositionInIndex(const Tk & key, size_t oldPozitionInQueue, size_t newPositionInQueue)
+void SortedHeap<Tk, Tv>::UpdateItemPositionInIndex(const Tv & value, size_t oldPozitionInQueue, size_t newPositionInQueue)
 {
-	pair<multimap<Tk, size_t>::iterator, multimap<Tk, size_t>::iterator> rangeOfItems;
-	rangeOfItems = _index.equal_range(key);
-	for (multimap<Tk, size_t>::iterator it= rangeOfItems.first; it != rangeOfItems.second; ++it)
+	pair<multimap<Tv, size_t>::iterator, multimap<Tv, size_t>::iterator> rangeOfItems;
+	rangeOfItems = _index.equal_range(value);
+	for (multimap<Tv, size_t>::iterator it= rangeOfItems.first; it != rangeOfItems.second; ++it)
 	{
 		if(it->second == oldPozitionInQueue)
 		{	
@@ -201,11 +188,11 @@ void SortedHeap<Tk, Tv>::UpdateItemPositionInIndex(const Tk & key, size_t oldPoz
 }
 
 template<typename Tk, typename Tv>
-void SortedHeap<Tk, Tv>::DeleteItemFromIndex(const Tk & key, size_t pozitionInQueue)
+void SortedHeap<Tk, Tv>::DeleteItemFromIndex(const Tv & value, size_t pozitionInQueue)
 {
-	pair<multimap<Tk, size_t>::iterator, multimap<Tk, size_t>::iterator> rangeOfItems;
-	rangeOfItems = _index.equal_range(key);
-	for (multimap<Tk, size_t>::iterator it= rangeOfItems.first; it != rangeOfItems.second; ++it)
+	pair<multimap<Tv, size_t>::iterator, multimap<Tv, size_t>::iterator> rangeOfItems;
+	rangeOfItems = _index.equal_range(value);
+	for (multimap<Tv, size_t>::iterator it= rangeOfItems.first; it != rangeOfItems.second; ++it)
 	{
 		if(it->second == pozitionInQueue)
 		{	
@@ -226,11 +213,11 @@ bool SortedHeap<Tk, Tv>::VerifyIndex() const
 
 	for(size_t i = 0; i < _queue.size(); ++i)
 	{
-		pair<multimap<Tk, size_t>::const_iterator, multimap<Tk, size_t>::const_iterator> rangeOfItems;
-		rangeOfItems = _index.equal_range(_queue[i].first);
+		pair<multimap<Tv, size_t>::const_iterator, multimap<Tv, size_t>::const_iterator> rangeOfItems;
+		rangeOfItems = _index.equal_range(_queue[i].second);
 
 		bool itemIsFound = false;
-		for (multimap<Tk, size_t>::const_iterator it= rangeOfItems.first; it != rangeOfItems.second; ++it)
+		for (multimap<Tv, size_t>::const_iterator it= rangeOfItems.first; it != rangeOfItems.second; ++it)
 		{
 			if(it->second == i)
 			{	
