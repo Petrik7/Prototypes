@@ -56,6 +56,8 @@ private:
 	size_t	IndexOfMaxChild(size_t indexChild1, size_t indexChild2) const;
 	void	UpdateItemPositionInIndex(const Tv & value, size_t oldPozitionInQueue, size_t newPositionInQueue);
 	void	DeleteItemFromIndex(const Tv & value, size_t pozitionInQueue);	
+	void	MoveItemUpIfNeeded(size_t itemPosition);
+	void	MoveItemDownIfNeeded(size_t itemPosition);
 
 	void SwapElemnts(size_t index1, size_t index2)
 	{
@@ -78,21 +80,11 @@ template<typename Tk, typename Tv>
 void SortedHeap<Tk, Tv>::Insert(Tk key, Tv value)
 {
 	_queue.push_back(pair<Tk, Tv>(key, value));
-	size_t i = _queue.size() - 1;
-	_index.insert(pair<Tv, size_t>(value, i));
+	size_t positionInQueue = _queue.size() - 1;
+	_index.insert(pair<Tv, size_t>(value, positionInQueue));
 	size_t parent_i = 0;
 
-	while(i > 0)
-	{
-		parent_i = GetParentIndex(i);
-		if(_queue[parent_i].first < _queue[i].first)
-		{
-			SwapElemnts(parent_i, i);
-			i = parent_i;
-		}
-		else
-			break;
-	}
+	MoveItemUpIfNeeded(positionInQueue);
 }
 
 template<typename Tk, typename Tv>
@@ -110,39 +102,35 @@ void SortedHeap<Tk, Tv>::PopMaxItem()
 	UpdateItemPositionInIndex(_queue[0].second, _queue.size() - 1, 0);
 	_queue.pop_back();
 
-	size_t i = 0;
-	while(i < _queue.size())
-	{
-		size_t child_1 = 2*i + 1;
-		size_t child_2 = child_1 + 1;
-		
-		size_t indexOfChildToCheck = 0;
-		if((child_1 < _queue.size()) && (child_2 < _queue.size()))
-		{
-			indexOfChildToCheck = IndexOfMaxChild(child_1, child_2);
-		}
-		else if(child_1 < _queue.size())
-		{
-			indexOfChildToCheck = child_1;
-		}
-		else
-		{
-			return;
-		}
-		
-		if(_queue[indexOfChildToCheck].first > _queue[i].first)
-		{
-			SwapElemnts(indexOfChildToCheck, i);
-			i = indexOfChildToCheck;
-		}
-		else
-			return;
-	}
+	MoveItemDownIfNeeded(0);
 }
 
 template<typename Tk, typename Tv>
 void SortedHeap<Tk, Tv>::ChangePriority(Tv value, Tk newPriority)
 {
+	multimap<Tv, size_t>::iterator itemI = _index.find(value);
+	if(itemI == _index.end())
+	{
+		assert("Oop, No such item!");
+	}
+
+	size_t itemPosition = itemI->second;
+	assert(itemPosition < _queue.size());
+	Tk oldPriority = _queue[itemPosition].first;
+	_queue[itemPosition].first = newPriority;
+
+	if(newPriority == oldPriority)
+	{
+		return;
+	}
+	else if(newPriority > oldPriority)
+	{
+		MoveItemUpIfNeeded(itemPosition);
+	}
+	else
+	{
+		MoveItemDownIfNeeded(0);
+	}
 }
 
 // ^ Public methods
@@ -239,3 +227,54 @@ bool SortedHeap<Tk, Tv>::VerifyIndex() const
 	return true;
 }
 
+template<typename Tk, typename Tv>
+void SortedHeap<Tk, Tv>::MoveItemUpIfNeeded(size_t itemPosition)
+{
+	size_t i = itemPosition;
+	size_t parent_i = 0;
+
+	while(i > 0)
+	{
+		parent_i = GetParentIndex(i);
+		if(_queue[parent_i].first < _queue[i].first)
+		{
+			SwapElemnts(parent_i, i);
+			i = parent_i;
+		}
+		else
+			break;
+	}
+}
+
+template<typename Tk, typename Tv>
+void SortedHeap<Tk, Tv>::MoveItemDownIfNeeded(size_t itemPosition)
+{
+	size_t i = itemPosition;
+	while(i < _queue.size())
+	{
+		size_t child_1 = 2*i + 1;
+		size_t child_2 = child_1 + 1;
+		
+		size_t indexOfChildToCheck = 0;
+		if((child_1 < _queue.size()) && (child_2 < _queue.size()))
+		{
+			indexOfChildToCheck = IndexOfMaxChild(child_1, child_2);
+		}
+		else if(child_1 < _queue.size())
+		{
+			indexOfChildToCheck = child_1;
+		}
+		else
+		{
+			return;
+		}
+		
+		if(_queue[indexOfChildToCheck].first > _queue[i].first)
+		{
+			SwapElemnts(indexOfChildToCheck, i);
+			i = indexOfChildToCheck;
+		}
+		else
+			return;
+	}
+}
