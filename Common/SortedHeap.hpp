@@ -11,11 +11,19 @@ using std::pair;
 using std::multimap;
 using std::deque;
 
+
+namespace Heap
+{
+
+typedef enum {MinHeap, MaxHeap} Type;
+
+
 template<typename Tk, typename Tv>
-class SortedHeap
+class SortedHeap	
 {
 public:
-	SortedHeap()
+
+	SortedHeap(Type heapType = MaxHeap):_heapType(heapType)
 	{}
 
 	void Insert(Tk key, Tv value);
@@ -46,14 +54,16 @@ protected:
 	{
 		std::for_each(_queue.begin(), _queue.end(), ContainerHelpers::PrintItemsInLine<Tk, Tv>);
 	}
-	bool	VerifyIndex() const;
-
+	bool	VerifyIndex()	const;
+	long	VerifyHeap()	const;
 private:
+	Heap::Type _heapType;
 	std::deque<pair<Tk, Tv> > _queue;
 	std::multimap<Tv, size_t> _index;
 
+	bool	FirstIsCloserToHead(Tk first, Tk second) const;
 	size_t	GetParentIndex(size_t childIndex) const;
-	size_t	IndexOfMaxChild(size_t indexChild1, size_t indexChild2) const;
+	size_t	ChildCloserToHead(size_t indexChild1, size_t indexChild2) const;
 	void	UpdateItemPositionInIndex(const Tv & value, size_t oldPozitionInQueue, size_t newPositionInQueue);
 	void	DeleteItemFromIndex(const Tv & value, size_t pozitionInQueue);	
 	void	MoveItemUpIfNeeded(size_t itemPosition);
@@ -123,17 +133,30 @@ void SortedHeap<Tk, Tv>::ChangePriority(Tv value, Tk newPriority)
 	{
 		return;
 	}
-	else if(newPriority > oldPriority)
+	else if(FirstIsCloserToHead(newPriority, oldPriority))
 	{
 		MoveItemUpIfNeeded(itemPosition);
 	}
 	else
 	{
-		MoveItemDownIfNeeded(0);
+		MoveItemDownIfNeeded(itemPosition);
 	}
 }
 
 // ^ Public methods
+
+template<typename Tk, typename Tv>
+bool SortedHeap<Tk, Tv>::FirstIsCloserToHead(Tk first, Tk second) const
+{
+	if(_heapType == MaxHeap)
+	{
+		return second < first;
+	}
+	else
+	{
+		return first < second;
+	}
+}
 
 template<typename Tk, typename Tv>
 size_t SortedHeap<Tk, Tv>::GetParentIndex(size_t childIndex) const
@@ -147,15 +170,15 @@ size_t SortedHeap<Tk, Tv>::GetParentIndex(size_t childIndex) const
 }
 
 template<typename Tk, typename Tv>
-size_t SortedHeap<Tk, Tv>::IndexOfMaxChild(size_t indexChild1, size_t indexChild2) const
+size_t SortedHeap<Tk, Tv>::ChildCloserToHead(size_t indexChild1, size_t indexChild2) const
 {
-	if(_queue[indexChild1].first < _queue[indexChild2].first)
+	if(FirstIsCloserToHead(_queue[indexChild1].first, _queue[indexChild2].first))
 	{
-		return indexChild2;
+		return indexChild1;
 	}
 	else
 	{
-		return indexChild1;
+		return indexChild2;
 	}
 }
 
@@ -228,6 +251,37 @@ bool SortedHeap<Tk, Tv>::VerifyIndex() const
 }
 
 template<typename Tk, typename Tv>
+long SortedHeap<Tk, Tv>::VerifyHeap() const
+{
+	long failedIndex = -1;
+
+	for(size_t i = 0; i < _queue.size(); ++i)
+	{
+		size_t child_1 = 2*i + 1;
+		size_t child_2 = child_1 + 1;
+
+		if(child_1 < _queue.size())
+		{
+			if(FirstIsCloserToHead(_queue[child_1].first, _queue[i].first))
+			{
+				failedIndex = i;
+				return failedIndex;
+			}
+		}
+
+		if(child_2 < _queue.size())
+		{
+			if(FirstIsCloserToHead(_queue[child_2].first, _queue[i].first))
+			{
+				failedIndex = i;
+				return failedIndex;
+			}
+		}
+	}
+	return failedIndex;
+}
+
+template<typename Tk, typename Tv>
 void SortedHeap<Tk, Tv>::MoveItemUpIfNeeded(size_t itemPosition)
 {
 	size_t i = itemPosition;
@@ -236,7 +290,7 @@ void SortedHeap<Tk, Tv>::MoveItemUpIfNeeded(size_t itemPosition)
 	while(i > 0)
 	{
 		parent_i = GetParentIndex(i);
-		if(_queue[parent_i].first < _queue[i].first)
+		if(FirstIsCloserToHead(_queue[i].first, _queue[parent_i].first))
 		{
 			SwapElemnts(parent_i, i);
 			i = parent_i;
@@ -258,7 +312,7 @@ void SortedHeap<Tk, Tv>::MoveItemDownIfNeeded(size_t itemPosition)
 		size_t indexOfChildToCheck = 0;
 		if((child_1 < _queue.size()) && (child_2 < _queue.size()))
 		{
-			indexOfChildToCheck = IndexOfMaxChild(child_1, child_2);
+			indexOfChildToCheck = ChildCloserToHead(child_1, child_2);
 		}
 		else if(child_1 < _queue.size())
 		{
@@ -269,7 +323,7 @@ void SortedHeap<Tk, Tv>::MoveItemDownIfNeeded(size_t itemPosition)
 			return;
 		}
 		
-		if(_queue[indexOfChildToCheck].first > _queue[i].first)
+		if(FirstIsCloserToHead(_queue[indexOfChildToCheck].first, _queue[i].first))
 		{
 			SwapElemnts(indexOfChildToCheck, i);
 			i = indexOfChildToCheck;
@@ -277,4 +331,6 @@ void SortedHeap<Tk, Tv>::MoveItemDownIfNeeded(size_t itemPosition)
 		else
 			return;
 	}
+}
+
 }
