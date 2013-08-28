@@ -16,6 +16,14 @@ public:
 		return true;
 	}
 
+	static bool TryStringToInt(std::string string, int * number)
+	{
+		if(/*!IsNumber(string) ||*/ number == 0)
+			return false;
+		*number = atoi(string.c_str());
+		return true;
+	}
+
 	static bool IsNumber(std::wstring string)
 	{
 		// It's not a 100% protection from overflow but at least something.

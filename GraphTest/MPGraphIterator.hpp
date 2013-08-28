@@ -65,7 +65,7 @@ public:
 		AddNodeNeighboursToToVisitCollection(_currentNode);
 		_nodesToVisit.pop();
 
-		MPGraphNode<Tpayload, Tkey> * nextNode = _nodesToVisit.front(); 
+		const MPGraphNode<Tpayload, Tkey> * nextNode = _nodesToVisit.front(); 
 		if(nextNode == _levelSeparator.get())
 		{
 			_isLastNodeOnLevel = true;
@@ -95,7 +95,7 @@ public:
 		return _nodesToVisit.front() == otherIter._nodesToVisit.front();
 	}
 
-	Tpayload operator *()
+	Tpayload operator *() const
 	{
 		return _currentNode->GetPayload();
 	}
@@ -108,17 +108,17 @@ public:
 private:
 
 	std::unordered_map<Tkey, const MPGraphNode<Tpayload, Tkey> *> _visitedNodes;
-	std::queue<MPGraphNode<Tpayload, Tkey> *> _nodesToVisit;
+	std::queue<const MPGraphNode<Tpayload, Tkey> *> _nodesToVisit;
 	bool _isLastNodeOnLevel;
 	shared_ptr<MPGraphNode<Tpayload, Tkey> > _levelSeparator;
-	MPGraphNode<Tpayload, Tkey> * _currentNode;
+	const MPGraphNode<Tpayload, Tkey> * _currentNode;
 
 
 	void AddNodeNeighboursToToVisitCollection(const MPGraphNode<Tpayload, Tkey> * node)
 	{
 		_visitedNodes[_currentNode->ID()] = node;
 
-		std::list<MPGraphNode<Tpayload, Tkey> *> neighbours;
+		std::list<const MPGraphNode<Tpayload, Tkey> *> neighbours;
 		node->GetConnections(neighbours);
 
 		//std::cout << "Iterator current node " << _currentNode->ID() << " has connections: " << std::endl;
@@ -129,9 +129,9 @@ private:
 		std::cout << std::endl;
 	}
 
-	static void AddNodeToNodesToVisit(MPGraphNode<Tpayload, Tkey> * nodeToVisit, const std::queue<MPGraphNode<Tpayload, Tkey> *> & nodesToVisitCollection)
+	static void AddNodeToNodesToVisit(const MPGraphNode<Tpayload, Tkey> * nodeToVisit, const std::queue<const MPGraphNode<Tpayload, Tkey> *> & nodesToVisitCollection)
 	{
-		(const_cast<std::queue<MPGraphNode<Tpayload, Tkey> *> &>(nodesToVisitCollection)).push(nodeToVisit);
+		(const_cast<std::queue<const MPGraphNode<Tpayload, Tkey> *> &>(nodesToVisitCollection)).push(nodeToVisit);
 		//std::cout << nodeToVisit->ID() << ", ";
 	}
 

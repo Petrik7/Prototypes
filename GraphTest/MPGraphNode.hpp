@@ -2,23 +2,23 @@
 
 #include <map>
 #include <algorithm>
-#include "ContainerHelpers.hpp"
+#include "../Common/ContainerHelpers.hpp"
 
 class ConnectionProperties
 {
 public:
 
 	ConnectionProperties():
-	  Wight(0)
+	  Weight(0)
 	{
 	}
 
 	ConnectionProperties(int weight):
-	  Wight(weight)
+	  Weight(weight)
 	{
 	}
 
-	int Wight;
+	int Weight;
 
 };
 
@@ -38,7 +38,7 @@ public:
 
 	~MPGraphNode(void){};
 
-	Tpayload GetPayload()
+	Tpayload GetPayload() const
 	{
 		return _payload;
 	}
@@ -58,22 +58,27 @@ public:
 		_connections[nodeToConnect] = ConnectionProperties(weight);
 	}
 
-	void GetConnections(std::list<MPGraphNode<Tpayload, Tkey> * > & connections) const
+	void GetConnections(std::list<const MPGraphNode<Tpayload, Tkey> * > & connections) const
 	{
 		std::for_each(
 			_connections.begin(), 
 			_connections.end(), 
-			std::bind2nd(std::ptr_fun(ContainerHelpers::AddKeyOfPairToList<Tnode *, ConnectionProperties>), connections));
+			std::bind2nd(std::ptr_fun(ContainerHelpers::AddKeyOfPairToList<const Tnode *, ConnectionProperties>), connections));
 	}
 
-	Tkey ID()
+	Tkey ID() const
 	{
 		return _id;
+	}
+
+	ConnectionProperties PropertiesOfConnectionWithNode(const Tnode * node) const
+	{
+		return _connections.at(node); 
 	}
 
 private:
 	Tpayload _payload;
 	Tkey  _id;
 
-	std::map<Tnode *, ConnectionProperties> _connections;
+	std::map<const Tnode *, ConnectionProperties> _connections;
 };

@@ -89,8 +89,8 @@ TEST(SortedHeapTest1, TestInsert1)
 	int prevKey = std::numeric_limits<int>::max(); 
 	while(!sortedHeap.IsEmpty())
 	{
-		std::pair<int, std::string> item = sortedHeap.PeekMaxItem();
-		sortedHeap.PopMaxItem();
+		std::pair<int, std::string> item = sortedHeap.Top();
+		sortedHeap.Pop();
 		if(prevKey < item.first)
 			int k = 0;
 		ASSERT_TRUE(prevKey > item.first);
@@ -134,8 +134,8 @@ TEST(SortedHeapTest1, TestInsert2)
 	int prevKey = std::numeric_limits<int>::max(); 
 	while(!sortedHeap.IsEmpty())
 	{
-		std::pair<int, std::string> item = sortedHeap.PeekMaxItem();
-		sortedHeap.PopMaxItem();
+		std::pair<int, std::string> item = sortedHeap.Top();
+		sortedHeap.Pop();
 		if(prevKey < item.first)
 			int k = 0;
 		ASSERT_TRUE(prevKey >= item.first);
@@ -178,8 +178,8 @@ TEST(SortedHeapTest1, TestInsert3)
 	int prevKey = std::numeric_limits<int>::max(); 
 	while(!sortedHeap.IsEmpty())
 	{
-		std::pair<int, std::string> item = sortedHeap.PeekMaxItem();
-		sortedHeap.PopMaxItem();
+		std::pair<int, std::string> item = sortedHeap.Top();
+		sortedHeap.Pop();
 		if(prevKey < item.first)
 			int k = 0;
 		ASSERT_TRUE(prevKey >= item.first);
@@ -236,9 +236,9 @@ TEST(SortedHeapTest1, TestChangePriority)
 	int prevKey = std::numeric_limits<int>::max(); 
 	while(!sortedHeap.IsEmpty())
 	{
-		std::pair<int, std::string> item = sortedHeap.PeekMaxItem();
+		std::pair<int, std::string> item = sortedHeap.Top();
 		std::cout << NumStrHelpers::ToString<char>(item.first) << ", " << item.second << " ; ";
-		sortedHeap.PopMaxItem();
+		sortedHeap.Pop();
 		if(prevKey < item.first)
 			int k = 0;
 		ASSERT_TRUE(prevKey >= item.first);
@@ -298,9 +298,9 @@ TEST(SortedHeapTest1, TestMinHeapChangePriority)
 	int prevKey = std::numeric_limits<int>::min(); 
 	while(!sortedHeap.IsEmpty())
 	{
-		std::pair<int, std::string> item = sortedHeap.PeekMaxItem();
+		std::pair<int, std::string> item = sortedHeap.Top();
 		std::cout << NumStrHelpers::ToString<char>(item.first) << ", " << item.second << " ; ";
-		sortedHeap.PopMaxItem();
+		sortedHeap.Pop();
 		if(prevKey > item.first)
 			int k = 0;
 		ASSERT_TRUE(prevKey <= item.first);
@@ -357,9 +357,9 @@ TEST(SortedHeapTest1, TestRandomMaxHeap)
 		int prevKey = std::numeric_limits<int>::max(); 
 		while(!sortedHeap.IsEmpty())
 		{
-			std::pair<int, std::string> item = sortedHeap.PeekMaxItem();
+			std::pair<int, std::string> item = sortedHeap.Top();
 			prioritizedData.push_back(item.first);
-			sortedHeap.PopMaxItem();
+			sortedHeap.Pop();
 			if(prevKey < item.first)
 				std::for_each(prioritizedData.begin(), prioritizedData.end(), ContainerHelpers::PrintItemsInLine<int>);
 			ASSERT_TRUE(prevKey >= item.first);
@@ -417,9 +417,9 @@ TEST(SortedHeapTest1, TestRandomMinHeap)
 		int prevKey = std::numeric_limits<int>::min(); 
 		while(!sortedHeap.IsEmpty())
 		{
-			std::pair<int, std::string> item = sortedHeap.PeekMaxItem();
+			std::pair<int, std::string> item = sortedHeap.Top();
 			prioritizedData.push_back(item.first);
-			sortedHeap.PopMaxItem();
+			sortedHeap.Pop();
 			if(prevKey > item.first)
 				std::for_each(prioritizedData.begin(), prioritizedData.end(), ContainerHelpers::PrintItemsInLine<int>);
 			ASSERT_TRUE(prevKey <= item.first);

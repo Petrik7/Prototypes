@@ -15,6 +15,8 @@ using std::tr1::shared_ptr;
 template<typename Tpayload, typename Tkey>
 class MPGraph
 {
+	friend class ShortestPath;
+
 public:
 	MPGraph(void);
 	~MPGraph(void);
@@ -71,7 +73,7 @@ bool MPGraph<Tpayload, Tkey>::AddAndLinkNodes(Tpayload node1, Tkey id1, Tpayload
 {
 	AddNode(node1, id1);
 	AddNode(node2, id2);
-	if(LinkNodes(id1, id2))
+	if(LinkNodes(id1, id2, weight))
 		return true;
 	return false;	
 }
@@ -163,14 +165,6 @@ void MPGraph<Tpayload, Tkey>::GetNodeConnectionsFirstNLevels(const Tkey nodeID, 
 		++nodeIter;
 	}
 }
-
-template<typename Tpayload, typename Tkey>
-bool MPGraph<Tpayload, Tkey>::FindShortestPath(const Tkey & nodeFrom, const Tkey & nodeTo, std::list<Tpayload> & path, int & pathWeight) const
-{
-
-	return true;
-}
-
 
 // Public methods ^
 

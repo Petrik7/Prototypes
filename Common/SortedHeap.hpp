@@ -26,12 +26,12 @@ public:
 	SortedHeap(Type heapType = MaxHeap):_heapType(heapType)
 	{}
 
-	void Insert(Tk key, Tv value);
+	void Insert(Tk key, const Tv & value);
 
-	pair<Tk, Tv> PeekMaxItem() const;
-	void PopMaxItem();
+	pair<Tk, Tv> Top() const;
+	void Pop();
 
-	void ChangePriority(Tv value, Tk newPriority);
+	void ChangePriority(const Tv & value, Tk newPriority);
 	
 	size_t Size() const
 	{
@@ -47,6 +47,15 @@ public:
 	{
 		return _queue[position];
 	}
+
+	Tk KeyByValue(const Tv & value) const
+	{
+		std::multimap<Tv, size_t>::const_iterator it = _index.find(value);
+		pair<Tk, Tv> keyValuePair = _queue[it->second];
+		return keyValuePair.first;
+	}
+
+	bool Contains(const Tv const & value) const;
 
 protected:
 	//Diagnostic
@@ -87,7 +96,7 @@ private:
 // v Public methods
 
 template<typename Tk, typename Tv>
-void SortedHeap<Tk, Tv>::Insert(Tk key, Tv value)
+void SortedHeap<Tk, Tv>::Insert(Tk key, const Tv & value)
 {
 	_queue.push_back(pair<Tk, Tv>(key, value));
 	size_t positionInQueue = _queue.size() - 1;
@@ -98,13 +107,13 @@ void SortedHeap<Tk, Tv>::Insert(Tk key, Tv value)
 }
 
 template<typename Tk, typename Tv>
-pair<Tk, Tv> SortedHeap<Tk, Tv>::PeekMaxItem() const
+pair<Tk, Tv> SortedHeap<Tk, Tv>::Top() const
 {
 	return _queue.front();
 }
 
 template<typename Tk, typename Tv>
-void SortedHeap<Tk, Tv>::PopMaxItem()
+void SortedHeap<Tk, Tv>::Pop()
 {
 	// Remove item from index first (while item is still available)
 	DeleteItemFromIndex(_queue[0].second, 0);
@@ -116,7 +125,7 @@ void SortedHeap<Tk, Tv>::PopMaxItem()
 }
 
 template<typename Tk, typename Tv>
-void SortedHeap<Tk, Tv>::ChangePriority(Tv value, Tk newPriority)
+void SortedHeap<Tk, Tv>::ChangePriority(const Tv & value, Tk newPriority)
 {
 	multimap<Tv, size_t>::iterator itemI = _index.find(value);
 	if(itemI == _index.end())
@@ -141,6 +150,12 @@ void SortedHeap<Tk, Tv>::ChangePriority(Tv value, Tk newPriority)
 	{
 		MoveItemDownIfNeeded(itemPosition);
 	}
+}
+
+template<typename Tk, typename Tv>
+bool SortedHeap<Tk, Tv>::Contains(const Tv const & value) const
+{
+	return _index.find(value) != _index.end();
 }
 
 // ^ Public methods

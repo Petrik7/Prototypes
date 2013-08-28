@@ -5,6 +5,7 @@
 #include <assert.h>
 
 #include "MPGraph.hpp"
+#include "ShortestPath.hpp"
 #include "User.hpp"
 #include "GraphBuilder.hpp"
 
@@ -27,13 +28,15 @@ public:
 
 		string graph_description;
 
-		ifstream graph_file ("graph.txt");
+		//ifstream graph_file ("graph.txt");
+		ifstream graph_file ("graph_weight.txt");
 		if (graph_file.is_open())
 		{
 			while ( graph_file.good() )
 			{
 				getline (graph_file, graph_description);
-				GraphBuilder<User<string>, string>::Build(graph_description, userGraph);
+				//GraphBuilder<User<string>, string>::Build(graph_description, userGraph);
+				GraphBuilder<User<string>, string>::BuildWithWeight(graph_description, userGraph);
 			}
 			graph_file.close();
 		}
@@ -82,12 +85,8 @@ public:
 			string toNode = "E";
 			std::list<User<string> > AtoEpath;
 
-			AtoEpath.push_back(User<string>("AA"));
-			AtoEpath.push_back(User<string>("BB"));
-			AtoEpath.push_back(User<string>("CC"));
-
 			int AtoEWeight = 0;
-			if(userGraph.FindShortestPath(fromNode, toNode, AtoEpath, AtoEWeight))
+			if(ShortestPath::Dijkstra(userGraph, fromNode, toNode, AtoEpath, AtoEWeight))
 			{
 				std::cout << "Path from " << fromNode << " to " << toNode << std::endl;
 				std::for_each(AtoEpath.begin(), AtoEpath.end(), ContainerHelpers::PrintItemsInLine<User<string> >);
