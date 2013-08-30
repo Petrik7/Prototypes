@@ -106,13 +106,7 @@ private:
 				{
 					std::map<const MPGraphNode<Tpayload, Tkey> *, int > :: iterator connectionNode = _visitedNodes.find(*i);
 					if(connectionNode != _visitedNodes.end())
-					{
-						if(connectionNode->first == sourceNode)
-						{
-							resultPath.push_back(sourceNode->GetPayload());
-							return true;
-						}
-
+					{						
 						ConnectionProperties nodesConnectionProperies = node->PropertiesOfConnectionWithNode(connectionNode->first);
 						int completeWeight = nodesConnectionProperies.Weight + connectionNode->second;
 						if(completeWeight < smallestWeight)
@@ -122,7 +116,12 @@ private:
 						}
 					}
 				}
-				node = nextNode;			
+				node = nextNode;	
+				if(node == sourceNode)
+				{
+					resultPath.push_back(sourceNode->GetPayload());
+					return true;
+				}
 			}
 
 			return false;

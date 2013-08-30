@@ -29,7 +29,8 @@ public:
 		string graph_description;
 
 		//ifstream graph_file ("graph.txt");
-		ifstream graph_file ("graph_weight.txt");
+		//ifstream graph_file ("graph_weight.txt");
+		ifstream graph_file ("graph_bigger_weight.txt");
 		if (graph_file.is_open())
 		{
 			while ( graph_file.good() )
@@ -81,14 +82,14 @@ public:
 		}
 
 		{
-			string fromNode = "A";
-			string toNode = "E";
+			string fromNode = "C";//"A";
+			string toNode = "M";//"E";
 			std::list<User<string> > AtoEpath;
 
 			int AtoEWeight = 0;
 			if(ShortestPath::Dijkstra(userGraph, fromNode, toNode, AtoEpath, AtoEWeight))
 			{
-				std::cout << "Path from " << fromNode << " to " << toNode << std::endl;
+				std::cout << "Path from " << fromNode << " to " << toNode << " (weight = " << AtoEWeight << ")" << std::endl;
 				std::for_each(AtoEpath.begin(), AtoEpath.end(), ContainerHelpers::PrintItemsInLine<User<string> >);
 				std::cout << std::endl;
 			}
