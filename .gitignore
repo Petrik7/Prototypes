@@ -17,3 +17,6 @@ GraphTest/Debug/
 GraphTest/Release/
 GraphTest/ipch/
 SysTryApp/obj
+SysTryApp/bin
+Web/Mvc3App/obj
+Web/Mvc3App/bin
