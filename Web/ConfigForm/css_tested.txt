@@ -1,0 +1,51 @@
+*, html, body 
+{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.common_header
+{
+    position: relative;
+    margin-bottom: 30px;
+    color: #000;
+    padding: 0;
+    width: 100%;
+    height:auto;    
+}
+
+.parent
+{
+    position:relative;
+    width:90%;
+    height: 100%;
+    min-height:70%;
+    overflow:hidden;
+	margin-left:auto;
+    margin-right:auto;
+   /* border: 1px #5C87B2 solid;*/
+}
+.left_l1
+{
+    position:relative ;
+    float:left;
+    width:30%;
+    height:100%;
+    overflow:hidden;
+    background-color: InactiveCaption;
+    border: 1px #5C87B2 solid;  
+    }
+
+.right_l1
+{
+    position:relative ;
+    float:left;
+    /*left:300px;*/
+    width:69%;
+    height:100%;
+    overflow:hidden;
+    background-color: ButtonFace;
+    border: 1px #5C87B2 solid;
+}    

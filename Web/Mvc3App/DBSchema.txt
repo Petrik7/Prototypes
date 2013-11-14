@@ -1,0 +1,19 @@
+Device
+
+ID int allows null
+Guid uniqueidentifier not null
+TypeID int allows null
+
+DeviceType
+
+ID (PK, int, not null)
+Name(nvarchar(80), null)
+
+Settings
+
+Type (PK, varchar(40), not null)
+ID (PK, varchar(50), not null)
+Section (PK, varchar(100), not null)
+K (PK, varchar(40), not null)
+V (PK, nvarchar(max), null)
+SequenceID (int, not null)

@@ -1,0 +1,31 @@
+﻿@model ConfigForm.Models.ConfigData
+
+
+    <ul id="menu_left_vertical" class="menu-sidemenu">
+        @foreach (var configItem in Model.DeviceOverviews)
+        {
+            @*<li class="li">@Html.ActionLink(configItem.Name, configItem.Name, "Home")</li>*@
+           @* <li class="li">@Html.ActionLink(configItem.Name, "DeviceConfigNetwork", "Device", new { id = configItem.Id.ToString() }, null)</li>*@
+          @* <li class="li">@Html.ActionLink(configItem.Name, "Rules", "Home", new { onclick = "someFunctionLay();" })</li>*@
+            
+            @*<li class="li"  ><a href="#" onclick="LoadDeviceConfigNetwork();">@configItem.Name</a></li>*@ // does not work
+
+            //works 
+           @*<li class="li" ><a class="DevItem" href="@configItem.Id" name="@configItem.Id" id="@configItem.Id">@configItem.Name</a></li>*@
+            <li class="li" ><a class="DevItem" href="#" name="@configItem.Id" id="@configItem.Id">@configItem.Name</a></li>
+            
+           @*<li class="li">@Html.ActionLink(configItem.Name, "Rules", "Home", new { onclick = "alert('someFunction is called.')" })</li>*@
+            
+           @* <%= Html.ActionLink("linky", "action", "controller", new { onclick = "someFunction();"}) %>*@
+        }
+    </ul>
+
+
+
+
+
+
+
+
+
+

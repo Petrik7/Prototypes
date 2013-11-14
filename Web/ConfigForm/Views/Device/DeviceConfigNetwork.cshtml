@@ -1,0 +1,17 @@
+﻿@model ConfigForm.Models.ConfigData
+
+    <div @*class="right_l1"*@>
+       @{Html.RenderPartial("~/Views/Device/DeviceDetails.cshtml", Model);}
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.DeviceOverviews[0].Name)
+        </div>
+
+        <div class="editor-field">
+            @Html.EditorFor(model => model.DeviceOverviews[0].Name)
+            @Html.ValidationMessageFor(model => model.DeviceOverviews[0].Name)
+        </div>
+
+    </div>
+
+

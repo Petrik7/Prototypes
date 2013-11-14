@@ -1,0 +1,74 @@
+﻿@*@model IEnumerable<ConfigForm.Models.DeviceOverview>*@
+@model ConfigForm.Models.ConfigData
+           
+<script type="text/javascript">
+
+    $(function () 
+    {
+        function LoadDeviceConfigNetwork(event)
+        {
+            alert('LoadDeviceConfigNetwork');
+            
+            //alert($("a[name=3]").attr("href")); // works
+            //alert($("a[name=3]").attr("id")); // works
+            //alert(this.Id());
+            
+//            $("#DevConfNet").load
+//            (
+//                '@Url.Action("DeviceConfigNetwork","Device")',
+//                { 'id': '888', 'layout': '_EmptyLayout' },
+//                function (response, status, xhr) {
+//                    if (status == "error") {
+//                        alert("An error occurred while loading the results.");
+//                    }
+//                    else {
+//                        alert("Good!");
+//                    }
+//                }
+//            )
+            return false;
+        }
+
+               // $('a.DevItem').click(LoadDeviceConfigNetwork);
+    });
+
+    $(document).ready(function () {
+
+        //$("#DevicesList").onclick(function () {
+        $('a.DevItem').click(function () 
+        {
+            // Home is your controller, Index is your action name
+            //alert('dr a.DevItem.onclick');
+            //alert("Doc is loaded.");
+            //alert(this.id);
+
+            $("#DevConfNet").load
+        (
+            //'@Url.Action("Register","Account")' 
+            //'@Url.Action("Rules","Home")' 
+            '@Url.Action("DeviceConfigNetwork","Device")',
+            { 'id': this.id, 'layout': '_EmptyLayout' },
+            function (response, status, xhr) {
+                if (status == "error") {
+                    alert("An error occurred while loading the results.");
+                }
+                else {
+                    //alert("Good dr dl!");
+                }
+            }
+        )
+
+            //$("#DevConfNet").load('/DeviceController/DeviceConfigNetwork');
+        });
+    });
+</script>
+
+
+    <div class="left_l1" id="DevicesList">
+        @{Html.RenderPartial("~/Views/Device/DeviceList.cshtml", Model);}
+    </div>
+    <div class="right_l1" id="DevConfNet">
+        @*<div id="DevConfNet"></div>*@
+        @*@{Html.RenderPartial("~/Views/Device/DeviceDetails.cshtml", Model);}*@
+        @*@{Html.RenderPartial("~/Views/Device/DeviceConfigNetwork.cshtml", Model);}*@
+    </div>

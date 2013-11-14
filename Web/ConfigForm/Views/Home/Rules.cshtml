@@ -1,0 +1,33 @@
+﻿@*@model ConfigForm.Models.RuleOverview*@
+@*@model IEnumerable<ConfigForm.Models.ConfigData>*@
+@model ConfigForm.Models.ConfigData
+
+@*@{
+    ViewBag.Title = "Rules";
+}*@
+
+<table class="table">
+    <tr>
+        <th>
+            Rule name
+        </th>
+        <th>
+            State
+        </th>       
+    </tr>
+
+    @foreach (var item in Model.RuleOverviews)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.State)
+        </td>
+    </tr>
+    }
+
+</table>
+
+    @{Html.RenderPartial("~/Views/Shared/EmptyView.cshtml", Model);}

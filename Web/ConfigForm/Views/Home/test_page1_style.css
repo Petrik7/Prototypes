@@ -1,0 +1,30 @@
+
+/*
+*, html, body 
+{
+    margin: 0;
+    padding: 0;
+    height: 95%; /* must be here 
+    width:100%;
+    text-align:center;
+}
+*/
+
+/*.div_left_menu
+{
+    position:relative ;
+    /*float:left;    
+    height:100%;
+    background-color:Green;
+    color:Yellow;
+    
+}*/
+
+.div_right_wrapper
+{
+    position:relative ;
+    /*float:right;    */
+    height:100%;
+    background-color:Red;
+    
+}

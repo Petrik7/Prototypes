@@ -1,0 +1,13 @@
+﻿@*@model ConfigForm.Models.ConfigItem*@
+
+@model IEnumerable<ConfigForm.Models.ConfigItem>
+
+
+    <div class="menu_left_wrapper">
+        <ul id="menu_left_vertical" class="menu-sidemenu">
+            @foreach (var configItem in Model)
+            {
+                <li class="li">@Html.ActionLink(configItem.Name, configItem.Link, configItem.Route)</li>
+            }
+            </ul>
+    </div>

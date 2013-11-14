@@ -1,0 +1,85 @@
+*, html, body 
+{
+    margin: 0;
+    padding: 0;
+    height: 95%; /* must be here to put divs horizontaly with 100% height*/
+    width:100%;
+    /*text-align:center;*/
+}
+
+
+.div_left_right_wrapper
+{
+    position:relative;
+    height: 100%;
+    width:100%;
+    min-height:80%;
+    overflow:hidden;
+    margin-left:auto;
+    margin-right:auto;
+
+}
+
+.div_left_menu
+{
+    position:relative ;
+    float:left; /* to put div left*/
+    width:30%;  /* to put div left*/
+    background:Green;
+    height:100%; /* 100% to left & right divs have the same heigh */
+    overflow: hidden;
+}
+
+.div_right_wrapper
+{
+    position:relative ;
+    float:right; /* to put div right*/    
+    width:70%;   /* to put div right*/
+    height:100%; /* 100% to left & right divs have the same heigh*/
+    background:Red;
+    
+}
+
+/* .li {
+    float: left;
+}*/
+
+
+/* Menu Styles ------------------------------*/ 
+
+.menu-sidemenu
+{
+height:auto;/* auto - to prevent list items run outside of list and div area*/
+}
+
+ul#menu
+{
+
+}
+
+ul#menu li
+{
+/*display: inline-block;/* to make an inline <ul> stretch full width of container ?? work without it...*/
+/*display: inline; any works*/
+}
+
+ul#menu li a 
+{
+
+background-color: Gray;
+padding:  0 0 0 10px  ;
+text-decoration: none;
+line-height: 2.5em;
+/*CSS3 properties*/
+border-radius: 4px 4px 4px 4px;
+color:White;
+display: block; /* to make an inline <ul> stretch full width of container*/
+margin:5px 0 0 0; /* vertical space between items*/
+width:auto;
+}
+
+ul#menu li a:hover
+{
+background-color: Yellow;
+color:Blue;
+}
