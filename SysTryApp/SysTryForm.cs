@@ -70,7 +70,8 @@ namespace SysTryApp
         
         private void ShowAppAndExit(object sender, EventArgs e)
 		{
-			BringProcessToFront("Outlook");
+			//BringProcessToFront("Outlook");
+            Process.Start("OUTLOOK.exe", "/recycle");
 			Application.Exit();
 		}
 
